@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/f7429465df.js" crossorigin="anonymous"></script>
+    <script src="functions.js"></script>
+    <link href="./src/output.css" rel="stylesheet">
+    <title>E&C - Contratos</title>
+</head>
+<body class="bg-gray-200">
+    <header class="bg-gray-800 h-[10vh]">
+        <nav class="h-full">
+            <ul class="w-full h-full flex justify-evenly items-center">
+                <li>
+                    <a href="index.html" class="font-bold text-white hover:text-indigo-400">
+                        <i class="fa-solid fa-house fa-2x"></i>
+                        <span class="hidden md:inline">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="font-bold text-white hover:text-indigo-400">
+                        <i class="fa-solid fa-file-contract fa-2x"></i>
+                        <span class="hidden md:inline">Contratos</span>
+                    </a>
+                </li> 
+                <li>
+                    <a href="#" class="font-bold text-white hover:text-indigo-400">
+                        <i class="fa-solid fa-user-tie fa-2x"></i>
+                        <span class="hidden md:inline">Proveedores</span>
+                    </a>
+                </li> 
+                <li>
+                    <a href="#" class="font-bold text-white hover:text-indigo-400">
+                        <i class="fa-solid fa-chart-simple fa-2x"></i>
+                        <span class="hidden md:inline">Indicadores</span>
+                    </a>
+                </li> 
+                <li>
+                    <a href="#" class="font-bold text-white hover:text-indigo-400"> 
+                        <i class="fa-solid fa-sack-dollar fa-2x"></i>
+                        <span class="hidden md:inline">Cajas Chicas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="font-bold text-white hover:text-indigo-400">
+                        <i class="fa-solid fa-user-check fa-2x"></i> 
+                        <span class="hidden md:inline">Evaluaciones</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="flex flex-col items-center">
+        <h1 class="font-bold text-gray-800 text-2xl	m-5">Contratos</h1>
+        <div class="w-[90vw] h-[3vh] flex justify-evenly">
+            <button class=" text-gray-800 font-bold hover:text-indigo-400"><i class="fa-solid fa-plus fa-2x1 mr-2"></i>Agregar</button>
+            <button class=" text-gray-800 font-bold hover:text-indigo-400"><i class="fa-solid fa-pen-to-square fa-2x1 mr-2"></i>Editar</button>
+            <button class=" text-gray-800 font-bold hover:text-indigo-400"><i class="fa-solid fa-lock fa-2x1 mr-2"></i>Desactivar</button>
+            <button class=" text-gray-800 font-bold hover:text-indigo-400"><i class="fa-solid fa-lock-open fa-2x1 mr-2"></i>Reactivar</button>
+            <button id="filter-button" class=" text-gray-800 font-bold hover:text-indigo-400"><i class="fa-solid fa-filter fa-2x1 mr-2"></i>Filtrar</button>
+        </div>
+        <div id="contract-filter" class=" w-[90vw] h-[2.5vh] flex hidden justify-center m-2">
+            <input class="mr-4 w-[25vw] border-2 border-gray-800 rounded-lg"/>
+            <button class="border-2 border-solid w-[5vw] border-gray-800 hover:bg-gray-800">
+                <i class="fa-solid fa-magnifying-glass fa-lg hover:text-indigo-400"></i>
+            </button>            
+        </div>
+        <table id="contract-table" class="w-[90vw]">
+            <thead class="bg-indigo-200 h-[3vh]">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Estatus</th>
+                    <th>Gastos</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</body>
+</html>
