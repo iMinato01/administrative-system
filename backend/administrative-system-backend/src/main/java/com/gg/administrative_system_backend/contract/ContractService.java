@@ -15,14 +15,16 @@ public class ContractService {
         if(contractRepository.existsByName(name)){
             throw new EntityAlreadyExistsException("El contrato '" + name + "' ya existe");
         }
-        return contractRepository.save(new Contract(name));
+        return contractRepository.save(Contract.builder()
+                .name(name)
+                .build());
     }
     public Contract updateContract(long id, String name, boolean status, float totalExpenses){
         Contract contract = contractRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("El contrato no está registrado"));
             boolean isUpdated = false;
             if (!contract.getName().equals(name)) {
                 if(contractRepository.existsByName(name)){
-                    throw new PropertyAlreadyInUseException("El contrato " + name + " ya existe");
+                    throw new PropertyAlreadyInUseException("El nombre " + name + " ya está en uso por otro contrato");
                 }
                 contract.setName(name);
                 isUpdated = true;

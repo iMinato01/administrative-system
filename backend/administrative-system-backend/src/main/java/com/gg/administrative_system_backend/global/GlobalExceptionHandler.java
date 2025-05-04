@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -35,7 +36,7 @@ public class GlobalExceptionHandler {
                 .build());
     }
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResponseEntity<ApiError> handleIncompleteUrlException(MissingServletRequestParameterException ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handleIncompleteUrl(MissingServletRequestParameterException ex, HttpServletRequest request){
         String message = String.format("El parámetro %s de tipo %s es requerido", ex.getParameterName(), ex.getParameterType());
         return ResponseEntity.status(400).body(ApiError.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
@@ -51,6 +52,15 @@ public class GlobalExceptionHandler {
                 .error(HttpStatus.NOT_FOUND.getReasonPhrase())
                 .path(request.getRequestURI())
                 .message("La URL no existe o fue mal escrita")
+                .build());
+    }
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiError> handleMissingBody(HttpMessageNotReadableException ex, HttpServletRequest request){
+        return ResponseEntity.status(400).body(ApiError.builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .path(request.getRequestURI())
+                .message("El cuerpo de la petición es requerido")
                 .build());
     }
     @ExceptionHandler(EntityAlreadyExistsException.class)
