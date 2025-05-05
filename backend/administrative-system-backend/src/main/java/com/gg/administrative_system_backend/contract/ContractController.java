@@ -20,7 +20,7 @@ public class ContractController {
         return ResponseEntity.status(200).body(contractRepository.findAll());
     }
     @GetMapping("/names")
-    public ResponseEntity<List<String>> filterActives(@RequestParam Boolean status){
+    public ResponseEntity<List<String>> filterByName(@RequestParam Boolean status){
         return ResponseEntity.status(200).body(contractRepository.findOnlyNames(status));
     }
     @GetMapping("/search")
@@ -32,8 +32,8 @@ public class ContractController {
         Contract contract = contractService.saveContract(createContractDTO.getName());
         return (contract != null) ? ResponseEntity.status(201).body(contract) : ResponseEntity.status(409).body("No se pudo guardar el contrato " + createContractDTO.getName());
     }
-    @PostMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateContract(@RequestBody @Valid UpdateContractDTO updateContractDTO, @PathVariable long id){
-        return ResponseEntity.status(200).body(contractService.updateContract(id, updateContractDTO.getName(), updateContractDTO.isStatus(), updateContractDTO.getTotalExpenses()));
+        return ResponseEntity.status(200).body(contractService.updateContract(id, updateContractDTO.getName(), updateContractDTO.getStatus(), updateContractDTO.getTotalExpenses()));
     }
 }

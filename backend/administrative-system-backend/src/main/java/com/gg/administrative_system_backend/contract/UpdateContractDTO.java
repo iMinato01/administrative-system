@@ -5,7 +5,11 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jdk.jfr.BooleanFlag;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class UpdateContractDTO {
     @NotBlank(message = "El nombre no puede estar vacío")
     private String name;
@@ -15,28 +19,4 @@ public class UpdateContractDTO {
     @NotNull(message = "El monto no puede estar vacío")
     @DecimalMin(value = "0.0", message = "El valor debe ser número positivo")
     private Float totalExpenses;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public Float getTotalExpenses() {
-        return totalExpenses;
-    }
-
-    public void setTotalExpenses(Float totalExpenses) {
-        this.totalExpenses = totalExpenses;
-    }
 }
