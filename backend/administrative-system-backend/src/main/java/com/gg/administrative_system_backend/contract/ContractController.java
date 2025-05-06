@@ -1,5 +1,6 @@
 package com.gg.administrative_system_backend.contract;
 
+import com.gg.administrative_system_backend.response.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,24 +17,24 @@ public class ContractController {
         this.contractService = contractService;
     }
     @GetMapping
-    public ResponseEntity<List<Contract>> filterAll(){
-        return ResponseEntity.status(200).body(contractRepository.findAll());
+    public ResponseEntity<ApiResponse<List<Contract>>> filterAll(){
+        return ResponseEntity.status(200).body(ApiResponse.of(200, "Lista de contratos", contractRepository.findAll()));
     }
     @GetMapping("/names")
-    public ResponseEntity<List<String>> filterByName(@RequestParam Boolean status){
-        return ResponseEntity.status(200).body(contractRepository.findOnlyNames(status));
+    public ResponseEntity<ApiResponse<List<String>>> filterByName(@RequestParam Boolean status){
+        return ResponseEntity.status(200).body(ApiResponse.of(200, "Lista de nombres de contratos " + (status ? "activos":"inactivos"), contractRepository.findOnlyNames(status)));
     }
     @GetMapping("/search")
-    public ResponseEntity<List<Contract>> filterAllByValue(@RequestParam String value){
-        return ResponseEntity.status(200).body(contractRepository.findByValue(value));
+    public ResponseEntity<ApiResponse<List<Contract>>> filterAllByValue(@RequestParam String value){
+        return ResponseEntity.status(200).body(ApiResponse.of(200, "Lista de contratos conteniendo el valor " + value, contractRepository.findByValue(value)));
     }
     @PostMapping
-    public ResponseEntity<?> saveContract(@RequestBody @Valid CreateContractDTO createContractDTO){
+    public ResponseEntity<ApiResponse<?>> saveContract(@RequestBody @Valid CreateContractDTO createContractDTO){
         Contract contract = contractService.saveContract(createContractDTO.getName());
-        return (contract != null) ? ResponseEntity.status(201).body(contract) : ResponseEntity.status(409).body("No se pudo guardar el contrato " + createContractDTO.getName());
+            return ResponseEntity.status(201).body(ApiResponse.of(201, "Contrato creado", contract));
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> updateContract(@RequestBody @Valid UpdateContractDTO updateContractDTO, @PathVariable long id){
-        return ResponseEntity.status(200).body(contractService.updateContract(id, updateContractDTO.getName(), updateContractDTO.getStatus(), updateContractDTO.getTotalExpenses()));
+        return ResponseEntity.status(200).body(ApiResponse.of(200, "Contrato actualizado", contractService.updateContract(id, updateContractDTO.getName(), updateContractDTO.getStatus(), updateContractDTO.getTotalExpenses())));
     }
 }

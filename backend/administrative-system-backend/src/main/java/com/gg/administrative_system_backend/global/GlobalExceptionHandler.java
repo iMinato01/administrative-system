@@ -27,67 +27,38 @@ public class GlobalExceptionHandler {
         ex.getBindingResult().getFieldErrors().forEach(error-> {
             errors.put(error.getField(), error.getDefaultMessage());
         });
-        return ResponseEntity.status(400).body(ApiError.builder()
-                .status(HttpStatus.BAD_REQUEST.value())
-                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                .path(request.getRequestURI())
-                .message("Error en las validaciones")
-                .details(errors.values().stream().toList())
-                .build());
+        return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                "Error en las validaciones", request.getRequestURI(), errors.values().stream().toList()));
     }
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<ApiError> handleIncompleteUrl(MissingServletRequestParameterException ex, HttpServletRequest request){
         String message = String.format("El parámetro %s de tipo %s es requerido", ex.getParameterName(), ex.getParameterType());
-        return ResponseEntity.status(400).body(ApiError.builder()
-                .status(HttpStatus.BAD_REQUEST.value())
-                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                .path(request.getRequestURI())
-                .message(message)
-                .build());
+        return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                message, request.getRequestURI()));
     }
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ApiError> handleNoHandlerFound(HttpServletRequest request){
-        return ResponseEntity.status(404).body(ApiError.builder()
-                .status(HttpStatus.NOT_FOUND.value())
-                .error(HttpStatus.NOT_FOUND.getReasonPhrase())
-                .path(request.getRequestURI())
-                .message("La URL no existe o fue mal escrita")
-                .build());
+        return ResponseEntity.status(404).body(ApiError.of(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
+                "La URL no existe o fue mal escrite", request.getRequestURI()));
     }
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiError> handleMissingBody(HttpMessageNotReadableException ex, HttpServletRequest request){
-        return ResponseEntity.status(400).body(ApiError.builder()
-                .status(HttpStatus.BAD_REQUEST.value())
-                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                .path(request.getRequestURI())
-                .message("El cuerpo de la petición es requerido")
-                .build());
+        return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                "El cuerpo de la petición es requerido", request.getRequestURI()));
     }
     @ExceptionHandler(EntityAlreadyExistsException.class)
     public ResponseEntity<ApiError> handleEntityAlreadyExists(EntityAlreadyExistsException ex, HttpServletRequest request){
-        return ResponseEntity.status(409).body(ApiError.builder()
-                .status(HttpStatus.CONFLICT.value())
-                .error(HttpStatus.CONFLICT.getReasonPhrase())
-                .path(request.getRequestURI())
-                .message(ex.getMessage())
-                .build());
+        return ResponseEntity.status(409).body(ApiError.of(HttpStatus.CONFLICT.value(),HttpStatus.CONFLICT.getReasonPhrase(),
+                ex.getMessage(), request.getRequestURI()));
     }
     @ExceptionHandler(PropertyAlreadyInUseException.class)
     public ResponseEntity<ApiError> handlePropertyAlreadyInUse(PropertyAlreadyInUseException ex, HttpServletRequest request){
-        return ResponseEntity.status(409).body(ApiError.builder()
-                .status(HttpStatus.CONFLICT.value())
-                .error(HttpStatus.CONFLICT.getReasonPhrase())
-                .path(request.getRequestURI())
-                .message(ex.getMessage())
-                .build());
+        return ResponseEntity.status(409).body(ApiError.of(HttpStatus.CONFLICT.value(), HttpStatus.CONFLICT.getReasonPhrase(),
+                ex.getMessage(), request.getRequestURI()));
     }
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiError> handleEntityNotFound(EntityNotFoundException ex, HttpServletRequest request){
-        return ResponseEntity.status(404).body(ApiError.builder()
-                .status(HttpStatus.NOT_FOUND.value())
-                .error(HttpStatus.NOT_FOUND.getReasonPhrase())
-                .path(request.getRequestURI())
-                .message(ex.getMessage())
-                .build());
+        return ResponseEntity.status(404).body(ApiError.of(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
+                ex.getMessage(), request.getRequestURI()));
     }
 }

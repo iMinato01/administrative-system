@@ -17,4 +17,16 @@ public class ApiError {
     @Builder.Default
     private LocalDateTime timestamp = LocalDateTime.now();
     List<String> details;
+    public static ApiError of(int status, String error, String message, String path, List<String> details){
+        return ApiError.builder()
+                .error(error)
+                .status(status)
+                .message(message)
+                .path(path)
+                .details(details)
+                .build();
+    }
+    public static ApiError of(int status, String error, String message, String path){
+        return of(status, error, message, path, null);
+    }
 }
