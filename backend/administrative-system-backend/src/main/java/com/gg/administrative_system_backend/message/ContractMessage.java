@@ -8,15 +8,15 @@ import lombok.Getter;
 public enum ContractMessage {
     //  Controller  //
     LIST_ALL("Todos los contratos"),
-    LIST_NAMES("Nombres de contratos '%s'"),
-    LIST_BY_VALUE("Contratos '%s' filtrados"),
+    LIST_NAMES("Nombres de contratos %s"),
+    LIST_BY_VALUE("Contratos filtrados con valor '%s'"),
     CREATED_SUCCESS("El contrato '%s' ha sido guardado"),
-    UPDATED_SUCCESS("El contrato '%s' ha sido actualizado");
+    UPDATED_SUCCESS("El contrato '%s' ha sido actualizado"),
     //  Service  //
+    CONTRACT_ALREADY_EXISTS("El contrato '%s' ya existe"),
+    CONTRACT_NOT_FOUND("El contrato ID '%s' no existe"),
+    NAME_ALREADY_IN_USE("El nombre '%s' ya está en uso por otro contrato");
 
-    //  CreateDTO //
-
-    //  UpdateDTO  //
     private final String message;
     public String format(Object... args){
         return String.format(message, args);

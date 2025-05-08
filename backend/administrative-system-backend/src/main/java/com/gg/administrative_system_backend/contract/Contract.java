@@ -20,5 +20,5 @@ public class Contract {
         @Builder.Default
         private boolean status = true;
         @Builder.Default
-        private float totalExpenses = 0;
+        private double totalExpenses = 0.0;
 }

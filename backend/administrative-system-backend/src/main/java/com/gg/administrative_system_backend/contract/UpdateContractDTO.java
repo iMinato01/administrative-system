@@ -1,5 +1,6 @@
 package com.gg.administrative_system_backend.contract;
 
+import com.gg.administrative_system_backend.message.ValidationMessage;
 import jakarta.validation.constraints.DecimalMin;
 
 import jakarta.validation.constraints.NotBlank;
@@ -11,12 +12,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateContractDTO {
-    @NotBlank(message = "El nombre no puede estar vacío")
+    @NotBlank(message = ValidationMessage.NAME_REQUIRED)
     private String name;
-    @NotNull(message = "El status no puede estar vacío")
+    @NotNull(message = ValidationMessage.STATUS_REQUIRED)
     @BooleanFlag
     private Boolean status;
-    @NotNull(message = "El monto no puede estar vacío")
-    @DecimalMin(value = "0.0", message = "El valor debe ser número positivo")
-    private Float totalExpenses;
+    @NotNull(message = ValidationMessage.AMMOUNT_REQUIRED)
+    @DecimalMin(value = "0.0", message = ValidationMessage.AMMOUNT_POSITIVE)
+    private double totalExpenses;
 }
