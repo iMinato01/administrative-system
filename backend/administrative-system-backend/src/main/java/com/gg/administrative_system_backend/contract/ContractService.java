@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.function.Supplier;
 
 @Service
 @AllArgsConstructor
@@ -16,9 +17,7 @@ public class ContractService {
     private final ContractRepository contractRepository;
     @Transactional
     public Contract saveContract(String name){
-        if(contractRepository.existsByName(name)){
-            throw new EntityAlreadyExistsException(ContractMessage.CONTRACT_ALREADY_EXISTS.format(name));
-        }
+        validateName(name, () -> new EntityAlreadyExistsException(ContractMessage.CONTRACT_ALREADY_EXISTS.format(name)));
         return contractRepository.save(Contract.builder()
                 .name(name)
                 .build());
@@ -31,14 +30,14 @@ public class ContractService {
         }
         return contract;
     }
-    private void nameExists(String name){
+    private void validateName(String name, Supplier<? extends RuntimeException> exception){
         if(contractRepository.existsByName(name)){
-            throw new PropertyAlreadyInUseException(ContractMessage.NAME_ALREADY_IN_USE.format(name));
+            throw exception.get();
         }
     }
     private boolean nameChanged(Contract contract, String name){
         if(!contract.getName().equals(name)){
-            nameExists(name);
+            validateName(name, () -> new PropertyAlreadyInUseException(ContractMessage.NAME_ALREADY_IN_USE.format(name)));
             contract.setName(name);
             return true;
         }
