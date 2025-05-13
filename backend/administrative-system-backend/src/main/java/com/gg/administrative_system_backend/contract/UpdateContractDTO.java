@@ -9,6 +9,8 @@ import jdk.jfr.BooleanFlag;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 public class UpdateContractDTO {
@@ -19,5 +21,5 @@ public class UpdateContractDTO {
     private Boolean status;
     @NotNull(message = ValidationMessage.AMMOUNT_REQUIRED)
     @DecimalMin(value = "0.0", message = ValidationMessage.AMMOUNT_POSITIVE)
-    private double totalExpenses;
+    private BigDecimal totalExpenses;
 }

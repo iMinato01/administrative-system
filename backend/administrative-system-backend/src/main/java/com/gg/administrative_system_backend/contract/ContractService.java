@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+
 @Service
 @AllArgsConstructor
 public class ContractService {
@@ -22,27 +24,38 @@ public class ContractService {
                 .build());
     }
     @Transactional
-    public Contract updateContract(long id, String name, boolean status, double totalExpenses){
+    public Contract updateContract(long id, String name, boolean status, BigDecimal totalExpenses){
         Contract contract = contractRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(ContractMessage.CONTRACT_NOT_FOUND.format(id)));
-            boolean isUpdated = false;
-            if (!contract.getName().equals(name)) {
-                if(contractRepository.existsByName(name)){
-                    throw new PropertyAlreadyInUseException(ContractMessage.NAME_ALREADY_IN_USE.format(name));
-                }
-                contract.setName(name);
-                isUpdated = true;
-            }
-            if(contract.isStatus() != status){
-                contract.setStatus(status);
-                isUpdated = true;
-            }
-            if(contract.getTotalExpenses() != totalExpenses){
-                contract.setTotalExpenses(totalExpenses);
-                isUpdated = true;
-            }
-            if (isUpdated) {
-                contractRepository.save(contract);
-            }
+        if(nameChanged(contract, name) || statusChanged(contract, status) || totalExpensesChanged(contract, totalExpenses)){
+            return contractRepository.save(contract);
+        }
         return contract;
+    }
+    private void nameExists(String name){
+        if(contractRepository.existsByName(name)){
+            throw new PropertyAlreadyInUseException(ContractMessage.NAME_ALREADY_IN_USE.format(name));
+        }
+    }
+    private boolean nameChanged(Contract contract, String name){
+        if(!contract.getName().equals(name)){
+            nameExists(name);
+            contract.setName(name);
+            return true;
+        }
+        return false;
+    }
+    private boolean statusChanged(Contract contract, boolean status){
+        if(contract.isStatus() != status){
+            contract.setStatus(status);
+            return true;
+        }
+        return false;
+    }
+    private boolean totalExpensesChanged(Contract contract, BigDecimal totalExpenses){
+        if(contract.getTotalExpenses().compareTo(totalExpenses) !=0){
+            contract.setTotalExpenses(totalExpenses);
+            return true;
+        }
+        return false;
     }
 }

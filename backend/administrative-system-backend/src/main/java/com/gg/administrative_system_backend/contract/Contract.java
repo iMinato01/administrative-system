@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Builder
 @Getter
@@ -20,5 +22,5 @@ public class Contract {
         @Builder.Default
         private boolean status = true;
         @Builder.Default
-        private double totalExpenses = 0.0;
+        private BigDecimal totalExpenses = BigDecimal.ZERO;
 }
