@@ -1,8 +1,10 @@
 package com.gg.administrative_system_backend.supplier;
 
+import com.gg.administrative_system_backend.evaluation.Evaluation;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,5 +25,5 @@ public class Supplier {
     private String phoneNumber;
     private String services;
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
-    private List<?> evaluations; // Valor ? como referencia, cambiar a 'Evaluation' cuando esté disponible
+    private List<Evaluation> evaluations = new ArrayList<>();
 }
