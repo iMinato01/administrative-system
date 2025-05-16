@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -16,7 +17,7 @@ import java.util.List;
 public class Evaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private LocalDate evaluationDate;
     private LocalDate nextEvaluation;
     @ManyToOne
@@ -30,5 +31,4 @@ public class Evaluation {
     private List<Integer> deliveryScores = new ArrayList<>(); //Almacenará 4 valores, del 0-4 (puntuaciones)
     @CollectionTable
     private List<Integer> qualityScores = new ArrayList<>(); // Almacenará 2 valores, del 0-4 (puntuaciones)
-
 }

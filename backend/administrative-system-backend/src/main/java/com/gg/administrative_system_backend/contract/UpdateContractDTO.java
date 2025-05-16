@@ -19,7 +19,7 @@ public class UpdateContractDTO {
     @NotNull(message = ValidationMessage.STATUS_REQUIRED)
     @BooleanFlag
     private Boolean status;
-    @NotNull(message = ValidationMessage.AMMOUNT_REQUIRED)
+    @NotNull(message = ValidationMessage.AMOUNT_REQUIRED)
     @DecimalMin(value = "0.0", message = ValidationMessage.AMMOUNT_POSITIVE)
     private BigDecimal totalExpenses;
 }

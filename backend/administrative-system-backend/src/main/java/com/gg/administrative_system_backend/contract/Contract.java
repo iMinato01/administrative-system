@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 public class Contract {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private long id;
+        private Long id;
         private String name;
         @Builder.Default
         private boolean status = true;

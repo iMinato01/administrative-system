@@ -16,7 +16,7 @@ import java.util.List;
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
     @Builder.Default
     private boolean status = false;
@@ -25,5 +25,6 @@ public class Supplier {
     private String phoneNumber;
     private String services;
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<Evaluation> evaluations = new ArrayList<>();
 }
