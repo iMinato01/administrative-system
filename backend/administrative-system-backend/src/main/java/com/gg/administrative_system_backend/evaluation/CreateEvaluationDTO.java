@@ -1,7 +1,6 @@
 package com.gg.administrative_system_backend.evaluation;
 
 import com.gg.administrative_system_backend.message.ValidationMessage;
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

@@ -4,6 +4,7 @@ import com.gg.administrative_system_backend.exception.ApiError;
 import com.gg.administrative_system_backend.exception.EntityAlreadyExistsException;
 import com.gg.administrative_system_backend.exception.PropertyAlreadyInUseException;
 import com.gg.administrative_system_backend.exception.EntityNotFoundException;
+import com.gg.administrative_system_backend.message.HandlerExceptionMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
@@ -28,23 +29,22 @@ public class GlobalExceptionHandler {
             errors.put(error.getField(), error.getDefaultMessage());
         });
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "Error en las validaciones", request.getRequestURI(), errors.values().stream().toList()));
+                HandlerExceptionMessage.VALIDATION_EXCEPTION.getMessage(), request.getRequestURI(), errors.values().stream().toList()));
     }
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<ApiError> handleIncompleteUrl(MissingServletRequestParameterException ex, HttpServletRequest request){
-        String message = String.format("El parámetro %s de tipo %s es requerido", ex.getParameterName(), ex.getParameterType());
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                message, request.getRequestURI()));
+                HandlerExceptionMessage.REQUEST_PARAMETER_EXCEPTION.format(ex.getParameterName(), ex.getParameterType()), request.getRequestURI()));
     }
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ApiError> handleNoHandlerFound(HttpServletRequest request){
         return ResponseEntity.status(404).body(ApiError.of(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
-                "La URL no existe o fue mal escrite", request.getRequestURI()));
+                HandlerExceptionMessage.NO_HANDLER_EXCEPTION.getMessage(), request.getRequestURI()));
     }
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiError> handleMissingBody(HttpMessageNotReadableException ex, HttpServletRequest request){
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                "El cuerpo de la petición es requerido", request.getRequestURI()));
+                HandlerExceptionMessage.MISSING_BODY_EXCEPTION.getMessage(), request.getRequestURI()));
     }
     @ExceptionHandler(EntityAlreadyExistsException.class)
     public ResponseEntity<ApiError> handleEntityAlreadyExists(EntityAlreadyExistsException ex, HttpServletRequest request){
