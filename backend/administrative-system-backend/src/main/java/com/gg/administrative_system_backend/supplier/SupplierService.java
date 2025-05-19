@@ -13,9 +13,7 @@ public class SupplierService {
     @Transactional
     public Supplier saveSupplier(String name, String rfc, String email, String phoneNumber, String services){
         validateName(name, ()-> new PropertyAlreadyInUseException(SupplierMessage.NAME_ALREADY_IN_USE.format(name)));
-        if(supplierRepository.existsByRfc(rfc)){
-            throw new PropertyAlreadyInUseException(SupplierMessage.RFC_ALREADY_IN_USE.format(rfc));
-        }
+        validateRfc(rfc, () -> new PropertyAlreadyInUseException(SupplierMessage.RFC_ALREADY_IN_USE.format(rfc)));
         return supplierRepository.save(Supplier.builder()
                 .name(name)
                 .rfc(rfc)
@@ -24,8 +22,13 @@ public class SupplierService {
                 .services(services)
                 .build());
     }
-    public void validateName(String name, java.util.function.Supplier<? extends RuntimeException> exception){
+    private void validateName(String name, java.util.function.Supplier<? extends RuntimeException> exception){
         if(supplierRepository.existsByName(name)){
+            throw exception.get();
+        }
+    }
+    private void validateRfc(String rfc, java.util.function.Supplier<? extends RuntimeException> exception){
+        if(supplierRepository.existsByRfc(rfc)){
             throw exception.get();
         }
     }

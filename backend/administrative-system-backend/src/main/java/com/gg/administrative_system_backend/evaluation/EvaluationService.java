@@ -24,6 +24,7 @@ public class EvaluationService {
                 .id(id)
                 .evaluationDate(evaluationDate)
                 .nextEvaluation(nextEvaluation)
+                .supplier(supplier)
                 .informationScores(information)
                 .generalScores(general)
                 .deliveryScores(delivery)
