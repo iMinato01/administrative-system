@@ -19,7 +19,7 @@ public class Supplier {
     private Long id;
     private String name;
     @Builder.Default
-    private boolean status = false;
+    private boolean status = true;
     private String rfc;
     private String email;
     private String phoneNumber;
