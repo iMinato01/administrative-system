@@ -1,5 +1,6 @@
 package com.gg.administrative_system_backend.supplier;
 
+import com.gg.administrative_system_backend.exception.EntityNotFoundException;
 import com.gg.administrative_system_backend.exception.PropertyAlreadyInUseException;
 import com.gg.administrative_system_backend.message.SupplierMessage;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,43 @@ public class SupplierService {
                 .phoneNumber(phoneNumber)
                 .services(services)
                 .build());
+    }
+    @Transactional
+    public Supplier updateSupplier(Long id, String name, Boolean status, String rfc, String email, String phoneNumber, String services){
+        Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(SupplierMessage.SUPPLIER_NOT_FOUND.format(id)));
+        if(nameChanged(supplier, name) || statusChanged(supplier, status)|| rfcChanged(supplier, rfc) || emailChanged(supplier, email) ||
+                phoneNumberChanged(supplier, phoneNumber) || servicesChanged(supplier, services)){
+            supplierRepository.save(supplier);
+        }
+        return supplier;
+    }
+    private boolean nameChanged(Supplier supplier, String name){
+        if(!supplier.getName().equals(name)){
+            validateName(name, ()-> new PropertyAlreadyInUseException(SupplierMessage.NAME_ALREADY_IN_USE.format(name)));
+            supplier.setName(name);
+            return true;
+        }
+        return false;
+    }
+    private boolean statusChanged(Supplier supplier, Boolean status){
+        return supplier.isStatus() != status;
+    }
+    private boolean rfcChanged(Supplier supplier, String rfc){
+        if(!supplier.getRfc().equals(rfc)){
+            validateRfc(rfc, ()-> new PropertyAlreadyInUseException(SupplierMessage.RFC_ALREADY_IN_USE.format(rfc)));
+            supplier.setRfc(rfc);
+            return true;
+        }
+        return false;
+    }
+    public boolean emailChanged(Supplier supplier, String email){
+        return !supplier.getEmail().equals(email);
+    }
+    public boolean phoneNumberChanged(Supplier supplier, String phoneNumber){
+        return !supplier.getPhoneNumber().equals(phoneNumber);
+    }
+    public boolean servicesChanged(Supplier supplier, String services){
+        return !supplier.getServices().equals(services);
     }
     private void validateName(String name, java.util.function.Supplier<? extends RuntimeException> exception){
         if(supplierRepository.existsByName(name)){

@@ -26,4 +26,10 @@ public class SupplierController {
                 createSupplierDTO.getEmail(),createSupplierDTO.getPhoneNumber() ,createSupplierDTO.getServices());
         return ResponseEntity.status(201).body(ApiResponse.of(HttpStatus.CREATED.value(), HttpStatus.CREATED.getReasonPhrase(), supplier));
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<Supplier>> updateSupplier(@RequestBody @Valid UpdateSupplierDTO updateSupplierDTO, @PathVariable Long id){
+        Supplier supplier = supplierService.updateSupplier(id, updateSupplierDTO.getName(), updateSupplierDTO.getStatus(), updateSupplierDTO.getRfc(),
+                updateSupplierDTO.getEmail(), updateSupplierDTO.getPhoneNumber(), updateSupplierDTO.getServices());
+                return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), supplier));
+    }
 }
