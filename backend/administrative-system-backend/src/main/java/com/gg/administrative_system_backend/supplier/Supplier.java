@@ -27,4 +27,8 @@ public class Supplier {
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
     @Builder.Default
     private List<Evaluation> evaluations = new ArrayList<>();
+
+    public void addEvaluation(Evaluation evaluation){
+        this.evaluations.add(evaluation);
+    }
 }
