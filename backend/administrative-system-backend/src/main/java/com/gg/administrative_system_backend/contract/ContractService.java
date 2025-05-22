@@ -3,12 +3,16 @@ package com.gg.administrative_system_backend.contract;
 import com.gg.administrative_system_backend.exception.EntityAlreadyExistsException;
 import com.gg.administrative_system_backend.exception.EntityNotFoundException;
 import com.gg.administrative_system_backend.exception.PropertyAlreadyInUseException;
+import com.gg.administrative_system_backend.exception.ValueRequiredException;
 import com.gg.administrative_system_backend.message.ContractMessage;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 @Service
@@ -29,6 +33,20 @@ public class ContractService {
             return contractRepository.save(contract);
         }
         return contract;
+    }
+    public List<Contract> findByValue(String value){
+        if(value.isBlank()){
+            throw new ValueRequiredException(ContractMessage.VALUE_REQUIRED.getMessage());
+        }
+        if(value.matches("[\\d,]+(\\.\\d+)?")){
+            if(value.matches("\\d+")){
+                return contractRepository.findById(Long.parseLong(value)).map(List::of).orElse(List.of());
+            } else {
+                return contractRepository.findByTotalExpenses(new BigDecimal(value.replace(",", "")));
+            }
+        } else{
+            return contractRepository.findByNameContainingIgnoreCase(value);
+        }
     }
     private void validateName(String name, Supplier<? extends RuntimeException> exception){
         if(contractRepository.existsByName(name)){

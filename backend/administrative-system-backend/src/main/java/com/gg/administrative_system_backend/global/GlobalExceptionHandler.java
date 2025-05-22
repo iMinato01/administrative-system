@@ -1,9 +1,6 @@
 package com.gg.administrative_system_backend.global;
 
-import com.gg.administrative_system_backend.exception.ApiError;
-import com.gg.administrative_system_backend.exception.EntityAlreadyExistsException;
-import com.gg.administrative_system_backend.exception.PropertyAlreadyInUseException;
-import com.gg.administrative_system_backend.exception.EntityNotFoundException;
+import com.gg.administrative_system_backend.exception.*;
 import com.gg.administrative_system_backend.message.HandlerExceptionMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpRequest;
@@ -59,6 +56,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiError> handleEntityNotFound(EntityNotFoundException ex, HttpServletRequest request){
         return ResponseEntity.status(404).body(ApiError.of(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
+                ex.getMessage(), request.getRequestURI()));
+    }
+    @ExceptionHandler(ValueRequiredException.class)
+    public ResponseEntity<ApiError> handleValueRequired(ValueRequiredException ex, HttpServletRequest request){
+        return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 ex.getMessage(), request.getRequestURI()));
     }
 }

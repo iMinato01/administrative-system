@@ -15,7 +15,8 @@ public enum ContractMessage {
     //  Service  //
     CONTRACT_ALREADY_EXISTS("El contrato '%s' ya existe"),
     CONTRACT_NOT_FOUND("El contrato ID '%s' no existe"),
-    NAME_ALREADY_IN_USE("El nombre '%s' ya está en uso por otro contrato");
+    NAME_ALREADY_IN_USE("El nombre '%s' ya está en uso por otro contrato"),
+    VALUE_REQUIRED("El valor de entrada no puede estar vacío");
 
     private final String message;
     public String format(Object... args){
