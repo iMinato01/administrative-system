@@ -40,7 +40,7 @@ public class ContractService {
             throw new ValueRequiredException(ContractMessage.VALUE_REQUIRED.getMessage());
         }
         if(value.matches(RegexPatterns.BIG_DECIMAL)){
-            if(value.matches(RegexPatterns.FLOAT)){
+            if(value.matches(RegexPatterns.LONG)){
                 return contractRepository.findById(Long.parseLong(value)).map(List::of).orElse(List.of());
             } else {
                 return contractRepository.findByTotalExpenses(new BigDecimal(value.replace(",", "")));

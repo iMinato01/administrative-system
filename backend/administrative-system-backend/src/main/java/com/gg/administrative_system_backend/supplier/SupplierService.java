@@ -2,10 +2,15 @@ package com.gg.administrative_system_backend.supplier;
 
 import com.gg.administrative_system_backend.exception.EntityNotFoundException;
 import com.gg.administrative_system_backend.exception.PropertyAlreadyInUseException;
+import com.gg.administrative_system_backend.exception.ValueRequiredException;
+import com.gg.administrative_system_backend.message.ContractMessage;
 import com.gg.administrative_system_backend.message.SupplierMessage;
+import com.gg.administrative_system_backend.util.RegexPatterns;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -27,10 +32,16 @@ public class SupplierService {
     public Supplier updateSupplier(Long id, String name, Boolean status, String rfc, String email, String phoneNumber, String services){
         Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(SupplierMessage.SUPPLIER_NOT_FOUND.format(id)));
         if(nameChanged(supplier, name) || statusChanged(supplier, status)|| rfcChanged(supplier, rfc) || emailChanged(supplier, email) ||
-                phoneNumberChanged(supplier, phoneNumber) || servicesChanged(supplier, services)){
+                phoneNumberChanged(supplier, phoneNumber) || servicesChanged(supplier, services)) {
             supplierRepository.save(supplier);
         }
         return supplier;
+    }
+    public List<Supplier> findByValue(String value){
+        if(value.isBlank()){
+            throw new ValueRequiredException(SupplierMessage.VALUE_REQUIRED.getMessage());
+        }
+        return value.matches(RegexPatterns.LONG)? supplierRepository.findById(Long.parseLong(value)).map(List::of).orElse(List.of()): supplierRepository.findByValue(value);
     }
     private boolean nameChanged(Supplier supplier, String name){
         if(!supplier.getName().equals(name)){

@@ -26,6 +26,10 @@ public class SupplierController {
                 createSupplierDTO.getEmail(),createSupplierDTO.getPhoneNumber() ,createSupplierDTO.getServices());
         return ResponseEntity.status(201).body(ApiResponse.of(HttpStatus.CREATED.value(), HttpStatus.CREATED.getReasonPhrase(), supplier));
     }
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse<List<Supplier>>> filterAllByValue(@RequestParam String filter){
+        return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), supplierService.findByValue(filter)));
+    }
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Supplier>> updateSupplier(@RequestBody @Valid UpdateSupplierDTO updateSupplierDTO, @PathVariable Long id){
         Supplier supplier = supplierService.updateSupplier(id, updateSupplierDTO.getName(), updateSupplierDTO.getStatus(), updateSupplierDTO.getRfc(),
