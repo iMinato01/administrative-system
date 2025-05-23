@@ -5,6 +5,7 @@ import com.gg.administrative_system_backend.exception.EntityNotFoundException;
 import com.gg.administrative_system_backend.exception.PropertyAlreadyInUseException;
 import com.gg.administrative_system_backend.exception.ValueRequiredException;
 import com.gg.administrative_system_backend.message.ContractMessage;
+import com.gg.administrative_system_backend.util.RegexPatterns;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,8 +39,8 @@ public class ContractService {
         if(value.isBlank()){
             throw new ValueRequiredException(ContractMessage.VALUE_REQUIRED.getMessage());
         }
-        if(value.matches("[\\d,]+(\\.\\d+)?")){
-            if(value.matches("\\d+")){
+        if(value.matches(RegexPatterns.BIG_DECIMAL)){
+            if(value.matches(RegexPatterns.FLOAT)){
                 return contractRepository.findById(Long.parseLong(value)).map(List::of).orElse(List.of());
             } else {
                 return contractRepository.findByTotalExpenses(new BigDecimal(value.replace(",", "")));
