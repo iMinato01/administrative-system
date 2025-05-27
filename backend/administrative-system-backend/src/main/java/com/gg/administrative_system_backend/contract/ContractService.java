@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Supplier;
 
 @Service
@@ -35,16 +33,15 @@ public class ContractService {
         }
         return contract;
     }
-    public List<Contract> findByValue(String value){
+    public List<Contract> findByValue(String value) throws NumberFormatException{
         if(value.isBlank()){
             throw new ValueRequiredException(ContractMessage.VALUE_REQUIRED.getMessage());
         }
         if(value.matches(RegexPatterns.BIG_DECIMAL)){
-            if(value.matches(RegexPatterns.LONG)){
-                return contractRepository.findById(Long.parseLong(value)).map(List::of).orElse(List.of());
-            } else {
-                return contractRepository.findByTotalExpenses(new BigDecimal(value.replace(",", "")));
-            }
+            Set<Contract> contracts = new HashSet<>();
+            contracts.addAll(contractRepository.findById(Long.parseLong(value)).map(List::of).orElse(List.of()));
+            contracts.addAll(contractRepository.findByTotalExpenses(new BigDecimal(value.replace(",", ""))));
+            return new ArrayList<>(contracts);
         } else{
             return contractRepository.findByNameContainingIgnoreCase(value);
         }

@@ -2,7 +2,9 @@ package com.gg.administrative_system_backend.global;
 
 import com.gg.administrative_system_backend.exception.*;
 import com.gg.administrative_system_backend.message.HandlerExceptionMessage;
+import com.gg.administrative_system_backend.util.RegexPatterns;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +44,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> handleMissingBody(HttpMessageNotReadableException ex, HttpServletRequest request){
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 HandlerExceptionMessage.MISSING_BODY_EXCEPTION.getMessage(), request.getRequestURI()));
+    }
+    @ExceptionHandler(NumberFormatException.class)
+    public ResponseEntity<ApiError> handleNumberFormat(NumberFormatException ex, HttpServletRequest request){
+        return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                HandlerExceptionMessage.NUMBER_FORMAT_EXCEPTION.format(ex.getMessage().replaceAll(RegexPatterns.QUOTED_VALUE, "$1")), request.getRequestURI()));
     }
     @ExceptionHandler(EntityAlreadyExistsException.class)
     public ResponseEntity<ApiError> handleEntityAlreadyExists(EntityAlreadyExistsException ex, HttpServletRequest request){

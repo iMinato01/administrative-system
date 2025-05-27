@@ -25,8 +25,8 @@ public class ContractController {
         return ResponseEntity.status(200).body(ApiResponse.of(200, ContractMessage.LIST_NAMES.format((status)? GeneralMessage.STATUS_ACTIVE.getMessage():GeneralMessage.STATUS_INACTIVE.getMessage()), contractRepository.findOnlyNames(status)));
     }
     @GetMapping("/search")
-    public ResponseEntity<ApiResponse<List<Contract>>> filterAllByValue(@RequestParam String value){
-        return ResponseEntity.status(200).body(ApiResponse.of(200, ContractMessage.LIST_BY_VALUE.format(value), contractService.findByValue(value)));
+    public ResponseEntity<ApiResponse<List<Contract>>> filterAllByValue(@RequestParam String filter){
+        return ResponseEntity.status(200).body(ApiResponse.of(200, ContractMessage.LIST_BY_VALUE.format(filter), contractService.findByValue(filter)));
     }
     @PostMapping
     public ResponseEntity<ApiResponse<?>> saveContract(@RequestBody @Valid CreateContractDTO createContractDTO){
