@@ -9,7 +9,5 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class UpdateEvaluationDTO {
-    @NotNull
-    private LocalDate evaluationDate;
 
 }

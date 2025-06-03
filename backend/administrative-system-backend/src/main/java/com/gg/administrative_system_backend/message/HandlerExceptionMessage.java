@@ -9,7 +9,7 @@ public enum HandlerExceptionMessage {
     VALIDATION_EXCEPTION("Error en las validaciones"),
     REQUEST_PARAMETER_EXCEPTION("El parámetro %s de tipo %s es requerido"),
     NO_HANDLER_EXCEPTION("La URL no existe o fue mal escrita"),
-    MISSING_BODY_EXCEPTION("El cuerpo de la petición es requerido"),
+    MISSING_BODY_EXCEPTION("El cuerpo de la petición está incompleto o no cumple las validaciones"),
     NUMBER_FORMAT_EXCEPTION("Error al convertir el valor -> %s");
 
     private final String message;

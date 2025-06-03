@@ -1,5 +1,6 @@
 package com.gg.administrative_system_backend.supplier;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gg.administrative_system_backend.evaluation.Evaluation;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,6 +26,7 @@ public class Supplier {
     private String phoneNumber;
     private String services;
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+    @JsonManagedReference
     @Builder.Default
     private List<Evaluation> evaluations = new ArrayList<>();
 

@@ -14,5 +14,4 @@ public class ValidationMessage {
 
     public static final String AMMOUNT_POSITIVE = "El monto debe ser un número positivo";
     public static final String ID_NUMERIC = "El ID debe ser un valor numérico";
-    public static final String DATE_FORMAT = "dd-mm-yyyy";
 }

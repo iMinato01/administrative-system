@@ -1,5 +1,6 @@
 package com.gg.administrative_system_backend.evaluation;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.gg.administrative_system_backend.supplier.Supplier;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,6 +23,7 @@ public class Evaluation {
     private LocalDate nextEvaluation;
     @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = false)
+    @JsonBackReference
     private Supplier supplier;
     @CollectionTable
     private List<Integer> informationScores = new ArrayList<>(); // Almacenará 4 valores, del 0-4 (puntuaciones)

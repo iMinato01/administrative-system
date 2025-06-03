@@ -37,7 +37,7 @@ public class ContractService {
         if(value.isBlank()){
             throw new ValueRequiredException(ContractMessage.VALUE_REQUIRED.getMessage());
         }
-        if(value.matches(RegexPatterns.BIG_DECIMAL)){
+        if(value.matches(RegexPatterns.DECIMAL)){
             Set<Contract> contracts = new HashSet<>();
             contracts.addAll(contractRepository.findById(Long.parseLong(value)).map(List::of).orElse(List.of()));
             contracts.addAll(contractRepository.findByTotalExpenses(new BigDecimal(value.replace(",", ""))));

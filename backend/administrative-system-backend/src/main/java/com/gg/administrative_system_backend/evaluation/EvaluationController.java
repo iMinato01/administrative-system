@@ -19,6 +19,15 @@ public class EvaluationController {
     public ResponseEntity<ApiResponse<List<Evaluation>>> filterAll(){
         return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), evaluationRepository.findAll()));
     }
+    @GetMapping("/search/bySupplier")
+    public ResponseEntity<ApiResponse<List<Evaluation>>> filterBySupplier(@RequestParam Long id){
+        return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), evaluationService.findBySupplier(id)));
+
+    }
+    @GetMapping("/search/byValue")
+    public ResponseEntity<ApiResponse<List<Evaluation>>> filterByValue(@RequestParam String value){
+        return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), evaluationService.findByValue(value)));
+    }
     @PostMapping
     public ResponseEntity<ApiResponse<?>> saveEvaluation(@RequestBody @Valid CreateEvaluationDTO createEvaluationDTO){
         Evaluation evaluation = evaluationService.saveEvaluation(createEvaluationDTO.getSupplierId(), createEvaluationDTO.getEvaluationDate(),

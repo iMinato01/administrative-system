@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
                 HandlerExceptionMessage.NO_HANDLER_EXCEPTION.getMessage(), request.getRequestURI()));
     }
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiError> handleMissingBody(HttpMessageNotReadableException ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handleMissingBody(HttpServletRequest request){
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 HandlerExceptionMessage.MISSING_BODY_EXCEPTION.getMessage(), request.getRequestURI()));
     }
