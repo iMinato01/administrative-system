@@ -4,6 +4,7 @@ import com.gg.administrative_system_backend.exception.EntityNotFoundException;
 import com.gg.administrative_system_backend.message.SupplierMessage;
 import com.gg.administrative_system_backend.supplier.Supplier;
 import com.gg.administrative_system_backend.supplier.SupplierRepository;
+import com.gg.administrative_system_backend.supplier.SupplierService;
 import com.gg.administrative_system_backend.util.RegexPatterns;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.List;
 public class EvaluationService {
     private final EvaluationRepository evaluationRepository;
     private final SupplierRepository supplierRepository;
+    private final SupplierService supplierService;
     @Transactional
     public Evaluation saveEvaluation(Long id, LocalDate evaluationDate, LocalDate nextEvaluation, List<Integer> information,
                                      List<Integer> general, List<Integer> delivery, List<Integer> quality){
@@ -36,6 +38,12 @@ public class EvaluationService {
     * Actualización de las propiedades básicas, así como las de la relación a partir del ID
     * */
     public Evaluation updateEvaluation(){
+        //Caso propiedades base
+
+        //Caso relación
+        if(){
+
+        }
         return null;
     }
 
