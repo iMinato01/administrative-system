@@ -22,7 +22,7 @@ public class EvaluationService {
     @Transactional
     public Evaluation saveEvaluation(Long id, LocalDate evaluationDate, LocalDate nextEvaluation, List<Integer> information,
                                      List<Integer> general, List<Integer> delivery, List<Integer> quality){
-        Supplier supplier = findSupplier(id);
+        Supplier supplier = supplierService.findSupplier(id);
         return evaluationRepository.save(Evaluation.builder()
                 .evaluationDate(evaluationDate)
                 .nextEvaluation(nextEvaluation)
@@ -39,11 +39,7 @@ public class EvaluationService {
     * */
     public Evaluation updateEvaluation(){
         //Caso propiedades base
-
         //Caso relación
-        if(){
-
-        }
         return null;
     }
 
@@ -58,8 +54,5 @@ public class EvaluationService {
             }
         }
             return evaluationRepository.findBySupplierName(value);
-    }
-    private Supplier findSupplier(Long id){
-        return supplierRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(SupplierMessage.SUPPLIER_NOT_FOUND.format(id)));
     }
 }

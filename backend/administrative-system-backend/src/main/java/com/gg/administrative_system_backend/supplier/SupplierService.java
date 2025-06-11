@@ -28,6 +28,7 @@ public class SupplierService {
                 .services(services)
                 .build());
     }
+    // --> Pendiente por refactorizar para actualizaciones parciales
     @Transactional
     public Supplier updateSupplier(Long id, String name, Boolean status, String rfc, String email, String phoneNumber, String services){
         Supplier supplier = findSupplier(id);
