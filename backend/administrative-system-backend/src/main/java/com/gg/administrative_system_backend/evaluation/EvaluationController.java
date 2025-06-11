@@ -21,7 +21,7 @@ public class EvaluationController {
     }
     @GetMapping("/search/bySupplier")
     public ResponseEntity<ApiResponse<List<Evaluation>>> filterBySupplier(@RequestParam Long id){
-        return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), evaluationService.findBySupplier(id)));
+        return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), evaluationRepository.findBySupplierId(id)));
 
     }
     @GetMapping("/search/byValue")

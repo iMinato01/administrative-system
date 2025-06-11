@@ -34,14 +34,11 @@ public class EvaluationService {
     public Evaluation updateEvaluation(){
         return null;
     }
-    public List<Evaluation> findBySupplier(Long id){
-        return findSupplier(id).getEvaluations();
-    }
     //Pendiente por optimizar consultas de busqueda
     public List<Evaluation> findByValue(String value){
         if(value.matches(RegexPatterns.DECIMAL)){
             if(value.matches(RegexPatterns.LONG)){
-                return findBySupplier(Long.parseLong(value));
+                return evaluationRepository.findBySupplierId(Long.parseLong(value));
             }
             else if(value.matches(RegexPatterns.DATE_FORMAT)){
                 LocalDate date = LocalDate.parse(value);
