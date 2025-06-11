@@ -31,10 +31,14 @@ public class EvaluationService {
                 .qualityScores(quality)
                 .build());
     }
+    @Transactional
+    /*
+    * Actualización de las propiedades básicas, así como las de la relación a partir del ID
+    * */
     public Evaluation updateEvaluation(){
         return null;
     }
-    //Pendiente por optimizar consultas de busqueda
+
     public List<Evaluation> findByValue(String value){
         if(value.matches(RegexPatterns.DECIMAL)){
             if(value.matches(RegexPatterns.LONG)){

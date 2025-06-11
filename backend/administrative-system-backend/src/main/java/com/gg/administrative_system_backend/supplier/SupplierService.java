@@ -30,7 +30,7 @@ public class SupplierService {
     }
     @Transactional
     public Supplier updateSupplier(Long id, String name, Boolean status, String rfc, String email, String phoneNumber, String services){
-        Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(SupplierMessage.SUPPLIER_NOT_FOUND.format(id)));
+        Supplier supplier = findSupplier(id);
         if(nameChanged(supplier, name) || statusChanged(supplier, status)|| rfcChanged(supplier, rfc) || emailChanged(supplier, email) ||
                 phoneNumberChanged(supplier, phoneNumber) || servicesChanged(supplier, services)) {
             supplierRepository.save(supplier);
@@ -42,6 +42,9 @@ public class SupplierService {
             throw new ValueRequiredException(SupplierMessage.VALUE_REQUIRED.getMessage());
         }
         return value.matches(RegexPatterns.LONG)? supplierRepository.findById(Long.parseLong(value)).map(List::of).orElse(List.of()): supplierRepository.findByValue(value);
+    }
+    public Supplier findSupplier(Long id){
+        return supplierRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(SupplierMessage.SUPPLIER_NOT_FOUND.format(id)));
     }
     private boolean nameChanged(Supplier supplier, String name){
         if(!supplier.getName().equals(name)){
