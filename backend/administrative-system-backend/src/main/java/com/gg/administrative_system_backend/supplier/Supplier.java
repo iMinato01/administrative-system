@@ -33,4 +33,7 @@ public class Supplier {
     public void addEvaluation(Evaluation evaluation){
         this.evaluations.add(evaluation);
     }
+    public void removeEvaluation(Evaluation evaluation){
+        this.evaluations.remove(evaluation);
+    }
 }
