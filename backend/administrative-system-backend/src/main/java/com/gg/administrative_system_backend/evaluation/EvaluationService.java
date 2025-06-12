@@ -1,7 +1,7 @@
 package com.gg.administrative_system_backend.evaluation;
 
 import com.gg.administrative_system_backend.exception.EntityNotFoundException;
-import com.gg.administrative_system_backend.message.SupplierMessage;
+import com.gg.administrative_system_backend.message.EvaluationMessage;
 import com.gg.administrative_system_backend.supplier.Supplier;
 import com.gg.administrative_system_backend.supplier.SupplierRepository;
 import com.gg.administrative_system_backend.supplier.SupplierService;
@@ -37,12 +37,14 @@ public class EvaluationService {
     /*
     * Actualización de las propiedades básicas, así como las de la relación a partir del ID
     * */
-    public Evaluation updateEvaluation(){
+    public Evaluation updateEvaluation(UpdateEvaluationDTO updateEvaluationDTO){
+        Evaluation evaluation = findEvaluation(updateEvaluationDTO.getId());
+
         //Caso propiedades base
         //Caso relación
+
         return null;
     }
-
     public List<Evaluation> findByValue(String value){
         if(value.matches(RegexPatterns.DECIMAL)){
             if(value.matches(RegexPatterns.LONG)){
@@ -54,5 +56,19 @@ public class EvaluationService {
             }
         }
             return evaluationRepository.findBySupplierName(value);
+    }
+    public Evaluation findEvaluation(Long id){
+        return evaluationRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(EvaluationMessage.EVALUATION_NOT_FOUND.format(id)));
+    }
+    //Pendiente por pasar y otimizar métodos add y remove a clase Supplier
+    private boolean supplierChanged(Supplier supplier, Evaluation evaluation, Long id){
+        if(id != null && !id.equals(evaluation.getSupplier().getId())){
+            Supplier newSupplier = supplierService.findSupplier(id);
+            supplier.removeEvaluation(evaluation);
+            newSupplier.addEvaluation(evaluation);
+            evaluation.setSupplier(newSupplier);
+            return true;
+        }
+        return false;
     }
 }
