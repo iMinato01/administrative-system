@@ -2,11 +2,11 @@ package com.gg.administrative_system_backend.contract;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
-
+@Repository
 public interface ContractRepository extends JpaRepository<Contract, Long> {
     List<Contract> findByNameContainingIgnoreCase(String name);
     List<Contract> findByTotalExpenses(BigDecimal totalExpenses);
