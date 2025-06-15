@@ -1,11 +1,13 @@
 package com.gg.administrative_system_backend.evaluation;
 
 import com.gg.administrative_system_backend.exception.EntityNotFoundException;
+import com.gg.administrative_system_backend.message.EvaluationMessage;
 import com.gg.administrative_system_backend.message.SupplierMessage;
 import com.gg.administrative_system_backend.supplier.Supplier;
 import com.gg.administrative_system_backend.supplier.SupplierRepository;
 import com.gg.administrative_system_backend.supplier.SupplierService;
 import com.gg.administrative_system_backend.util.RegexPatterns;
+import com.gg.administrative_system_backend.util.UpdateProperty;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EvaluationService {
     private final EvaluationRepository evaluationRepository;
-    private final SupplierRepository supplierRepository;
+    private final UpdateProperty updateProperty;
     private final SupplierService supplierService;
     @Transactional
     public Evaluation saveEvaluation(Long id, LocalDate evaluationDate, LocalDate nextEvaluation, List<Integer> information,
@@ -34,13 +36,19 @@ public class EvaluationService {
                 .build());
     }
     @Transactional
-    /*
-    * Actualización de las propiedades básicas, así como las de la relación a partir del ID
-    * */
-    public Evaluation updateEvaluation(){
-        //Caso propiedades base
-        //Caso relación
-        return null;
+    public Evaluation updateEvaluation(Long id, Long supplierId, LocalDate evaluationDate, LocalDate nextEvaluation,
+                                       List<Integer> informationScores, List<Integer> generalScores, List<Integer> deliveryScores,
+                                       List<Integer> qualityScores){
+        Evaluation evaluation = findEvaluation(id);
+        Supplier supplier = supplierService.findSupplier(supplierId);
+        updateProperty.updateIfChanged(evaluation::getSupplier, supplier, evaluation::setSupplier);
+        updateProperty.updateIfChanged(evaluation::getEvaluationDate, evaluationDate, evaluation::setEvaluationDate);
+        updateProperty.updateIfChanged(evaluation::getNextEvaluation, nextEvaluation, evaluation::setNextEvaluation);
+        updateProperty.updateIfChanged(evaluation::getInformationScores, informationScores, evaluation::setInformationScores);
+        updateProperty.updateIfChanged(evaluation::getGeneralScores, generalScores, evaluation::setGeneralScores);
+        updateProperty.updateIfChanged(evaluation::getDeliveryScores, deliveryScores, evaluation::setDeliveryScores);
+        updateProperty.updateIfChanged(evaluation::getQualityScores, qualityScores, evaluation::setQualityScores);
+        return evaluation;
     }
 
     public List<Evaluation> findByValue(String value){
