@@ -3,6 +3,8 @@ package com.gg.administrative_system_backend.util;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 @Component
@@ -12,5 +14,8 @@ public class ValidationUtils {
       if(validation.test(value)){
           throw exception.get();
       }
+  }
+  public <T, ID> T findEntity(ID id, Function<ID, Optional<T>> finder, Supplier<? extends RuntimeException> exception){
+      return finder.apply(id).orElseThrow(exception);
   }
 }
