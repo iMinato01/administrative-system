@@ -6,6 +6,8 @@ import com.gg.administrative_system_backend.exception.ValueRequiredException;
 import com.gg.administrative_system_backend.message.ContractMessage;
 import com.gg.administrative_system_backend.message.SupplierMessage;
 import com.gg.administrative_system_backend.util.RegexPatterns;
+import com.gg.administrative_system_backend.util.UpdateProperty;
+import com.gg.administrative_system_backend.util.ValidationUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +18,11 @@ import java.util.List;
 @AllArgsConstructor
 public class SupplierService {
     private final SupplierRepository supplierRepository;
+    private final UpdateProperty updateProperty;
+    private final ValidationUtils validationUtils;
     @Transactional
     public Supplier saveSupplier(String name, String rfc, String email, String phoneNumber, String services){
-        validateName(name, ()-> new PropertyAlreadyInUseException(SupplierMessage.NAME_ALREADY_IN_USE.format(name)));
-        validateRfc(rfc, () -> new PropertyAlreadyInUseException(SupplierMessage.RFC_ALREADY_IN_USE.format(rfc)));
+        validationUtils.validateIfExists(name, supplierRepository::existsByName, ()-> new PropertyAlreadyInUseException(SupplierMessage.NAME_ALREADY_IN_USE.format(name)));
         return supplierRepository.save(Supplier.builder()
                 .name(name)
                 .rfc(rfc)
@@ -28,14 +31,15 @@ public class SupplierService {
                 .services(services)
                 .build());
     }
-    // --> Pendiente por refactorizar para actualizaciones parciales
     @Transactional
     public Supplier updateSupplier(Long id, String name, Boolean status, String rfc, String email, String phoneNumber, String services){
-        Supplier supplier = findSupplier(id);
-        if(nameChanged(supplier, name) || statusChanged(supplier, status)|| rfcChanged(supplier, rfc) || emailChanged(supplier, email) ||
-                phoneNumberChanged(supplier, phoneNumber) || servicesChanged(supplier, services)) {
-            supplierRepository.save(supplier);
-        }
+        Supplier supplier = validationUtils.findEntity(id, supplierRepository::findById, () -> new EntityNotFoundException(SupplierMessage.SUPPLIER_NOT_FOUND.format(id)));
+        updateProperty.updateIfChanged(supplier::getName, name, supplier::setName, supplierRepository::existsByName, () -> new PropertyAlreadyInUseException(SupplierMessage.NAME_ALREADY_IN_USE.format(name)));
+        updateProperty.updateIfChanged(supplier::isStatus, status, supplier::setStatus);
+        updateProperty.updateIfChanged(supplier::getRfc, rfc, supplier::setRfc, supplierRepository::existsByRfc, ()-> new PropertyAlreadyInUseException(SupplierMessage.RFC_ALREADY_IN_USE.format(rfc)));
+        updateProperty.updateIfChanged(supplier::getEmail, email, supplier::setEmail);
+        updateProperty.updateIfChanged(supplier::getPhoneNumber, phoneNumber, supplier::setPhoneNumber);
+        updateProperty.updateIfChanged(supplier::getServices, services, supplier::setServices);
         return supplier;
     }
     public List<Supplier> findByValue(String value){
@@ -46,43 +50,5 @@ public class SupplierService {
     }
     public Supplier findSupplier(Long id){
         return supplierRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(SupplierMessage.SUPPLIER_NOT_FOUND.format(id)));
-    }
-    private boolean nameChanged(Supplier supplier, String name){
-        if(!supplier.getName().equals(name)){
-            validateName(name, ()-> new PropertyAlreadyInUseException(SupplierMessage.NAME_ALREADY_IN_USE.format(name)));
-            supplier.setName(name);
-            return true;
-        }
-        return false;
-    }
-    private boolean statusChanged(Supplier supplier, Boolean status){
-        return supplier.isStatus() != status;
-    }
-    private boolean rfcChanged(Supplier supplier, String rfc){
-        if(!supplier.getRfc().equals(rfc)){
-            validateRfc(rfc, ()-> new PropertyAlreadyInUseException(SupplierMessage.RFC_ALREADY_IN_USE.format(rfc)));
-            supplier.setRfc(rfc);
-            return true;
-        }
-        return false;
-    }
-    public boolean emailChanged(Supplier supplier, String email){
-        return !supplier.getEmail().equals(email);
-    }
-    public boolean phoneNumberChanged(Supplier supplier, String phoneNumber){
-        return !supplier.getPhoneNumber().equals(phoneNumber);
-    }
-    public boolean servicesChanged(Supplier supplier, String services){
-        return !supplier.getServices().equals(services);
-    }
-    private void validateName(String name, java.util.function.Supplier<? extends RuntimeException> exception){
-        if(supplierRepository.existsByName(name)){
-            throw exception.get();
-        }
-    }
-    private void validateRfc(String rfc, java.util.function.Supplier<? extends RuntimeException> exception){
-        if(supplierRepository.existsByRfc(rfc)){
-            throw exception.get();
-        }
     }
 }
