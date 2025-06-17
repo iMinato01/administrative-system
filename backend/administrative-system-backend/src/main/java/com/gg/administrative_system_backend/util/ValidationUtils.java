@@ -15,7 +15,4 @@ public class ValidationUtils {
           throw exception.get();
       }
   }
-  public <T, ID> T findEntity(ID id, Function<ID, Optional<T>> finder, Supplier<? extends RuntimeException> exception){
-      return finder.apply(id).orElseThrow(exception);
-  }
 }

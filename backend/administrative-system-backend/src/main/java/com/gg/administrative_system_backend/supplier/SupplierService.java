@@ -33,7 +33,7 @@ public class SupplierService {
     }
     @Transactional
     public Supplier updateSupplier(Long id, String name, Boolean status, String rfc, String email, String phoneNumber, String services){
-        Supplier supplier = validationUtils.findEntity(id, supplierRepository::findById, () -> new EntityNotFoundException(SupplierMessage.SUPPLIER_NOT_FOUND.format(id)));
+        Supplier supplier = findSupplier(id);
         updateProperty.updateIfChanged(supplier::getName, name, supplier::setName, supplierRepository::existsByName, () -> new PropertyAlreadyInUseException(SupplierMessage.NAME_ALREADY_IN_USE.format(name)));
         updateProperty.updateIfChanged(supplier::isStatus, status, supplier::setStatus);
         updateProperty.updateIfChanged(supplier::getRfc, rfc, supplier::setRfc, supplierRepository::existsByRfc, ()-> new PropertyAlreadyInUseException(SupplierMessage.RFC_ALREADY_IN_USE.format(rfc)));
