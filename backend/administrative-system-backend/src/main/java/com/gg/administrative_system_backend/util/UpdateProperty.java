@@ -10,10 +10,12 @@ import java.util.function.Supplier;
 @Component
 @NoArgsConstructor
 public class UpdateProperty {
-    public <T> void updateIfChanged(Supplier<T> getter, T newValue, Consumer<T> setter){
+    public <T> boolean updateIfChanged(Supplier<T> getter, T newValue, Consumer<T> setter){
         if(newValue != null && !Objects.equals(getter.get(), newValue)){
             setter.accept(newValue);
+            return true;
         }
+        return false;
     }
     public <T> void updateIfChanged(Supplier<T> getter, T newValue, Consumer<T> setter, Predicate<T> validation, Supplier<? extends RuntimeException> exception){
             if(newValue != null && !Objects.equals(getter.get(), newValue)){
