@@ -29,11 +29,4 @@ public class Supplier {
     @JsonManagedReference
     @Builder.Default
     private List<Evaluation> evaluations = new ArrayList<>();
-
-    public void addEvaluation(Evaluation evaluation){
-        this.evaluations.add(evaluation);
-    }
-    public void removeEvaluation(Evaluation evaluation){
-        this.evaluations.remove(evaluation);
-    }
 }
