@@ -1,0 +1,373 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="evaluation_report" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2450889e-8112-4d69-9322-92a39672a95e">
+	<query language="sql"><![CDATA[]]></query>
+	<field name="name" class="java.lang.String"/>
+	<field name="phoneNumber" class="java.lang.String"/>
+	<field name="rfc" class="java.lang.String"/>
+	<field name="services" class="java.lang.String"/>
+	<field name="evaluationDate" class="java.util.Date"/>
+	<field name="nextEvaluation" class="java.util.Date"/>
+	<field name="info1" class="java.lang.Integer"/>
+	<field name="info2" class="java.lang.Integer"/>
+	<field name="info3" class="java.lang.Integer"/>
+	<field name="info4" class="java.lang.Integer"/>
+	<field name="infoTotal1" class="java.lang.Integer"/>
+	<field name="infoTotal2" class="java.lang.String"/>
+	<variable name="INFO_RESULT" class="java.lang.String"/>
+	<variable name="INFO_TOTAL1" class="java.lang.Integer">
+		<expression><![CDATA[	$F{info1} + $F{info2} + $F{info3} + $F{info4}]]></expression>
+	</variable>
+	<variable name="INFO_TOTAL2" class="java.lang.Integer">
+		<expression><![CDATA[($V{INFO_TOTAL1} / 16) * 100]]></expression>
+	</variable>
+	<background splitType="Stretch"/>
+	<title height="78" splitType="Stretch">
+		<element kind="frame" uuid="0cd608af-bdbf-40ed-9f1a-df07df754727" mode="Opaque" x="0" y="0" width="560" height="72" backcolor="#006699">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<element kind="staticText" uuid="2a100950-6dca-4e51-a6fa-5e920a103182" mode="Transparent" x="107" y="12" width="450" height="50" forecolor="#FFFFFF" fontSize="18.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[TITTLE]]></text>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			</element>
+			<box>
+				<pen lineWidth="2.0"/>
+			</box>
+		</element>
+	</title>
+	<pageHeader height="130" splitType="Stretch">
+		<element kind="frame" uuid="9efa4109-629a-4568-bf87-aa81c91e6510" x="0" y="0" width="560" height="130">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<element kind="staticText" uuid="9f6834b3-dd76-49ad-9a1a-d87d161a0da9" x="12" y="8" width="160" height="30" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Razón Social:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="8c4817a1-2fc9-4b56-870f-8d38619e1be7" x="172" y="8" width="220" height="30" linkType="None" linkTarget="Self" vTextAlign="Middle">
+				<expression><![CDATA[$F{name}]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="staticText" uuid="cfbf4b27-d8e8-48a8-ab5c-a7658c6bc003" x="392" y="8" width="88" height="30" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Fecha de Control:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="695646ff-945b-4b74-ba04-4f846052e2ba" x="483" y="9" width="75" height="30" vTextAlign="Middle">
+				<expression><![CDATA[$F{evaluationDate}]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="da32d255-e8b7-4234-a39f-19f1d5b1fa3b" x="481" y="39" width="75" height="30" vTextAlign="Middle">
+				<expression><![CDATA[$F{nextEvaluation}]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="staticText" uuid="205f3b09-8170-4240-9d15-eafe55a44d21" x="392" y="37" width="88" height="30" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Próximo Control:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="3aed4344-1e32-44d9-ae07-74ea7df43446" x="172" y="38" width="220" height="30" vTextAlign="Middle">
+				<expression><![CDATA[$F{phoneNumber}]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="2bc21ca2-d595-410f-8b45-acef29d95b9b" x="172" y="69" width="210" height="30" vTextAlign="Middle">
+				<expression><![CDATA[$F{rfc}]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="e59259b0-51ff-4910-b389-a7bc6aa525a1" x="172" y="98" width="307" height="30" vTextAlign="Middle">
+				<expression><![CDATA[$F{services}]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="staticText" uuid="5ce36e64-8d30-4a3d-a30a-971c3ed3cea2" x="12" y="100" width="160" height="30" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Servicio]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="staticText" uuid="d36421e1-4716-4d7b-b314-8009cf5f1727" x="12" y="69" width="160" height="30" bold="true" vTextAlign="Middle">
+				<text><![CDATA[RFC:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="staticText" uuid="23aa4753-9f86-48bc-9893-087e9f9f422a" x="12" y="38" width="160" height="30" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Contacto:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="line" uuid="a316563b-f81b-44b3-8f1f-282d0f676ebc" x="172" y="98" width="210" height="1">
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="line" uuid="2f538dd6-37f0-496b-8213-ddb355654a95" x="172" y="69" width="210" height="1">
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="line" uuid="6d7a6ea8-ac73-4dc4-99dd-43ad7c8adc90" x="172" y="38" width="210" height="1">
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="line" uuid="48adbe56-308e-42e6-b792-ee813498a1d2" x="482" y="38" width="75" height="1">
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="line" uuid="361e24cc-4095-4123-aa26-4c4972b1aa72" x="482" y="66" width="75" height="1">
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="staticText" uuid="e6056c27-4d70-4e5b-a672-1ff74ed1bd01" x="501" y="99" width="50" height="30" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Calif.]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<box>
+				<pen lineWidth="2.0"/>
+			</box>
+		</element>
+	</pageHeader>
+	<columnHeader height="10">
+		<element kind="staticText" uuid="fd99cedd-67b7-41ff-be17-7c92a5725325" mode="Transparent" x="20" y="2" width="39" height="8" forecolor="#FFFFFF">
+			<text><![CDATA[Label]]></text>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="542" splitType="Stretch">
+			<element kind="frame" uuid="90d880af-3c05-4f4b-819e-54497acd66e1" x="0" y="0" width="570" height="170">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<element kind="frame" uuid="83176251-70b5-4cb5-92e7-1e1e5a95ae0c" x="0" y="0" width="503" height="40">
+					<element kind="staticText" uuid="a85412dc-cbd9-472f-98bc-4c7af8101b3d" x="5" y="1" width="295" height="38" bold="false" vTextAlign="Middle">
+						<text><![CDATA[1. Solicitud de alta del proveedor (Formato expedido por E&C).]]></text>
+						<box>
+							<pen lineWidth="0.0"/>
+						</box>
+					</element>
+					<box>
+						<pen lineWidth="1.25"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="d68075b1-c92b-43be-9080-c79b4e42e5ce" x="503" y="0" width="58" height="40">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<element kind="textField" uuid="18410be5-96fa-48f6-bd77-3e963c732fee" x="6" y="5" width="48" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA[$F{info1}]]></expression>
+					</element>
+					<box>
+						<pen lineWidth="1.25"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="3ef29926-9cfb-4808-a206-139582be6717" x="0" y="40" width="503" height="40">
+					<element kind="staticText" uuid="7bb8389a-17b9-4537-a106-5cbfa198edbb" x="5" y="-1" width="295" height="38" bold="false" vTextAlign="Middle">
+						<text><![CDATA[2. Registro Federal de Contribuyentes (Cedula Fiscal).]]></text>
+						<box>
+							<pen lineWidth="0.0"/>
+						</box>
+					</element>
+					<box>
+						<pen lineWidth="1.25"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="51123321-0e49-4cac-836d-d9d3e9d5ae0a" x="503" y="40" width="58" height="40">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<element kind="textField" uuid="46c049ce-33cb-4fe1-ada5-81394c60f7a8" x="7" y="6" width="46" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA[$F{info2}]]></expression>
+					</element>
+					<box>
+						<pen lineWidth="1.25"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="03a68988-8462-45f1-bca8-a7827c23d3bf" x="0" y="80" width="503" height="40">
+					<element kind="staticText" uuid="126ef0c2-3a28-4249-a7ec-e33fc5ab68ae" x="5" y="0" width="294" height="38" bold="false" vTextAlign="Middle">
+						<text><![CDATA[3. Curriculum o Catalogo de Productos y Servicios. ]]></text>
+						<box>
+							<pen lineWidth="0.0"/>
+						</box>
+					</element>
+					<box>
+						<pen lineWidth="1.25"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="851530a8-57ca-4b9d-9aef-2ac43b01deba" x="503" y="80" width="58" height="40">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<element kind="textField" uuid="9eacbd97-c3a6-4d07-92b3-dcd16f9b45cc" x="9" y="6" width="44" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA[$F{info3}]]></expression>
+					</element>
+					<box>
+						<pen lineWidth="1.25"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="5430c805-7605-4ca8-a1a8-43a65f04ff3c" x="0" y="120" width="503" height="40">
+					<element kind="staticText" uuid="06dbe98e-3d93-4797-9cfa-09fbad6d9945" x="5" y="1" width="295" height="38" bold="false" vTextAlign="Middle">
+						<text><![CDATA[1. Carta de cuenta bancaria validad por el Banco.]]></text>
+						<box>
+							<pen lineWidth="0.0"/>
+						</box>
+					</element>
+					<box>
+						<pen lineWidth="1.25"/>
+					</box>
+				</element>
+				<element kind="frame" uuid="ccb5974f-b437-40a0-993d-3be06b8a4061" x="503" y="120" width="58" height="40">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<element kind="textField" uuid="33603948-b96c-477d-b1ed-31e6552a3236" x="7" y="6" width="46" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA[$F{info4}]]></expression>
+					</element>
+					<box>
+						<pen lineWidth="1.25"/>
+					</box>
+				</element>
+				<box>
+					<pen lineWidth="0.0"/>
+				</box>
+			</element>
+			<element kind="frame" uuid="000209cc-eac1-48da-a97a-ca1a6e6ed43c" x="0" y="170" width="560" height="230">
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<element kind="staticText" uuid="99c07861-bcba-4d65-883a-f7c9d972a73d" x="9" y="11" width="541" height="95" bold="true">
+					<text><![CDATA[SISTEMA DE PUNTUACIÓN
+4]]></text>
+				</element>
+				<element kind="frame" uuid="9ac87fe3-6963-4fb0-aa3f-687febfeab79" x="192" y="31" width="340" height="69">
+					<element kind="staticText" uuid="26608d44-4477-48a2-b265-bfc799d749e3" x="0" y="0" width="50" height="20" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[NA]]></text>
+					</element>
+					<element kind="staticText" uuid="db9aaec2-3607-4cfa-9066-e36c35e81072" x="50" y="0" width="102" height="20" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[No plicable]]></text>
+					</element>
+					<element kind="staticText" uuid="89188e90-4619-40d9-9164-c3068205f592" x="152" y="0" width="50" height="20" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[2]]></text>
+					</element>
+					<element kind="staticText" uuid="840f770b-799f-4d1a-8719-071d0e97386d" x="202" y="0" width="112" height="20" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[Cumple parcialmente]]></text>
+					</element>
+					<element kind="staticText" uuid="0017e30d-349b-4521-8588-7effd65efd6d" x="0" y="20" width="50" height="20" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[0]]></text>
+					</element>
+					<element kind="staticText" uuid="46690870-f164-46ea-8f51-02f28dab0631" x="50" y="20" width="102" height="20" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[No cumple]]></text>
+					</element>
+					<element kind="staticText" uuid="07e3c0ff-062b-4135-9495-bed1283769d8" x="152" y="20" width="50" height="20" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[3]]></text>
+					</element>
+					<element kind="staticText" uuid="e566b750-657e-4fb8-92bf-187967628d1a" x="202" y="20" width="112" height="20" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[Cumple plenamente]]></text>
+					</element>
+					<element kind="staticText" uuid="57116270-84f5-43db-a8a3-2af9c38fec34" x="0" y="40" width="50" height="20" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[1]]></text>
+					</element>
+					<element kind="staticText" uuid="83a49f4b-7e32-458b-bde6-d60e46596434" x="50" y="40" width="102" height="20" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[Cumple mínimamente]]></text>
+					</element>
+					<element kind="staticText" uuid="c6be189c-233a-4293-b77d-24cb39967bdd" x="152" y="40" width="50" height="20" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[4]]></text>
+					</element>
+					<element kind="staticText" uuid="8ba4f868-121d-4e34-9940-3981e337b9ed" x="202" y="40" width="112" height="20" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[Supera las espectativas]]></text>
+					</element>
+				</element>
+				<element kind="staticText" uuid="983ad5db-ed9f-4ede-ac65-e7726a5d39ea" x="9" y="111" width="541" height="114" bold="true">
+					<text><![CDATA[SISTEMA DE CALIDAD DEL PROVEEDOR]]></text>
+				</element>
+				<element kind="frame" uuid="842a8478-ebd9-413a-8639-a8c7dfc051f7" x="231" y="116" width="318" height="80">
+					<element kind="line" uuid="7cd68941-dd98-4785-9e5e-f7184360a071" x="11" y="26" width="190" height="1">
+						<pen lineWidth="0.9" lineStyle="Dotted"/>
+					</element>
+					<element kind="staticText" uuid="a285fc37-e874-4f30-abe5-9ac232f11817" x="11" y="8" width="228" height="42">
+						<text><![CDATA[TOTAL DE PUNTOS OBTENIDOS
+
+TOTAL DE PUNTOS POSIBLES	( 16 )]]></text>
+					</element>
+					<element kind="textField" uuid="6a80cbc8-0546-4776-9a97-5d1e54bc58c9" x="170" y="8" width="30" height="30">
+						<expression><![CDATA[$V{INFO_TOTAL1}]]></expression>
+					</element>
+					<element kind="staticText" uuid="4141fa05-b3cf-4470-84ef-05db963b9a20" x="201" y="11" width="56" height="30" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[X 100 = ]]></text>
+					</element>
+					<element kind="textField" uuid="5f09dfee-6378-4a95-9d91-648a14857ee0" x="257" y="6" width="44" height="40" backcolor="#ABABAB" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA[$V{INFO_TOTAL2}]]></expression>
+						<box>
+							<pen lineWidth="2.0"/>
+						</box>
+					</element>
+					<element kind="staticText" uuid="7fb700bb-f4bc-4321-8133-782d5807d146" x="11" y="50" width="178" height="30" fontSize="7.0" hTextAlign="Left" vTextAlign="Middle">
+						<text><![CDATA[CANTIDAD DE PREGUNTAS APLICABLES   (  4  )]]></text>
+					</element>
+				</element>
+				<element kind="frame" uuid="517eba20-f20d-4423-bab1-52aba8b1f62b" x="13" y="161" width="200" height="54">
+					<element kind="staticText" uuid="122e488b-8aa7-4b98-9443-733e5c30a0ff" mode="Opaque" x="0" y="0" width="100" height="18" backcolor="#07FC03" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[EXCELENTE]]></text>
+						<box>
+							<pen lineWidth="1.5"/>
+						</box>
+					</element>
+					<element kind="staticText" uuid="622bc9bc-765b-4409-a36f-f38bd06b7869" mode="Opaque" x="0" y="18" width="100" height="18" backcolor="#0095FF" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[ACEPTABLE]]></text>
+						<box>
+							<pen lineWidth="1.5"/>
+						</box>
+					</element>
+					<element kind="staticText" uuid="c1b63caa-ca0d-4c0f-9c13-b39138350373" mode="Opaque" x="0" y="36" width="100" height="18" backcolor="#FF0703" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[DEFICIENTE]]></text>
+						<box>
+							<pen lineWidth="1.5"/>
+						</box>
+					</element>
+					<element kind="staticText" uuid="c662c45f-2be3-4f56-8eb2-ec9aac1e4ec1" mode="Transparent" x="100" y="0" width="100" height="18" backcolor="#07FC03" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[96 - 100]]></text>
+						<box>
+							<pen lineWidth="1.5"/>
+						</box>
+					</element>
+					<element kind="staticText" uuid="f05f551f-af75-4461-8a3d-1f1621db3166" mode="Transparent" x="100" y="18" width="100" height="18" backcolor="#07FC03" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[60 - 95.9]]></text>
+						<box>
+							<pen lineWidth="1.5"/>
+						</box>
+					</element>
+					<element kind="staticText" uuid="00f65beb-21c8-4bfe-a537-3e552e22e224" mode="Transparent" x="100" y="36" width="100" height="18" backcolor="#07FC03" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[0 - 59.9]]></text>
+						<box>
+							<pen lineWidth="1.5"/>
+						</box>
+					</element>
+				</element>
+				<element kind="frame" uuid="301c7634-ba90-486b-8dd6-d5e56cfa2f2d" x="241" y="198" width="219" height="24">
+					<element kind="staticText" uuid="850e0020-1bb0-4ad0-bc6d-fbf040300b6b" mode="Opaque" x="0" y="-1" width="100" height="18" backcolor="#D9D9D9" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<text><![CDATA[CALIFICACIÓN]]></text>
+						<box>
+							<pen lineWidth="1.5"/>
+						</box>
+					</element>
+					<element kind="textField" uuid="ded41bc9-82d1-46c9-8453-6741fc646a5f" mode="Opaque" x="99" y="-1" width="120" height="18" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA[$V{INFO_RESULT}]]></expression>
+						<box>
+							<pen lineWidth="2.0"/>
+						</box>
+					</element>
+				</element>
+				<box>
+					<pen lineWidth="2.0"/>
+				</box>
+			</element>
+			<element kind="frame" uuid="1b556f44-9288-4311-9646-08e28845ddcd" x="0" y="409" width="561" height="108">
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				<element kind="staticText" uuid="bc961f66-ea8c-4f0e-ba44-d46f227ce340" x="8" y="11" width="222" height="19" bold="true">
+					<text><![CDATA[RESPONSABLES POR LA EVALUACION:]]></text>
+				</element>
+				<element kind="staticText" uuid="76e7e56f-575f-4ed5-9138-6a5c702a84b5" x="10" y="36" width="100" height="76">
+					<text><![CDATA[1. Lic. Name
+
+2.
+ 
+3.]]></text>
+				</element>
+				<element kind="line" uuid="f69eba52-104e-4d82-b1e7-3d5ff290fe29" x="300" y="75" width="197" height="1"/>
+				<element kind="staticText" uuid="b9e2c2e6-657d-4fb7-9de6-4ee80bee87f9" x="300" y="40" width="220" height="68" fontSize="13.0" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Encargado de Compras
+Responsable]]></text>
+				</element>
+				<box>
+					<pen lineWidth="2.0"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="0b7e5be9-f36d-4f57-9f27-1829cea55a27" x="280" y="524" width="60" height="15" forecolor="#FFFFFF">
+				<expression><![CDATA["DetailField"]]></expression>
+			</element>
+		</band>
+	</detail>
+</jasperReport>

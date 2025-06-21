@@ -63,7 +63,7 @@ public class EvaluationService {
         }
             return evaluationRepository.findBySupplierName(value);
     }
-    private Evaluation findEvaluation(Long id){
+    public Evaluation findEvaluation(Long id){
         return evaluationRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(EvaluationMessage.EVALUATION_NOT_FOUND.format(id)));
     }
     private void updateSupplierIfChanged(Evaluation evaluation, Supplier supplier){
