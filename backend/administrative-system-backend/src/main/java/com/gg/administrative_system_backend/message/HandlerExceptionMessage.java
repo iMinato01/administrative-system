@@ -11,7 +11,6 @@ public enum HandlerExceptionMessage {
     NO_HANDLER_EXCEPTION("La URL no existe o fue mal escrita"),
     MISSING_BODY_EXCEPTION("El cuerpo de la petición está incompleto o no cumple las validaciones"),
     NUMBER_FORMAT_EXCEPTION("Error al convertir el valor -> %s");
-
     private final String message;
     public String format(Object... args){
         return String.format(message, args);

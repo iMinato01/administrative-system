@@ -19,20 +19,26 @@ public class EvaluationController {
     public ResponseEntity<ApiResponse<List<Evaluation>>> filterAll(){
         return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), evaluationRepository.findAll()));
     }
-    @GetMapping("/search/bySupplier")
+    @GetMapping("/search/id")
     public ResponseEntity<ApiResponse<List<Evaluation>>> filterBySupplier(@RequestParam Long id){
         return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), evaluationRepository.findBySupplierId(id)));
 
     }
-    @GetMapping("/search/byValue")
+    @GetMapping("/search/value")
     public ResponseEntity<ApiResponse<List<Evaluation>>> filterByValue(@RequestParam String value){
         return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), evaluationService.findByValue(value)));
     }
     @PostMapping
     public ResponseEntity<ApiResponse<?>> saveEvaluation(@RequestBody @Valid CreateEvaluationDTO createEvaluationDTO){
-        Evaluation evaluation = evaluationService.saveEvaluation(createEvaluationDTO.getSupplierId(), createEvaluationDTO.getEvaluationDate(),
+        return ResponseEntity.status(201).body(ApiResponse.of(HttpStatus.CREATED.value(), HttpStatus.CREATED.getReasonPhrase(),
+                evaluationService.saveEvaluation(createEvaluationDTO.getSupplierId(), createEvaluationDTO.getEvaluationDate(),
                 createEvaluationDTO.getNextEvaluation(), createEvaluationDTO.getInformationScores(), createEvaluationDTO.getGeneralScores(),
-                createEvaluationDTO.getDeliveryScores(), createEvaluationDTO.getQualityScores());
-        return ResponseEntity.status(201).body(ApiResponse.of(HttpStatus.CREATED.value(), HttpStatus.CREATED.getReasonPhrase(), evaluation));
+                createEvaluationDTO.getDeliveryScores(), createEvaluationDTO.getQualityScores())));
+    }
+    @PutMapping("/{id}")
+    ResponseEntity<ApiResponse<?>> updateEvaluation(@RequestBody UpdateEvaluationDTO updateEvaluationDTO, @PathVariable Long id){
+        return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), evaluationService.updateEvaluation(id, updateEvaluationDTO.getSupplierId(),
+                updateEvaluationDTO.getEvaluationDate(), updateEvaluationDTO.getNextEvaluation(), updateEvaluationDTO.getInformationScores(),
+                updateEvaluationDTO.getGeneralScores(), updateEvaluationDTO.getDeliveryScores(), updateEvaluationDTO.getQualityScores())));
     }
 }

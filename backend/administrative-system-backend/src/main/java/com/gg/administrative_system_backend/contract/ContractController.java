@@ -34,7 +34,7 @@ public class ContractController {
             return ResponseEntity.status(201).body(ApiResponse.of(201, ContractMessage.CREATED_SUCCESS.format(createContractDTO.getName()), contract));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateContract(@RequestBody @Valid UpdateContractDTO updateContractDTO, @PathVariable long id){
+    public ResponseEntity<?> updateContract(@RequestBody UpdateContractDTO updateContractDTO, @PathVariable Long id){
         return ResponseEntity.status(200).body(ApiResponse.of(200, ContractMessage.UPDATED_SUCCESS.format(updateContractDTO.getName()), contractService.updateContract(id, updateContractDTO.getName(), updateContractDTO.getStatus(), updateContractDTO.getTotalExpenses())));
     }
 }

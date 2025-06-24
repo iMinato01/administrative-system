@@ -41,4 +41,10 @@ public class Evaluation {
     @CollectionTable(name = "evaluation_quality_score", joinColumns = @JoinColumn(name = "evaluation_id"))
     @Column(name = "score")
     private List<Integer> qualityScores = new ArrayList<>(); // Almacenará 2 valores, del 0-4 (puntuaciones)
+    public String evaluationDateToString(){
+        return String.valueOf(this.evaluationDate);
+    }
+    public String nextEvaluationToString(){
+        return this.nextEvaluation.toString();
+    }
 }

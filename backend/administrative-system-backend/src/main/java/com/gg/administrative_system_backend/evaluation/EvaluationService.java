@@ -40,8 +40,7 @@ public class EvaluationService {
                                        List<Integer> informationScores, List<Integer> generalScores, List<Integer> deliveryScores,
                                        List<Integer> qualityScores){
         Evaluation evaluation = findEvaluation(id);
-        Supplier supplier = supplierService.findSupplier(supplierId);
-        updateSupplierIfChanged(evaluation, supplier);
+        updateSupplierIfChanged(evaluation, supplierId);
         updateProperty.updateIfChanged(evaluation::getEvaluationDate, evaluationDate, evaluation::setEvaluationDate);
         updateProperty.updateIfChanged(evaluation::getNextEvaluation, nextEvaluation, evaluation::setNextEvaluation);
         updateProperty.updateIfChanged(evaluation::getInformationScores, informationScores, evaluation::setInformationScores);
@@ -66,12 +65,15 @@ public class EvaluationService {
     public Evaluation findEvaluation(Long id){
         return evaluationRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(EvaluationMessage.EVALUATION_NOT_FOUND.format(id)));
     }
-    private void updateSupplierIfChanged(Evaluation evaluation, Supplier supplier){
-        Supplier currentSupplier = evaluation.getSupplier();
-        if(currentSupplier != null && !currentSupplier.equals(supplier)){
-            currentSupplier.getEvaluations().remove(evaluation);
-            evaluation.setSupplier(supplier);
-            supplier.getEvaluations().add(evaluation);
+    private void updateSupplierIfChanged(Evaluation evaluation, Long id){
+        if(id != null){
+            Supplier supplier = supplierService.findSupplier(id);
+            Supplier currentSupplier = evaluation.getSupplier();
+            if(currentSupplier != null && !currentSupplier.equals(supplier)){
+                currentSupplier.getEvaluations().remove(evaluation);
+                evaluation.setSupplier(supplier);
+                supplier.getEvaluations().add(evaluation);
+            }
         }
     }
 }
