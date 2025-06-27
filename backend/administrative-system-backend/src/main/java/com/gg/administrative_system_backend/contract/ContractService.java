@@ -31,7 +31,7 @@ public class ContractService {
     }
     @Transactional
     public Contract updateContract(long id, String name, boolean status, BigDecimal totalExpenses){
-        Contract contract = contractRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(ContractMessage.CONTRACT_NOT_FOUND.format(id)));
+        Contract contract = findContract(id);
         updateProperty.updateIfChanged(contract::getName, name, contract::setName, contractRepository::existsByName,()-> new PropertyAlreadyInUseException(ContractMessage.NAME_ALREADY_IN_USE.format(name)));
         updateProperty.updateIfChanged(contract::isStatus, status, contract::setStatus);
         updateProperty.updateIfChanged(contract::getTotalExpenses, totalExpenses, contract::setTotalExpenses);
@@ -49,5 +49,8 @@ public class ContractService {
         } else{
             return contractRepository.findByNameContainingIgnoreCase(value);
         }
+    }
+    public Contract findContract(Long id){
+        return contractRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(ContractMessage.CONTRACT_NOT_FOUND.format(id)));
     }
 }
