@@ -16,9 +16,8 @@ public class EvaluationReportController {
     private final EvaluationRepository evaluationRepository;
     @GetMapping("/report/{id}")
     public ResponseEntity<byte[]> getReport(@PathVariable Long id) throws Exception{
-        String name = evaluationRepository.findSupplierNameByEvaluationId(id).replaceAll("[^a-zA-Z]", "");
         return ResponseEntity.status(200)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;" + name + ".pdf")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; evaluation"+id+".pdf")
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(evaluationReportService.exportPdf(id));
     }
