@@ -4,8 +4,6 @@ import com.gg.administrative_system_backend.exception.*;
 import com.gg.administrative_system_backend.message.HandlerExceptionMessage;
 import com.gg.administrative_system_backend.util.RegexPatterns;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.coyote.Response;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -48,7 +46,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NumberFormatException.class)
     public ResponseEntity<ApiError> handleNumberFormat(NumberFormatException ex, HttpServletRequest request){
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                HandlerExceptionMessage.NUMBER_FORMAT_EXCEPTION.format(ex.getMessage().replaceAll(RegexPatterns.QUOTED_VALUE, "$1")), request.getRequestURI()));
+                HandlerExceptionMessage.NUMBER_FORMAT_EXCEPTION.format(ex.getMessage().replaceAll(RegexPatterns.DOUBLE_QUOTED_VALUE, "$1")), request.getRequestURI()));
+    }
+    @ExceptionHandler(NoSuchMethodException.class)
+    public ResponseEntity<ApiError> handMethodNotFound(NoSuchMethodException ex, HttpServletRequest request){
+        return ResponseEntity.status(409).body(ApiError.of(HttpStatus.CONFLICT.value(), HttpStatus.CONFLICT.getReasonPhrase(),
+                HandlerExceptionMessage.METHOD_NOT_FOUND.format(ex.getMessage().replaceAll(RegexPatterns.QUOTED_VALUE, "$1"),
+                        ex.getMessage().replaceAll(RegexPatterns.QUOTED_VALUE, "$2")), request.getRequestURI()));
     }
     @ExceptionHandler(EntityAlreadyExistsException.class)
     public ResponseEntity<ApiError> handleEntityAlreadyExists(EntityAlreadyExistsException ex, HttpServletRequest request){
