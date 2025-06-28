@@ -26,4 +26,12 @@ public class ReportHelper {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, new HashMap<>(), dataSource);
         return JasperExportManager.exportReportToPdf(jasperPrint);
     }
+    public <T> byte[] generatePdf(String reportPath, Map<String, Object> parameters, List<T> elements) throws Exception {
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(elements);
+        InputStream format = getClass().getResourceAsStream(reportPath);
+        //<-- Se compila en cada llamada por cambios continuos en los formatos, pendiente por optimizar -->
+        JasperReport jasperReport = JasperCompileManager.compileReport(format);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        return JasperExportManager.exportReportToPdf(jasperPrint);
+    }
 }
