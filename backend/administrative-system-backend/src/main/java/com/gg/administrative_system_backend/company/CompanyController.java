@@ -21,8 +21,15 @@ public class CompanyController {
     }
     @PostMapping
     public ResponseEntity<ApiResponse<Company>> saveCompany(@Valid @RequestBody CreateCompanyDTO createCompanyDTO){
-        return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), companyService.saveCompany(createCompanyDTO.getName(),
+        return ResponseEntity.status(201).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), companyService.saveCompany(createCompanyDTO.getName(),
                 createCompanyDTO.getRfc(), createCompanyDTO.getPhoneNumber(), createCompanyDTO.getState(), createCompanyDTO.getMunicipality(), createCompanyDTO.getLocality(),
                 createCompanyDTO.getPostalCode(), createCompanyDTO.getStreet(), createCompanyDTO.getInteriorNumber(), createCompanyDTO.getExteriorNumber())));
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<Company>> updateCompany(@Valid @RequestBody UpdateCompanyDTO updateCompanyDTO, @PathVariable Long id){
+        return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(),
+                companyService.updateCompany(id, updateCompanyDTO.getName(), updateCompanyDTO.getStatus(), updateCompanyDTO.getRfc(),
+                        updateCompanyDTO.getPhoneNumber(), updateCompanyDTO.getState(), updateCompanyDTO.getMunicipality(), updateCompanyDTO.getLocality(),
+                        updateCompanyDTO.getPostalCode(), updateCompanyDTO.getStreet(), updateCompanyDTO.getExteriorNumber(), updateCompanyDTO.getExteriorNumber())));
     }
 }
