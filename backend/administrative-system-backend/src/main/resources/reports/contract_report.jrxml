@@ -1,11 +1,20 @@
-<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
 <jasperReport name="contract-report" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1c8a4abd-a507-44b2-88e8-927811a5cab8">
+	<parameter name="NAME" class="java.lang.String"/>
+	<parameter name="RFC" class="java.lang.String"/>
+	<parameter name="PHONE_NUMBER" forPrompting="false" class="java.lang.String"/>
+	<parameter name="STREET" class="java.lang.String"/>
+	<parameter name="POSTAL_CODE" class="java.lang.String"/>
+	<parameter name="EXTERIOR_NUMBER" class="java.lang.String"/>
+	<parameter name="INTERIOR_NUMBER" class="java.lang.String"/>
+	<parameter name="LOCALITY" class="java.lang.String"/>
+	<parameter name="MUNICIPALITY" class="java.lang.String"/>
+	<parameter name="STATE" class="java.lang.String"/>
 	<query language="sql"><![CDATA[]]></query>
 	<field name="id" class="java.lang.Long"/>
 	<field name="name" class="java.lang.String"/>
 	<field name="status" class="java.lang.Boolean"/>
 	<field name="totalExpenses" class="java.math.BigDecimal"/>
-	<field name="companyName" class="java.lang.String"/>
 	<variable name="CONTRACT_STATUS" class="java.lang.String">
 		<expression><![CDATA[$F{status} ? "Activo":"Inactivo"]]></expression>
 	</variable>
@@ -15,8 +24,37 @@
 			<element kind="image" uuid="cf2b086b-abda-4573-a19d-2737bf032bc5" x="0" y="0" width="140" height="80" onErrorType="Icon">
 				<expression><![CDATA["report/img/company.png"]]></expression>
 			</element>
-			<element kind="textField" uuid="da9eb295-4b1e-4bcf-9774-62ce4dbdde9b" x="140" y="24" width="428" height="30" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-				<expression><![CDATA[$F{companyName}]]></expression>
+			<element kind="textField" uuid="da9eb295-4b1e-4bcf-9774-62ce4dbdde9b" x="140" y="1" width="455" height="30" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{NAME}]]></expression>
+			</element>
+			<element kind="staticText" uuid="2f3da150-c44d-4fdc-8777-b72afae1746c" x="140" y="31" width="60" height="20" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[RFC:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="cf30435e-4c33-4b14-869f-21c2d36526b4" x="200" y="31" width="114" height="20" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{RFC}]]></expression>
+			</element>
+			<element kind="staticText" uuid="3a40773e-a218-421a-b854-e932c751d3b6" x="335" y="31" width="60" height="20" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[Teléfono:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="4082cede-5a71-4136-9bad-88c50631126c" x="395" y="31" width="120" height="20" vTextAlign="Middle">
+				<expression><![CDATA[$P{PHONE_NUMBER}]]></expression>
+			</element>
+			<element kind="textField" uuid="bf4e3aaf-b5b9-4c5e-953a-c7632c1dd45e" x="200" y="51" width="350" height="29" bold="true" vTextAlign="Middle">
+				<expression><![CDATA["Calle " + $P{STREET}
++ ", No. " + (($P{EXTERIOR_NUMBER} == null) ? "SN" : $P{EXTERIOR_NUMBER})
++ ", Int. " + (($P{INTERIOR_NUMBER} == null) ? "SN" : $P{INTERIOR_NUMBER})
++ ", Colonia " + $P{LOCALITY}
++ ", \nCP: " + $P{POSTAL_CODE}
++ ", " + $P{MUNICIPALITY}
++ ", " + $P{STATE}
++ ", México"
+]]></expression>
+			</element>
+			<element kind="staticText" uuid="73c2899b-dc68-429a-b541-d98f70d26346" x="140" y="51" width="60" height="29" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[Domicilio:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
 		</element>
 	</title>
