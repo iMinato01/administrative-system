@@ -1,6 +1,6 @@
 package com.gg.administrative_system_backend.util;
 
-import com.gg.administrative_system_backend.company.Company;
+import com.gg.administrative_system_backend.company.entity.Company;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

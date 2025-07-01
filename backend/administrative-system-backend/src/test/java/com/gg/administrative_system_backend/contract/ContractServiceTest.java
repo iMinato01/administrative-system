@@ -1,5 +1,6 @@
 package com.gg.administrative_system_backend.contract;
 
+import com.gg.administrative_system_backend.contract.entity.Contract;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

@@ -1,17 +1,14 @@
 package com.gg.administrative_system_backend.evaluation.report;
 
-import com.gg.administrative_system_backend.evaluation.Evaluation;
-import com.gg.administrative_system_backend.evaluation.EvaluationService;
-import com.gg.administrative_system_backend.supplier.Supplier;
+import com.gg.administrative_system_backend.evaluation.entity.Evaluation;
+import com.gg.administrative_system_backend.evaluation.service.EvaluationService;
+import com.gg.administrative_system_backend.supplier.entity.Supplier;
 import com.gg.administrative_system_backend.util.ReportHelper;
 import com.gg.administrative_system_backend.util.ReportPaths;
 import lombok.AllArgsConstructor;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.springframework.stereotype.Service;
 
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -1,7 +1,8 @@
 package com.gg.administrative_system_backend.global;
 
 import com.gg.administrative_system_backend.exception.*;
-import com.gg.administrative_system_backend.message.HandlerExceptionMessage;
+import com.gg.administrative_system_backend.global.message.HandlerMessage;
+import com.gg.administrative_system_backend.response.error.ApiError;
 import com.gg.administrative_system_backend.util.RegexPatterns;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -26,32 +27,32 @@ public class GlobalExceptionHandler {
             errors.put(error.getField(), error.getDefaultMessage());
         });
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                HandlerExceptionMessage.VALIDATION_EXCEPTION.getMessage(), request.getRequestURI(), errors.values().stream().toList()));
+                HandlerMessage.VALIDATION_EXCEPTION.getMessage(), request.getRequestURI(), errors.values().stream().toList()));
     }
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<ApiError> handleIncompleteUrl(MissingServletRequestParameterException ex, HttpServletRequest request){
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                HandlerExceptionMessage.REQUEST_PARAMETER_EXCEPTION.format(ex.getParameterName(), ex.getParameterType()), request.getRequestURI()));
+                HandlerMessage.REQUEST_PARAMETER_EXCEPTION.format(ex.getParameterName(), ex.getParameterType()), request.getRequestURI()));
     }
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ApiError> handleNoHandlerFound(HttpServletRequest request){
         return ResponseEntity.status(404).body(ApiError.of(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
-                HandlerExceptionMessage.NO_HANDLER_EXCEPTION.getMessage(), request.getRequestURI()));
+                HandlerMessage.NO_HANDLER_EXCEPTION.getMessage(), request.getRequestURI()));
     }
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiError> handleMissingBody(HttpServletRequest request){
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                HandlerExceptionMessage.MISSING_BODY_EXCEPTION.getMessage(), request.getRequestURI()));
+                HandlerMessage.MISSING_BODY_EXCEPTION.getMessage(), request.getRequestURI()));
     }
     @ExceptionHandler(NumberFormatException.class)
     public ResponseEntity<ApiError> handleNumberFormat(NumberFormatException ex, HttpServletRequest request){
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                HandlerExceptionMessage.NUMBER_FORMAT_EXCEPTION.format(ex.getMessage().replaceAll(RegexPatterns.DOUBLE_QUOTED_VALUE, "$1")), request.getRequestURI()));
+                HandlerMessage.NUMBER_FORMAT_EXCEPTION.format(ex.getMessage().replaceAll(RegexPatterns.DOUBLE_QUOTED_VALUE, "$1")), request.getRequestURI()));
     }
     @ExceptionHandler(NoSuchMethodException.class)
     public ResponseEntity<ApiError> handMethodNotFound(NoSuchMethodException ex, HttpServletRequest request){
         return ResponseEntity.status(409).body(ApiError.of(HttpStatus.CONFLICT.value(), HttpStatus.CONFLICT.getReasonPhrase(),
-                HandlerExceptionMessage.METHOD_NOT_FOUND.format(ex.getMessage().replaceAll(RegexPatterns.QUOTED_VALUE, "$1"),
+                HandlerMessage.METHOD_NOT_FOUND.format(ex.getMessage().replaceAll(RegexPatterns.QUOTED_VALUE, "$1"),
                         ex.getMessage().replaceAll(RegexPatterns.QUOTED_VALUE, "$2")), request.getRequestURI()));
     }
     @ExceptionHandler(EntityAlreadyExistsException.class)

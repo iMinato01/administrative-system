@@ -1,8 +1,8 @@
 package com.gg.administrative_system_backend.contract.report;
 
-import com.gg.administrative_system_backend.company.Company;
-import com.gg.administrative_system_backend.company.CompanyService;
-import com.gg.administrative_system_backend.contract.ContractRepository;
+import com.gg.administrative_system_backend.company.entity.Company;
+import com.gg.administrative_system_backend.company.service.CompanyService;
+import com.gg.administrative_system_backend.contract.repository.ContractRepository;
 import com.gg.administrative_system_backend.util.ReportHelper;
 import com.gg.administrative_system_backend.util.ReportPaths;
 import com.gg.administrative_system_backend.util.ReportUtils;

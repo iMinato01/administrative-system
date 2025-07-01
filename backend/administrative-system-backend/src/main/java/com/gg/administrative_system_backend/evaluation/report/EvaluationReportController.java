@@ -1,7 +1,6 @@
 package com.gg.administrative_system_backend.evaluation.report;
 
-import com.gg.administrative_system_backend.evaluation.EvaluationRepository;
-import com.gg.administrative_system_backend.supplier.SupplierRepository;
+import com.gg.administrative_system_backend.evaluation.repository.EvaluationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
