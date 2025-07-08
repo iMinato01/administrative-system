@@ -12,12 +12,12 @@ public class CreateSupplierDTO {
     @NotBlank(message = ValidationMessage.NAME_REQUIRED)
     private String name;
     @NotBlank(message = ValidationMessage.RFC_REQUIRED)
-    private String rfc; //Crear validación @
+    private String rfc;
     @NotBlank(message = ValidationMessage.EMAIL_REQUIRED)
     @Email
     private String email;
     @NotBlank(message = ValidationMessage.PHONE_REQUIRED)
-    private String phoneNumber; //Crear validación @
+    private String phoneNumber;
     @NotBlank(message = ValidationMessage.SERVICE_REQUIRED)
     private String services;
 }

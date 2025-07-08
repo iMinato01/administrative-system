@@ -13,11 +13,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Service responsible for generating PDF reports for {@code Evaluation} entities.
+ *
+ * <p>This service gathers detailed evaluation and supplier information, maps the data
+ * into a structured format, and delegates the PDF generation to a helper utility.</p>
+ */
 @Service
 @AllArgsConstructor
 public class EvaluationReportService {
     private final EvaluationService evaluationService;
     private final ReportHelper reportHelper;
+
+    /**
+     * Generates a PDF report for a specific {@code Evaluation} entity.
+     *
+     * @param id Unique identifier of the {@code Evaluation} entity to be reported.
+     * @return A byte array representing the generated PDF document.
+     * @throws Exception If an error occurs during the report generation process.
+     */
     public byte[] exportPdf(Long id) throws Exception {
         Evaluation evaluation = evaluationService.findEvaluation(id);
         Supplier supplier = evaluation.getSupplier();

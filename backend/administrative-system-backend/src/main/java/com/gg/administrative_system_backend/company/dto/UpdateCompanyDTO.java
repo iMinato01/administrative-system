@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class UpdateCompanyDTO {
     private String name;
-    private Boolean status;
+    private boolean status;
     private String rfc;
     private String phoneNumber;
     private String state;

@@ -28,15 +28,15 @@ public class Evaluation {
     @ElementCollection
     @CollectionTable(name = "evaluation_information_score", joinColumns = @JoinColumn(name = "evaluation_id"))
     @Column(name = "score")
-    private List<Integer> informationScores = new ArrayList<>(); // Almacenará 4 valores, del 0-4 (puntuaciones)
+    private List<Integer> informationScores = new ArrayList<>();
     @ElementCollection
     @CollectionTable(name = "evaluation_general_score", joinColumns = @JoinColumn(name = "evaluation_id"))
     @Column(name = "score")
-    private List<Integer> generalScores = new ArrayList<>(); // Almacenará 8 valores, 10, 20 y 60 (puntuaciones)
+    private List<Integer> generalScores = new ArrayList<>();
     @ElementCollection
     @CollectionTable(name = "evaluation_delivery_score", joinColumns = @JoinColumn(name = "evaluation_id"))
     @Column(name = "score")
-    private List<Integer> deliveryScores = new ArrayList<>(); //Almacenará 4 valores, del 0-4 (puntuaciones)
+    private List<Integer> deliveryScores = new ArrayList<>();
     @ElementCollection
     @CollectionTable(name = "evaluation_quality_score", joinColumns = @JoinColumn(name = "evaluation_id"))
     @Column(name = "score")

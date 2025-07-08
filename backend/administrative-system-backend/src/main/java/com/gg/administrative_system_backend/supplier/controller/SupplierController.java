@@ -26,8 +26,7 @@ public class SupplierController {
     }
     @PostMapping
     public ResponseEntity<ApiResponse<?>> saveSupplier(@RequestBody @Valid CreateSupplierDTO createSupplierDTO){
-        Supplier supplier = supplierService.saveSupplier(createSupplierDTO.getName(), createSupplierDTO.getRfc(),
-                createSupplierDTO.getEmail(),createSupplierDTO.getPhoneNumber() ,createSupplierDTO.getServices());
+        Supplier supplier = supplierService.saveSupplier(createSupplierDTO);
         return ResponseEntity.status(201).body(ApiResponse.of(HttpStatus.CREATED.value(), HttpStatus.CREATED.getReasonPhrase(), supplier));
     }
     @GetMapping("/search")
@@ -36,8 +35,7 @@ public class SupplierController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Supplier>> updateSupplier(@RequestBody @Valid UpdateSupplierDTO updateSupplierDTO, @PathVariable Long id){
-        Supplier supplier = supplierService.updateSupplier(id, updateSupplierDTO.getName(), updateSupplierDTO.getStatus(), updateSupplierDTO.getRfc(),
-                updateSupplierDTO.getEmail(), updateSupplierDTO.getPhoneNumber(), updateSupplierDTO.getServices());
+        Supplier supplier = supplierService.updateSupplier(id, updateSupplierDTO);
                 return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), supplier));
     }
 }

@@ -11,6 +11,12 @@ import java.util.List;
 public interface ContractRepository extends JpaRepository<Contract, Long> {
     List<Contract> findByNameContainingIgnoreCase(String name);
     List<Contract> findByTotalExpenses(BigDecimal totalExpenses);
+
+    /**
+     * Retrieves the names of all {@code Contract} entities filtered by their {@code status}.
+     * @param status Boolean value used to filter contracts (e.g., active or inactive).
+     * @return A list of {@code String} values representing the names of matching contracts.
+     */
     @Query("SELECT C.name FROM Contract C WHERE C.status = :status")
     List<String> findOnlyNames(Boolean status);
     boolean existsByName(String name);
