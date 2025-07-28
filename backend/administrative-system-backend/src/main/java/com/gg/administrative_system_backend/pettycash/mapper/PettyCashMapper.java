@@ -1,9 +1,8 @@
-package com.gg.administrative_system_backend.pettycash.mapper.pettycash;
+package com.gg.administrative_system_backend.pettycash.mapper;
 
-import com.gg.administrative_system_backend.pettycash.dto.pettycash.CreatePettyCashDTO;
-import com.gg.administrative_system_backend.pettycash.entity.expense.Expense;
-import com.gg.administrative_system_backend.pettycash.entity.pettycash.PettyCash;
-import com.gg.administrative_system_backend.pettycash.mapper.expense.ExpenseMapper;
+import com.gg.administrative_system_backend.pettycash.dto.CreatePettyCashDTO;
+import com.gg.administrative_system_backend.pettycash.entity.Expense;
+import com.gg.administrative_system_backend.pettycash.entity.PettyCash;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

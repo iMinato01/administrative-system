@@ -1,7 +1,6 @@
-package com.gg.administrative_system_backend.pettycash.entity.pettycash;
+package com.gg.administrative_system_backend.pettycash.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.gg.administrative_system_backend.pettycash.entity.expense.Expense;
 import com.gg.administrative_system_backend.shared.ExpenseType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,7 +22,7 @@ public class PettyCash {
     private ExpenseType type;
     @Builder.Default
     private LocalDate date = LocalDate.now();
-    @OneToMany(mappedBy = "pettyCash", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "pettyCash", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Expense> expenses;
     @Builder.Default
@@ -33,7 +32,7 @@ public class PettyCash {
         BigDecimal bigDecimal = BigDecimal.ZERO;
         if (!expenses.isEmpty()) {
             for (Expense expense : expenses) {
-                bigDecimal = bigDecimal.add(expense.getTotal());
+                bigDecimal = bigDecimal.add(expense.getAmount());
             }
         }
         return bigDecimal;

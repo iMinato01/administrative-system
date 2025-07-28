@@ -1,7 +1,7 @@
-package com.gg.administrative_system_backend.pettycash.mapper.expense;
+package com.gg.administrative_system_backend.pettycash.mapper;
 
-import com.gg.administrative_system_backend.pettycash.dto.expense.CreateExpenseDTO;
-import com.gg.administrative_system_backend.pettycash.entity.expense.Expense;
+import com.gg.administrative_system_backend.pettycash.dto.CreateExpenseDTO;
+import com.gg.administrative_system_backend.pettycash.entity.Expense;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,7 +12,7 @@ public class ExpenseMapper {
                 .supplier(createExpenseDTO.getSupplier())
                 .description(createExpenseDTO.getDescription())
                 .contract(createExpenseDTO.getContract())
-                .total(createExpenseDTO.getTotal())
+                .amount(createExpenseDTO.getAmount())
                 .build();
     }
 }

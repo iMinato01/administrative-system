@@ -1,7 +1,7 @@
 package com.gg.administrative_system_backend.pettycash.controller;
 
-import com.gg.administrative_system_backend.pettycash.dto.pettycash.CreatePettyCashDTO;
-import com.gg.administrative_system_backend.pettycash.entity.pettycash.PettyCash;
+import com.gg.administrative_system_backend.pettycash.dto.CreatePettyCashDTO;
+import com.gg.administrative_system_backend.pettycash.entity.PettyCash;
 import com.gg.administrative_system_backend.pettycash.service.PettyCashService;
 import com.gg.administrative_system_backend.response.success.ApiResponse;
 import jakarta.validation.Valid;

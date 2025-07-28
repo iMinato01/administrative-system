@@ -1,7 +1,6 @@
-package com.gg.administrative_system_backend.pettycash.entity.expense;
+package com.gg.administrative_system_backend.pettycash.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.gg.administrative_system_backend.pettycash.entity.pettycash.PettyCash;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,11 +18,11 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
-    private String supplier; // Pendiente por referencia
+    private String supplier;
     private String description;
-    private String contract; // Pendiente por referencia
-    private BigDecimal total;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private String contract;
+    private BigDecimal amount;
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "petty_cash_id")
     @JsonBackReference
     private PettyCash pettyCash;
