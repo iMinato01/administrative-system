@@ -23,4 +23,7 @@ public class Contract {
         private boolean status = true;
         @Builder.Default
         private BigDecimal totalExpenses = BigDecimal.ZERO;
+        public void addAmount(BigDecimal value){
+                totalExpenses = totalExpenses.add(value);
+        }
 }
