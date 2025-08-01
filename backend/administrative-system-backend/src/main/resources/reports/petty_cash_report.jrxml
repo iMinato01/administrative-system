@@ -1,0 +1,196 @@
+<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<jasperReport name="petty_cash_report" language="java" columnCount="1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1c8a4abd-a507-44b2-88e8-927811a5cab8">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<dataset name="Dataset1" uuid="86b3c596-f698-416f-82f0-b41f12ab1f39">
+		<query language="sql"><![CDATA[]]></query>
+	</dataset>
+	<parameter name="NAME" class="java.lang.String"/>
+	<parameter name="RFC" class="java.lang.String"/>
+	<parameter name="PHONE_NUMBER" forPrompting="false" class="java.lang.String"/>
+	<parameter name="STREET" class="java.lang.String"/>
+	<parameter name="POSTAL_CODE" class="java.lang.String"/>
+	<parameter name="EXTERIOR_NUMBER" class="java.lang.String"/>
+	<parameter name="INTERIOR_NUMBER" class="java.lang.String"/>
+	<parameter name="LOCALITY" class="java.lang.String"/>
+	<parameter name="MUNICIPALITY" class="java.lang.String"/>
+	<parameter name="STATE" class="java.lang.String"/>
+	<parameter name="CREATION_DATE" class="java.lang.String"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="date" class="java.time.LocalDate"/>
+	<field name="supplier.name" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="contract.name" class="java.lang.String"/>
+	<field name="amount" class="java.math.BigDecimal"/>
+	<background splitType="Stretch"/>
+	<title height="65" splitType="Stretch">
+		<element kind="frame" uuid="5467aeb4-0d54-49e6-aab6-d64769e12178" x="-20" y="-20" width="820" height="80">
+			<element kind="image" uuid="cf2b086b-abda-4573-a19d-2737bf032bc5" x="0" y="0" width="140" height="80" onErrorType="Icon">
+				<expression><![CDATA["report/img/company.png"]]></expression>
+			</element>
+			<element kind="textField" uuid="da9eb295-4b1e-4bcf-9774-62ce4dbdde9b" x="140" y="1" width="680" height="30" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{NAME}]]></expression>
+			</element>
+			<element kind="staticText" uuid="2f3da150-c44d-4fdc-8777-b72afae1746c" x="140" y="31" width="60" height="20" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[RFC:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="cf30435e-4c33-4b14-869f-21c2d36526b4" x="200" y="31" width="114" height="20" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{RFC}]]></expression>
+			</element>
+			<element kind="staticText" uuid="3a40773e-a218-421a-b854-e932c751d3b6" x="360" y="31" width="60" height="20" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[Teléfono:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="4082cede-5a71-4136-9bad-88c50631126c" x="420" y="31" width="120" height="20" vTextAlign="Middle">
+				<expression><![CDATA[$P{PHONE_NUMBER}]]></expression>
+			</element>
+			<element kind="textField" uuid="bf4e3aaf-b5b9-4c5e-953a-c7632c1dd45e" x="200" y="51" width="620" height="29" bold="true" vTextAlign="Middle">
+				<expression><![CDATA["Calle " + $P{STREET}
++ ", No. " + (($P{EXTERIOR_NUMBER} == null) ? "SN" : $P{EXTERIOR_NUMBER})
++ ", Int. " + (($P{INTERIOR_NUMBER} == null) ? "SN" : $P{INTERIOR_NUMBER})
++ ", Colonia " + $P{LOCALITY}
++ ", CP: " + $P{POSTAL_CODE}
++ ", " + $P{MUNICIPALITY}
++ ", " + $P{STATE}
++ ", México"
+]]></expression>
+			</element>
+			<element kind="staticText" uuid="73c2899b-dc68-429a-b541-d98f70d26346" x="140" y="51" width="60" height="29" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[Domicilio:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="staticText" uuid="68460ff2-dbce-4fad-a435-9040cb78b6c3" x="590" y="31" width="110" height="20" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[Fecha de Creación:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="2cd48a9e-65ef-46f0-90c1-896648d52d98" x="700" y="31" width="120" height="20" vTextAlign="Middle">
+				<expression><![CDATA[$P{CREATION_DATE}]]></expression>
+			</element>
+		</element>
+	</title>
+	<pageHeader height="65" splitType="Stretch">
+		<element kind="staticText" uuid="ffd07f15-57b0-45d5-9c00-306286d933eb" x="0" y="36" width="60" height="20" fontName="SansSerif" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[FECHA]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="d71321ea-2ae8-4835-a943-4afd83b0f331" x="60" y="36" width="111" height="20" fontName="SansSerif" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[TIPO DE GASTO]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="e62a3ddb-2aa4-4a52-962a-fa5d2bcb3fa1" x="171" y="36" width="189" height="20" fontName="SansSerif" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[BENEFICIARIO]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="8a95c932-6b90-41c4-af4e-d5cd3febec8a" x="360" y="36" width="180" height="20" fontName="SansSerif" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[CONCEPTOS]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="6d687e6e-da4b-47f5-8eb9-02c277fb1ff9" x="0" y="3" width="800" height="30" fontSize="18.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[CAJA CHICA]]></text>
+		</element>
+		<element kind="staticText" uuid="6b750587-d55f-4c08-86bb-881402dbb004" x="540" y="36" width="132" height="20" fontName="SansSerif" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[CONTRATO]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="18864e5a-a91a-4295-9b47-b89f8db69c0f" x="672" y="36" width="130" height="20" fontName="SansSerif" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[IMPORTE]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+	</pageHeader>
+	<columnHeader height="11" splitType="Stretch">
+		<element kind="staticText" uuid="8197198f-f816-4edf-91f6-41ad2b776618" mode="Transparent" x="71" y="2" width="100" height="3" forecolor="#FFFFFF">
+			<text><![CDATA[Label]]></text>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="115" splitType="Stretch">
+			<element kind="textField" uuid="5b824b7d-acf4-45b4-8efe-fc5379158e22" x="460" y="0" width="80" height="3" forecolor="#FFFFFF">
+				<expression><![CDATA["DetailField"]]></expression>
+			</element>
+			<element kind="frame" uuid="9fae690e-7944-42c9-a804-45911288d179" x="0" y="4" width="802" height="27">
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+				<element kind="textField" uuid="0cce2b58-ee4a-42e5-bec9-c35ac8b85716" x="1" y="4" width="60" height="20" hTextAlign="Center" vTextAlign="Top">
+					<expression><![CDATA[$F{date}]]></expression>
+					<box>
+						<pen lineWidth="0.0"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="ecc3ff2b-290d-4985-8cd7-3cda7559ddb5" x="673" y="4" width="127" height="20" hTextAlign="Center" vTextAlign="Top">
+					<expression><![CDATA[$F{amount}]]></expression>
+					<box>
+						<pen lineWidth="0.0"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="c3e2b264-6971-4336-b99e-37639a36afe7" x="172" y="4" width="189" height="20" hTextAlign="Center" vTextAlign="Top">
+					<expression><![CDATA[$F{supplier.name}]]></expression>
+					<box>
+						<pen lineWidth="0.0"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="5b67ef9c-d79a-470c-a792-1134979132fc" x="61" y="4" width="111" height="20" hTextAlign="Center" vTextAlign="Top">
+					<expression><![CDATA[$F{date}]]></expression>
+					<box>
+						<pen lineWidth="0.0"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="179610de-97dd-439a-becd-bcd8cde3b46e" x="361" y="4" width="180" height="20" textAdjust="StretchHeight" hTextAlign="Left" vTextAlign="Top">
+					<paragraph leftIndent="5"/>
+					<expression><![CDATA[$F{description}]]></expression>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<box>
+						<pen lineWidth="0.0"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="7966ed93-9967-4956-8ff6-3016afea0ea8" x="541" y="4" width="132" height="20" hTextAlign="Center" vTextAlign="Top">
+					<expression><![CDATA[$F{contract.name}]]></expression>
+					<box>
+						<pen lineWidth="0.0"/>
+					</box>
+				</element>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="56" splitType="Stretch">
+		<element kind="textField" uuid="a746235e-d69b-446c-a959-e7f4c31c0d7f" mode="Opaque" x="673" y="5" width="129" height="25" backcolor="#FFF703" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+	</columnFooter>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

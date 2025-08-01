@@ -1,6 +1,5 @@
 package com.gg.administrative_system_backend.pettycash.dto;
 
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,12 +12,12 @@ import java.time.LocalDate;
 public class CreateExpenseDTO {
     @NotNull
     private LocalDate date;
-    @NotEmpty
-    private String supplier;
-    @NotEmpty
+    @NotNull
+    private Long supplierId;
+    @NotNull
     private String description;
-    @NotEmpty
-    private String contract;
+    @NotNull
+    private Long contractId;
     @NotNull
     private BigDecimal amount;
 }
