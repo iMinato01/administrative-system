@@ -5,4 +5,5 @@ public class LabelEntity {
     public static final String SUPPLIER = "proveedor";
     public static final String EVALUATION = "evaluacion";
     public static final String COMPANY = "empresa";
+    public static final String PETTY_CASH = "caja chica";
 }

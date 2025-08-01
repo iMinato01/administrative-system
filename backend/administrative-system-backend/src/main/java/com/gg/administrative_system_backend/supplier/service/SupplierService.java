@@ -61,7 +61,7 @@ public class SupplierService {
      * @return The found {@code Supplier} entity.
      */
     public Supplier findSupplier(Long id){
-        return supplierRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(GenericMessage.ENTITY_NOT_FOUND.format(id)));
+        return supplierRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(GenericMessage.ENTITY_NOT_FOUND.format(LabelEntity.SUPPLIER, id)));
     }
 
     /**
