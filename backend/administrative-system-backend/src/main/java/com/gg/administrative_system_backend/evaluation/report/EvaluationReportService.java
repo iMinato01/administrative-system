@@ -2,9 +2,9 @@ package com.gg.administrative_system_backend.evaluation.report;
 
 import com.gg.administrative_system_backend.evaluation.entity.Evaluation;
 import com.gg.administrative_system_backend.evaluation.service.EvaluationService;
+import com.gg.administrative_system_backend.shared.Report;
 import com.gg.administrative_system_backend.supplier.entity.Supplier;
 import com.gg.administrative_system_backend.util.ReportHelper;
-import com.gg.administrative_system_backend.util.ReportPaths;
 import lombok.AllArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -51,6 +51,6 @@ public class EvaluationReportService {
         reportHelper.mapElements(gene, reportData, "gene");
         reportHelper.mapElements(deli, reportData, "deli");
         reportHelper.mapElements(qual, reportData, "qual");
-        return reportHelper.generatePdf(ReportPaths.EVALUATION_REPORT, List.of(reportData));
+        return reportHelper.generatePdf(Report.EVALUATION.getPath(), List.of(reportData));
     }
 }

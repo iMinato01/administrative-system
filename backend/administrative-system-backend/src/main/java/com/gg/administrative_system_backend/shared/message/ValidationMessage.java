@@ -1,4 +1,4 @@
-package com.gg.administrative_system_backend.shared;
+package com.gg.administrative_system_backend.shared.message;
 
 public class ValidationMessage {
     public static final String ID_REQUIRED = "El ID no puede estar vacío";

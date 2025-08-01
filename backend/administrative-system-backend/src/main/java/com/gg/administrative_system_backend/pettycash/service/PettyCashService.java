@@ -6,7 +6,7 @@ import com.gg.administrative_system_backend.pettycash.entity.PettyCash;
 import com.gg.administrative_system_backend.pettycash.mapper.PettyCashMapper;
 import com.gg.administrative_system_backend.pettycash.repository.PettyCashRepository;
 import com.gg.administrative_system_backend.shared.message.GenericMessage;
-import com.gg.administrative_system_backend.shared.message.LabelEntity;
+import com.gg.administrative_system_backend.shared.Report;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +25,6 @@ public class PettyCashService {
         return pettyCashRepository.save(pettyCashMapper.toPettyCash(createPettyCashDTO));
     }
     public PettyCash findPettyCash(Long id){
-        return pettyCashRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(GenericMessage.ENTITY_NOT_FOUND.format(LabelEntity.PETTY_CASH, id)));
+        return pettyCashRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(GenericMessage.ENTITY_NOT_FOUND.format(Report.PETTY_CASH.getName(), id)));
     }
 }

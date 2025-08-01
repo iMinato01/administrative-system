@@ -7,10 +7,10 @@ import com.gg.administrative_system_backend.evaluation.mapper.EvaluationMapper;
 import com.gg.administrative_system_backend.evaluation.repository.EvaluationRepository;
 import com.gg.administrative_system_backend.exception.EntityNotFoundException;
 import com.gg.administrative_system_backend.shared.message.GenericMessage;
-import com.gg.administrative_system_backend.shared.message.LabelEntity;
 import com.gg.administrative_system_backend.supplier.entity.Supplier;
 import com.gg.administrative_system_backend.supplier.service.SupplierService;
 import com.gg.administrative_system_backend.util.RegexPatterns;
+import com.gg.administrative_system_backend.shared.Report;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,7 +61,7 @@ public class EvaluationService {
      * @return The found {@code Evaluation} entity.
      */
     public Evaluation findEvaluation(Long id){
-        return evaluationRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(GenericMessage.ENTITY_NOT_FOUND.format(LabelEntity.EVALUATION, id)));
+        return evaluationRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(GenericMessage.ENTITY_NOT_FOUND.format(Report.EVALUATION.getName(), id)));
     }
 
     /**

@@ -2,10 +2,9 @@ package com.gg.administrative_system_backend.contract.report;
 
 import com.gg.administrative_system_backend.company.entity.Company;
 import com.gg.administrative_system_backend.company.service.CompanyService;
-import com.gg.administrative_system_backend.contract.repository.ContractRepository;
 import com.gg.administrative_system_backend.contract.service.ContractService;
+import com.gg.administrative_system_backend.shared.Report;
 import com.gg.administrative_system_backend.util.ReportHelper;
-import com.gg.administrative_system_backend.util.ReportPaths;
 import com.gg.administrative_system_backend.util.ReportUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,6 +41,6 @@ public class ContractReportService {
         Map<String, Object> parameters = new HashMap<>();
         Company company = companyService.findCompany(1L); // Simulated with Company ID --> 1
         reportUtils.setReportHeader(parameters, company);
-        return reportHelper.generatePdf(ReportPaths.CONTRACT_REPORT, parameters, contractService.findAll());
+        return reportHelper.generatePdf(Report.CONTRACT.getPath(), parameters, contractService.findAll());
     }
 }

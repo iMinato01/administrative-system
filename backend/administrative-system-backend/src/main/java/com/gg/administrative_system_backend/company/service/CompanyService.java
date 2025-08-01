@@ -9,8 +9,8 @@ import com.gg.administrative_system_backend.exception.EntityNotFoundException;
 import com.gg.administrative_system_backend.exception.PropertyAlreadyInUseException;
 import com.gg.administrative_system_backend.exception.ValueRequiredException;
 import com.gg.administrative_system_backend.shared.message.GenericMessage;
-import com.gg.administrative_system_backend.shared.message.LabelEntity;
 import com.gg.administrative_system_backend.util.RegexPatterns;
+import com.gg.administrative_system_backend.shared.Report;
 import com.gg.administrative_system_backend.util.ValidationUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,8 +34,8 @@ public class CompanyService {
      */
     @Transactional
     public Company saveCompany(CreateCompanyDTO createCompanyDTO){
-        ValidationUtils.validateIfExists(createCompanyDTO.getName(), companyRepository::existsByName, () -> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(LabelEntity.COMPANY, createCompanyDTO.getName())));
-        ValidationUtils.validateIfExists(createCompanyDTO.getRfc(), companyRepository::existsByRfc, () -> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(LabelEntity.COMPANY, createCompanyDTO.getRfc())));
+        ValidationUtils.validateIfExists(createCompanyDTO.getName(), companyRepository::existsByName, () -> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(Report.COMPANY.getName(), createCompanyDTO.getName())));
+        ValidationUtils.validateIfExists(createCompanyDTO.getRfc(), companyRepository::existsByRfc, () -> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(Report.COMPANY.getName(), createCompanyDTO.getRfc())));
         return companyRepository.save(companyMapper.toEntity(createCompanyDTO));
     }
 
@@ -49,8 +49,8 @@ public class CompanyService {
     @Transactional
     public Company updateCompany(Long id, UpdateCompanyDTO updateCompanyDTO){
         Company company = findCompany(id);
-        ValidationUtils.validateIfExists(updateCompanyDTO.getName(), companyRepository::existsByName, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(LabelEntity.COMPANY, updateCompanyDTO.getName())));
-        ValidationUtils.validateIfExists(updateCompanyDTO.getRfc(), companyRepository::existsByRfc, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(LabelEntity.COMPANY, updateCompanyDTO.getRfc())));
+        ValidationUtils.validateIfExists(updateCompanyDTO.getName(), companyRepository::existsByName, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(Report.COMPANY.getName(), updateCompanyDTO.getName())));
+        ValidationUtils.validateIfExists(updateCompanyDTO.getRfc(), companyRepository::existsByRfc, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(Report.COMPANY.getName(), updateCompanyDTO.getRfc())));
         return companyMapper.updateEntityFromDto(updateCompanyDTO, company);
     }
 
@@ -69,7 +69,7 @@ public class CompanyService {
      * @return The found {@code Company} entity.
      */
     public Company findCompany(Long id){
-        return companyRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(GenericMessage.ENTITY_NOT_FOUND.format(LabelEntity.COMPANY, id)));
+        return companyRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(GenericMessage.ENTITY_NOT_FOUND.format(Report.COMPANY.getName(), id)));
     }
 
     /**

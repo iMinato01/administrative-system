@@ -1,7 +1,7 @@
 package com.gg.administrative_system_backend.evaluation.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.gg.administrative_system_backend.shared.ValidationMessage;
+import com.gg.administrative_system_backend.shared.message.ValidationMessage;
 import com.gg.administrative_system_backend.util.RegexPatterns;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

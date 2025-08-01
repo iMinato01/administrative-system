@@ -1,6 +1,6 @@
 package com.gg.administrative_system_backend.supplier.dto;
 
-import com.gg.administrative_system_backend.shared.ValidationMessage;
+import com.gg.administrative_system_backend.shared.message.ValidationMessage;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
