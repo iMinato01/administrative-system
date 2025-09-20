@@ -12,7 +12,8 @@ public enum GenericMessage {
     VALUE_REQUIRED("El valor de entrada no puede estar vacío"),
     COMPILE_FAIL("Error al compilar el reporte en %s, path -> %s"),
     COMPILE_SUCCESS("Compilado -> %s"),
-    MISSING_PATH("No se encontró el recurso en -> %s");
+    MISSING_PATH("No se encontró el recurso en -> %s"),
+    REPORT_NOT_FOUND("No se encontró el reporte -> %s");
     private final String message;
     public String format(Object... args){
         return String.format(message, args);

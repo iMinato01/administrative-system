@@ -75,4 +75,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 ex.getMessage(), request.getRequestURI()));
     }
+    @ExceptionHandler(ReportNotFoundException.class)
+    public ResponseEntity<ApiError> handleReportNotFound(ReportNotFoundException ex, HttpServletRequest request){
+        return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                ex.getMessage(), request.getRequestURI()));
+    }
 }

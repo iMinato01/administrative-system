@@ -4,6 +4,7 @@ import com.gg.administrative_system_backend.shared.Report;
 import com.gg.administrative_system_backend.shared.ReportCache;
 import com.gg.administrative_system_backend.shared.message.GenericMessage;
 import lombok.AllArgsConstructor;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 import org.springframework.boot.CommandLineRunner;
@@ -17,7 +18,7 @@ public class ReportCompiler implements CommandLineRunner {
     private final ReportCache reportCache;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) throws JRException {
         for (Report report : Report.values()) {
             try {
                 if (report.getPath() == null || report.getPath().isBlank()) {

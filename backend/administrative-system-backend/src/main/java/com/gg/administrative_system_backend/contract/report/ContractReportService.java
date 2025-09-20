@@ -41,6 +41,6 @@ public class ContractReportService {
         Map<String, Object> parameters = new HashMap<>();
         Company company = companyService.findCompany(1L); // Simulated with Company ID --> 1
         reportUtils.setReportHeader(parameters, company);
-        return reportHelper.generatePdf(Report.CONTRACT.getPath(), parameters, contractService.findAll());
+        return reportHelper.generatePdf(Report.CONTRACT, parameters, contractService.findAll());
     }
 }

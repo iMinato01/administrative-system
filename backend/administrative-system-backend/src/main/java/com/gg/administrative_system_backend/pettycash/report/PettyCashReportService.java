@@ -29,6 +29,6 @@ public class PettyCashReportService {
         parameters.put("creationDate", pettyCash.getDate().toString());
 
         reportUtils.setReportHeader(parameters, company);
-        return reportHelper.generatePdf(Report.PETTY_CASH.getPath(), parameters, pettyCash.getExpenses());
+        return reportHelper.generatePdf(Report.PETTY_CASH, parameters, pettyCash.getExpenses());
     }
 }
