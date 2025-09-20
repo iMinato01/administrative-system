@@ -4,6 +4,8 @@ import com.gg.administrative_system_backend.company.dto.CreateCompanyDTO;
 import com.gg.administrative_system_backend.company.dto.UpdateCompanyDTO;
 import com.gg.administrative_system_backend.company.entity.Company;
 import com.gg.administrative_system_backend.util.UpdateUtils;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,8 +13,9 @@ import org.springframework.stereotype.Component;
  * Used for creating and updating entities based on the data provided in DTOs.
  */
 @Component
+@RequiredArgsConstructor
 public class CompanyMapper {
-
+    private final PasswordEncoder passwordEncoder;
     /**
      * Maps a {@code Company} entity from a DTO containing the required properties.
      * @param createCompanyDTO DTO with the properties needed to create the entity.
@@ -21,6 +24,8 @@ public class CompanyMapper {
     public Company toEntity(CreateCompanyDTO createCompanyDTO){
         return Company.builder()
                 .name(createCompanyDTO.getName())
+                .password(passwordEncoder.encode(createCompanyDTO.getPassword()))
+                .role(createCompanyDTO.getRole())
                 .rfc(createCompanyDTO.getRfc())
                 .phoneNumber(createCompanyDTO.getPhoneNumber())
                 .state(createCompanyDTO.getState())

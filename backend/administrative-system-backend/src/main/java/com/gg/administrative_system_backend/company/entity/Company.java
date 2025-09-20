@@ -1,9 +1,7 @@
 package com.gg.administrative_system_backend.company.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.gg.administrative_system_backend.shared.Role;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -17,6 +15,9 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @Builder.Default
     private boolean status = true;
     private String rfc;
