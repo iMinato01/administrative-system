@@ -14,6 +14,7 @@ public class WebSecurityConfig{
         http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
                         .anyRequest().permitAll());
+                .cors(AbstractHttpConfigurer::disable)
         return http.build();
     }
 }
