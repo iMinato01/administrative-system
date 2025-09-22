@@ -13,7 +13,8 @@ public enum GenericMessage {
     COMPILE_FAIL("Error al compilar el reporte en %s, path -> %s"),
     COMPILE_SUCCESS("Compilado -> %s"),
     MISSING_PATH("No se encontró el recurso en -> %s"),
-    REPORT_NOT_FOUND("No se encontró el reporte -> %s");
+    REPORT_NOT_FOUND("No se encontró el reporte -> %s"),
+    SEPARATOR(" -> ");
     private final String message;
     public String format(Object... args){
         return String.format(message, args);

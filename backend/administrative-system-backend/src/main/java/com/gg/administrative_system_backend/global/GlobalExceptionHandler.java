@@ -3,6 +3,7 @@ package com.gg.administrative_system_backend.global;
 import com.gg.administrative_system_backend.exception.*;
 import com.gg.administrative_system_backend.global.message.HandlerMessage;
 import com.gg.administrative_system_backend.response.error.ApiError;
+import com.gg.administrative_system_backend.shared.message.GenericMessage;
 import com.gg.administrative_system_backend.util.RegexPatterns;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @ControllerAdvice
@@ -22,12 +25,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request){
-        Map<String, String> errors = new HashMap<>();
+        List<String> errors = new ArrayList<>();
         ex.getBindingResult().getFieldErrors().forEach(error-> {
-            errors.put(error.getField(), error.getDefaultMessage());
+            errors.add(error.getField() + GenericMessage.SEPARATOR.getMessage() + error.getDefaultMessage());
         });
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                HandlerMessage.VALIDATION_EXCEPTION.getMessage(), request.getRequestURI(), errors.values().stream().toList()));
+                HandlerMessage.VALIDATION_EXCEPTION.getMessage(), request.getRequestURI(), errors));
     }
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<ApiError> handleIncompleteUrl(MissingServletRequestParameterException ex, HttpServletRequest request){
