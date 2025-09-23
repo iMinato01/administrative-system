@@ -1,13 +1,17 @@
 package com.gg.administrative_system_backend.auth.login.controller;
 
 import com.gg.administrative_system_backend.auth.login.dto.LoginDTO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,7 +25,7 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseEntity<String> login(@Valid @RequestBody LoginDTO loginDTO){
+    public ResponseEntity<String> login(@Valid @RequestBody LoginDTO loginDTO, HttpServletRequest request){
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getRfc(), loginDTO.getPassword()));
         SecurityContext securityContext = SecurityContextHolder.getContext();
