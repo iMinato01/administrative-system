@@ -21,4 +21,7 @@ public class CompanyDetails implements UserDetails {
     public String getUsername(){
         return company.getRfc();
     }
+    public Long getId(){
+        return company.getId();
+    }
 }
