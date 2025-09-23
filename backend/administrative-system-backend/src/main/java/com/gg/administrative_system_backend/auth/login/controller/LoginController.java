@@ -23,9 +23,11 @@ public class LoginController {
     @PostMapping
     public ResponseEntity<String> login(@Valid @RequestBody LoginDTO loginDTO){
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getName(), loginDTO.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
                 .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getRfc(), loginDTO.getPassword()));
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        HttpSession session = request.getSession(true);
+        securityContext.setAuthentication(authentication);
+        session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
         System.out.println(SecurityContextHolder.getContext().getAuthentication());
         return ResponseEntity.status(200).body("OK");
     }
