@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class CompanyDetailsService implements UserDetailsService {
     private final CompanyRepository companyRepository;
     @Override
-    public CompanyDetails loadUserByUsername(String name){
-        return new CompanyDetails(companyRepository.findByName(name).orElseThrow(()-> new EntityNotFoundException(GenericMessage.ENTITY_NOT_FOUND.format(Report.COMPANY.getName(), name))));
+    public CompanyDetails loadUserByUsername(String rfc){
+        return new CompanyDetails(companyRepository.findByRfc(rfc).orElseThrow(()-> new EntityNotFoundException(GenericMessage.ENTITY_NOT_FOUND.format(Report.COMPANY.getName(), rfc))));
     }
 }

@@ -19,6 +19,6 @@ public class CompanyDetails implements UserDetails {
         return company.getPassword();
     }
     public String getUsername(){
-        return company.getName();
+        return company.getRfc();
     }
 }

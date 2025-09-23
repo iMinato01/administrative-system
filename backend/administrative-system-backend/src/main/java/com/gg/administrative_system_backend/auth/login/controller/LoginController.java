@@ -25,6 +25,7 @@ public class LoginController {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getName(), loginDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
+                .authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getRfc(), loginDTO.getPassword()));
         System.out.println(SecurityContextHolder.getContext().getAuthentication());
         return ResponseEntity.status(200).body("OK");
     }

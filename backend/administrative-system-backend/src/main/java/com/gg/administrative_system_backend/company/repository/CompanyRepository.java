@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
-    Optional<Company> findByName(String name);
+    Optional<Company> findByRfc(String rfc);
     /**
      * Retrieves a collection of {@code Company} entities that share the same {@code name}, {@code rfc}, {@code phoneNumber},
      * {@code state}, {@code municipality}, {@code postalCode}, {@code street}, {@code interiorNumber}, or {@code exteriorNumber}
