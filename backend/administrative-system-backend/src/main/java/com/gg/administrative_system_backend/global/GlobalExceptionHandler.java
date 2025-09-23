@@ -83,4 +83,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 ex.getMessage(), request.getRequestURI()));
     }
+    @ExceptionHandler
+    public ResponseEntity<ApiError> handleUnhandledException(Exception ex, HttpServletRequest request){
+        return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                ex.getClass() + GenericMessage.SEPARATOR.getMessage() + ex.getMessage(), request.getRequestURI()));
+    }
 }
