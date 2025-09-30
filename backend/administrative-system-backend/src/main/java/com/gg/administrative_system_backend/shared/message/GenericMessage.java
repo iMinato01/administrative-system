@@ -14,7 +14,8 @@ public enum GenericMessage {
     COMPILE_SUCCESS("Compilado -> %s"),
     MISSING_PATH("No se encontró el recurso en -> %s"),
     REPORT_NOT_FOUND("No se encontró el reporte -> %s"),
-    SEPARATOR(" -> ");
+    SEPARATOR(" -> "),
+    AUTHENTICATION_MESSAGE("Ocurrió un error con la autenticación");
     private final String message;
     public String format(Object... args){
         return String.format(message, args);
