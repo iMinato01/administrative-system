@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Report {
     CONTRACT("/reports/contract_report.jrxml", "contrato"),
-    SUPPLIER("", "proveedor"),
+    SUPPLIER("/reports/supplier_report.jrxml", "proveedor"),
     EVALUATION("/reports/evaluation_report.jrxml", "evaluación"),
     COMPANY("", "empresa"),
     PETTY_CASH("/reports/petty_cash_report.jrxml", "caja chica");

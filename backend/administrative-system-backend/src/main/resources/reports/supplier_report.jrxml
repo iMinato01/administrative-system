@@ -1,0 +1,135 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="contract-report" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1c8a4abd-a507-44b2-88e8-927811a5cab8">
+	<parameter name="NAME" class="java.lang.String"/>
+	<parameter name="RFC" class="java.lang.String"/>
+	<parameter name="PHONE_NUMBER" forPrompting="false" class="java.lang.String"/>
+	<parameter name="STREET" class="java.lang.String"/>
+	<parameter name="POSTAL_CODE" class="java.lang.String"/>
+	<parameter name="EXTERIOR_NUMBER" class="java.lang.String"/>
+	<parameter name="INTERIOR_NUMBER" class="java.lang.String"/>
+	<parameter name="LOCALITY" class="java.lang.String"/>
+	<parameter name="MUNICIPALITY" class="java.lang.String"/>
+	<parameter name="STATE" class="java.lang.String"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="id" class="java.lang.Long"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="status" class="java.lang.Boolean"/>
+	<field name="rfc" class="java.lang.String"/>
+	<field name="phoneNumber" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="services" class="java.lang.String"/>
+	<variable name="CONTRACT_STATUS" class="java.lang.String">
+		<expression><![CDATA[$F{status} ? "Activo":"Inactivo"]]></expression>
+	</variable>
+	<variable name="INFORMATION" class="java.lang.String">
+		<expression><![CDATA["Telefono: " + $F{phoneNumber} + ", Correo:  " + $F{email} + ", Servicios: " + $F{services}]]></expression>
+	</variable>
+	<background splitType="Stretch"/>
+	<title height="65" splitType="Stretch">
+		<element kind="frame" uuid="5467aeb4-0d54-49e6-aab6-d64769e12178" x="-20" y="-20" width="595" height="80">
+			<element kind="image" uuid="cf2b086b-abda-4573-a19d-2737bf032bc5" x="0" y="0" width="140" height="80" onErrorType="Icon">
+				<expression><![CDATA["report/img/company.png"]]></expression>
+			</element>
+			<element kind="textField" uuid="da9eb295-4b1e-4bcf-9774-62ce4dbdde9b" x="140" y="1" width="455" height="30" fontSize="15.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$P{NAME}]]></expression>
+			</element>
+			<element kind="staticText" uuid="2f3da150-c44d-4fdc-8777-b72afae1746c" x="140" y="31" width="60" height="20" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[RFC:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="cf30435e-4c33-4b14-869f-21c2d36526b4" x="200" y="31" width="114" height="20" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$P{RFC}]]></expression>
+			</element>
+			<element kind="staticText" uuid="3a40773e-a218-421a-b854-e932c751d3b6" x="335" y="31" width="60" height="20" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[Teléfono:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="4082cede-5a71-4136-9bad-88c50631126c" x="395" y="31" width="120" height="20" vTextAlign="Middle">
+				<expression><![CDATA[$P{PHONE_NUMBER}]]></expression>
+			</element>
+			<element kind="textField" uuid="bf4e3aaf-b5b9-4c5e-953a-c7632c1dd45e" x="200" y="51" width="350" height="29" bold="true" vTextAlign="Middle">
+				<expression><![CDATA["Calle " + $P{STREET}
++ ", No. " + (($P{EXTERIOR_NUMBER} == null) ? "SN" : $P{EXTERIOR_NUMBER})
++ ", Int. " + (($P{INTERIOR_NUMBER} == null) ? "SN" : $P{INTERIOR_NUMBER})
++ ", Colonia " + $P{LOCALITY}
++ ", \nCP: " + $P{POSTAL_CODE}
++ ", " + $P{MUNICIPALITY}
++ ", " + $P{STATE}
++ ", México"
+]]></expression>
+			</element>
+			<element kind="staticText" uuid="73c2899b-dc68-429a-b541-d98f70d26346" x="140" y="51" width="60" height="29" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[Domicilio:]]></text>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+		</element>
+	</title>
+	<pageHeader height="82" splitType="Stretch">
+		<element kind="line" uuid="8efa0602-fece-4910-ab4b-66d7deb48d73" x="0" y="76" width="550" height="1">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<pen lineWidth="2.0"/>
+		</element>
+		<element kind="staticText" uuid="ffd07f15-57b0-45d5-9c00-306286d933eb" x="0" y="36" width="100" height="20" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[ID]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="d71321ea-2ae8-4835-a943-4afd83b0f331" x="100" y="36" width="230" height="20" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Nombre]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<element kind="staticText" uuid="e62a3ddb-2aa4-4a52-962a-fa5d2bcb3fa1" x="330" y="36" width="90" height="20" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Estatus]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<element kind="staticText" uuid="8a95c932-6b90-41c4-af4e-d5cd3febec8a" x="420" y="36" width="130" height="20" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[RFC]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+		<element kind="staticText" uuid="6d687e6e-da4b-47f5-8eb9-02c277fb1ff9" x="0" y="3" width="548" height="30" fontSize="18.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[PROVEEDORES]]></text>
+		</element>
+		<element kind="staticText" uuid="2d404194-73da-4d25-b586-a92822895516" x="0" y="57" width="550" height="20" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Información]]></text>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+		</element>
+	</pageHeader>
+	<columnHeader height="11" splitType="Stretch">
+		<element kind="staticText" uuid="8197198f-f816-4edf-91f6-41ad2b776618" mode="Transparent" x="71" y="2" width="100" height="3" forecolor="#FFFFFF">
+			<text><![CDATA[Label]]></text>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<element kind="textField" uuid="5b824b7d-acf4-45b4-8efe-fc5379158e22" x="460" y="0" width="80" height="3" forecolor="#FFFFFF">
+				<expression><![CDATA["DetailField"]]></expression>
+			</element>
+			<element kind="frame" uuid="9fae690e-7944-42c9-a804-45911288d179" positionType="Float" x="0" y="4" width="550" height="20">
+				<element kind="textField" uuid="0cce2b58-ee4a-42e5-bec9-c35ac8b85716" x="0" y="0" width="90" height="20" hTextAlign="Center" vTextAlign="Top">
+					<expression><![CDATA[$F{id}]]></expression>
+				</element>
+				<element kind="textField" uuid="ecc3ff2b-290d-4985-8cd7-3cda7559ddb5" x="419" y="0" width="124" height="20" hTextAlign="Center" vTextAlign="Top">
+					<expression><![CDATA[$F{rfc}]]></expression>
+				</element>
+				<element kind="textField" uuid="c3e2b264-6971-4336-b99e-37639a36afe7" x="330" y="0" width="90" height="20" hTextAlign="Center" vTextAlign="Top">
+					<expression><![CDATA[$V{CONTRACT_STATUS}]]></expression>
+				</element>
+				<element kind="textField" uuid="5b67ef9c-d79a-470c-a792-1134979132fc" x="90" y="0" width="240" height="20" hTextAlign="Center" vTextAlign="Top">
+					<expression><![CDATA[$F{name}]]></expression>
+				</element>
+			</element>
+			<element kind="textField" uuid="30476271-6f77-451d-99d8-24336191cc15" x="0" y="24" width="90" height="21" hTextAlign="Center">
+				<expression><![CDATA[$F{phoneNumber}]]></expression>
+			</element>
+			<element kind="textField" uuid="b586ccd9-cdd1-466d-8364-4e98e36b8e70" x="90" y="24" width="458" height="21">
+				<expression><![CDATA[$V{INFORMATION}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
