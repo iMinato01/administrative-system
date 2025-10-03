@@ -10,102 +10,121 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<query language="sql"><![CDATA[]]></query>
-	<field name="name" class="java.lang.String"/>
-	<field name="phoneNumber" class="java.lang.String"/>
-	<field name="rfc" class="java.lang.String"/>
-	<field name="email" class="java.lang.String"/>
-	<field name="services" class="java.lang.String"/>
-	<field name="evaluationDate" class="java.lang.String"/>
-	<field name="nextEvaluation" class="java.lang.String"/>
-	<field name="info0" class="java.lang.Integer"/>
-	<field name="info1" class="java.lang.Integer"/>
-	<field name="info2" class="java.lang.Integer"/>
-	<field name="info3" class="java.lang.Integer"/>
-	<field name="infoTotal1" class="java.lang.Integer"/>
-	<field name="infoTotal2" class="java.lang.Double"/>
-	<field name="deli0" class="java.lang.Integer"/>
-	<field name="deli1" class="java.lang.Integer"/>
-	<field name="deli2" class="java.lang.Integer"/>
-	<field name="deli3" class="java.lang.Integer"/>
-	<field name="deliTotal1" class="java.lang.Integer"/>
-	<field name="deliTotal2" class="java.lang.Double"/>
-	<field name="qual0" class="java.lang.Integer"/>
-	<field name="qual1" class="java.lang.Integer"/>
-	<field name="qualTotal1" class="java.lang.Integer"/>
-	<field name="qualTotal2" class="java.lang.Double"/>
-	<field name="gene0" class="java.lang.Integer"/>
-	<field name="gene1" class="java.lang.Integer"/>
-	<field name="gene2" class="java.lang.Integer"/>
-	<field name="gene3" class="java.lang.Integer"/>
-	<field name="gene4" class="java.lang.Integer"/>
-	<field name="gene5" class="java.lang.Integer"/>
-	<field name="gene6" class="java.lang.Integer"/>
-	<field name="gene7" class="java.lang.Integer"/>
-	<variable name="INFO_TOTAL1" class="java.lang.Integer">
-		<expression><![CDATA[	$F{info0} + $F{info1} + $F{info2} + $F{info3}]]></expression>
+	<field name="supplier.name" class="java.lang.String"/>
+	<field name="supplier.phoneNumber" class="java.lang.String"/>
+	<field name="supplier.rfc" class="java.lang.String"/>
+	<field name="supplier.email" class="java.lang.String"/>
+	<field name="supplier.services" class="java.lang.String"/>
+	<field name="evaluationDate" class="java.time.LocalDate"/>
+	<field name="nextEvaluation" class="java.time.LocalDate"/>
+	<field name="informationScores" class="java.util.List"/>
+	<field name="generalScores" class="java.util.List"/>
+	<field name="deliveryScores" class="java.util.List"/>
+	<field name="qualityScores" class="java.util.List"/>
+	<variable name="INFORMATION_0" class="java.lang.Integer">
+		<expression><![CDATA[$F{informationScores}.get(0)]]></expression>
 	</variable>
-	<variable name="INFO_TOTAL2" class="java.lang.Double">
-		<expression><![CDATA[($V{INFO_TOTAL1}.doubleValue() / 16) * 100]]></expression>
+	<variable name="INFORMATION_1" class="java.lang.Integer">
+		<expression><![CDATA[$F{informationScores}.get(1)]]></expression>
 	</variable>
-	<variable name="INFO_RESULT" class="java.lang.String">
-		<expression><![CDATA[$V{INFO_TOTAL2} >= 96 ? "EXCELENTE" :
-($V{INFO_TOTAL2} >= 60 ? "ACEPTABLE" : "DEFICIENTE")
+	<variable name="INFORMATION_2" class="java.lang.Integer">
+		<expression><![CDATA[$F{informationScores}.get(2)]]></expression>
+	</variable>
+	<variable name="INFORMATION_3" class="java.lang.Integer">
+		<expression><![CDATA[$F{informationScores}.get(3)]]></expression>
+	</variable>
+	<variable name="INFORMATION_ADDITION" class="java.lang.Integer">
+		<expression><![CDATA[$V{INFORMATION_0}+$V{INFORMATION_1}+$V{INFORMATION_2}+$V{INFORMATION_3}]]></expression>
+	</variable>
+	<variable name="INFORMATION_OPERATION" class="java.lang.Float">
+		<expression><![CDATA[(((float)$V{INFORMATION_ADDITION})/16) * 100]]></expression>
+	</variable>
+	<variable name="INFORMATION_RESULT" class="java.lang.String">
+		<expression><![CDATA[(
+  $V{INFORMATION_OPERATION} == null ? "-" :
+  $V{INFORMATION_OPERATION} >= 96f ? "EXCELENTE" :
+  $V{INFORMATION_OPERATION} >= 60f ? "ACEPTABLE" :
+  "DEFICIENTE"
+)
 ]]></expression>
 	</variable>
-	<variable name="DELI_TOTAL1" class="java.lang.Integer">
-		<expression><![CDATA[	$F{deli0} + $F{deli1} + $F{deli2} + $F{deli3}]]></expression>
+	<variable name="GENERAL_0" class="java.lang.Integer">
+		<expression><![CDATA[$F{generalScores}.get(0)]]></expression>
 	</variable>
-	<variable name="DELI_TOTAL2" class="java.lang.Double">
-		<expression><![CDATA[($V{DELI_TOTAL1}.doubleValue() / 16) * 100]]></expression>
+	<variable name="GENERAL_1" class="java.lang.Integer">
+		<expression><![CDATA[$F{generalScores}.get(1)]]></expression>
 	</variable>
-	<variable name="DELI_RESULT" class="java.lang.String">
-		<expression><![CDATA[$V{DELI_TOTAL2} >= 96 ? "EXCELENTE" :
-($V{DELI_TOTAL2} >= 60 ? "ACEPTABLE" : "DEFICIENTE")
+	<variable name="GENERAL_2" class="java.lang.Integer">
+		<expression><![CDATA[$F{generalScores}.get(2)]]></expression>
+	</variable>
+	<variable name="GENERAL_3" class="java.lang.Integer">
+		<expression><![CDATA[$F{generalScores}.get(3)]]></expression>
+	</variable>
+	<variable name="GENERAL_4" class="java.lang.Integer">
+		<expression><![CDATA[$F{generalScores}.get(4)]]></expression>
+	</variable>
+	<variable name="GENERAL_5" class="java.lang.Integer">
+		<expression><![CDATA[$F{generalScores}.get(5)]]></expression>
+	</variable>
+	<variable name="GENERAL_6" class="java.lang.Integer">
+		<expression><![CDATA[$F{generalScores}.get(6)]]></expression>
+	</variable>
+	<variable name="GENERAL_7" class="java.lang.Integer">
+		<expression><![CDATA[$F{generalScores}.get(7)]]></expression>
+	</variable>
+	<variable name="GENERAL_ADDITION_1" class="java.lang.Integer">
+		<expression><![CDATA[$V{GENERAL_0} + $V{GENERAL_1} + $V{GENERAL_2} + $V{GENERAL_3}]]></expression>
+	</variable>
+	<variable name="GENERAL_ADDITION_2" class="java.lang.Integer">
+		<expression><![CDATA[$V{GENERAL_6} + $V{GENERAL_7}]]></expression>
+	</variable>
+	<variable name="DELIVERY_0" class="java.lang.Integer">
+		<expression><![CDATA[$F{deliveryScores}.get(0)]]></expression>
+	</variable>
+	<variable name="DELIVERY_1" class="java.lang.Integer">
+		<expression><![CDATA[$F{deliveryScores}.get(1)]]></expression>
+	</variable>
+	<variable name="DELIVERY_2" class="java.lang.Integer">
+		<expression><![CDATA[$F{deliveryScores}.get(2)]]></expression>
+	</variable>
+	<variable name="DELIVERY_3" class="java.lang.Integer">
+		<expression><![CDATA[$F{deliveryScores}.get(3)]]></expression>
+	</variable>
+	<variable name="DELIVERY_ADDITION" class="java.lang.Integer">
+		<expression><![CDATA[$V{DELIVERY_0}+$V{DELIVERY_1}+$V{DELIVERY_2}+$V{DELIVERY_3}]]></expression>
+	</variable>
+	<variable name="DELIVERY_OPERATION" class="java.lang.Float">
+		<expression><![CDATA[(((float)$V{DELIVERY_ADDITION})/16) * 100]]></expression>
+	</variable>
+	<variable name="DELIVERY_RESULT" class="java.lang.String">
+		<expression><![CDATA[(
+$V{DELIVERY_OPERATION}	 == null ? "-" :
+$V{DELIVERY_OPERATION} >= 96f ? "EXCELENTE" :
+$V{DELIVERY_OPERATION} >= 60f ? "ACEPTABLE" :
+ "DEFICIENTE"
+)
 ]]></expression>
 	</variable>
-	<variable name="QUAL_TOTAL1" class="java.lang.Integer">
-		<expression><![CDATA[	$F{qual0} + $F{qual1}]]></expression>
+	<variable name="QUALITY_0" class="java.lang.Integer">
+		<expression><![CDATA[$F{qualityScores}.get(0)]]></expression>
 	</variable>
-	<variable name="QUAL_TOTAL2" class="java.lang.Double">
-		<expression><![CDATA[($V{QUAL_TOTAL1}.doubleValue() / 16) * 100]]></expression>
+	<variable name="QUALITY_1" class="java.lang.Integer">
+		<expression><![CDATA[$F{qualityScores}.get(1)]]></expression>
 	</variable>
-	<variable name="QUAL_RESULT" class="java.lang.String">
-		<expression><![CDATA[$V{QUAL_TOTAL2} >= 96 ? "EXCELENTE" :
-($V{QUAL_TOTAL2} >= 60 ? "ACEPTABLE" : "DEFICIENTE")
+	<variable name="QUALITY_ADDITION" class="java.lang.Integer">
+		<expression><![CDATA[$V{QUALITY_0}+$V{QUALITY_1}]]></expression>
+	</variable>
+	<variable name="QUALITY_OPERATION" class="java.lang.Float">
+		<expression><![CDATA[(((float)$V{QUALITY_ADDITION})/8) * 100]]></expression>
+	</variable>
+	<variable name="QUALITY_RESULT" class="java.lang.String">
+		<expression><![CDATA[(
+$V{QUALITY_OPERATION}	 == null ? "-" :
+$V{QUALITY_OPERATION} >= 96f ? "EXCELENTE" :
+$V{QUALITY_OPERATION} >= 60f ? "ACEPTABLE" :
+ "DEFICIENTE"
+)
 ]]></expression>
-	</variable>
-	<variable name="GENE_SUM1" class="java.lang.Integer">
-		<expression><![CDATA[$F{gene0} + $F{gene1}+ $F{gene2} + $F{gene3}]]></expression>
-	</variable>
-	<variable name="GENE_SUM2" class="java.lang.Integer">
-		<expression><![CDATA[$F{gene6} + $F{gene7}]]></expression>
-	</variable>
-	<variable name="GENE_CB0" class="java.lang.String">
-		<expression><![CDATA[$F{gene0} > 0 ? "reports/img/check.png":"reports/img/uncheck.png"]]></expression>
-	</variable>
-	<variable name="GENE_CB1" class="java.lang.String">
-		<expression><![CDATA[$F{gene1} > 0 ? "reports/img/check.png":"reports/img/uncheck.png"]]></expression>
-	</variable>
-	<variable name="GENE_CB2" class="java.lang.String">
-		<expression><![CDATA[$F{gene2} > 0 ? "reports/img/check.png":"reports/img/uncheck.png"]]></expression>
-	</variable>
-	<variable name="GENE_CB3" class="java.lang.String">
-		<expression><![CDATA[$F{gene3} > 0 ? "reports/img/check.png":"reports/img/uncheck.png"]]></expression>
-	</variable>
-	<variable name="GENE_CB4" class="java.lang.String">
-		<expression><![CDATA[$F{gene4} > 0 ? "reports/img/check.png":"reports/img/uncheck.png"]]></expression>
-	</variable>
-	<variable name="GENE_CB5" class="java.lang.String">
-		<expression><![CDATA[$F{gene5} > 0 ? "reports/img/check.png":"reports/img/uncheck.png"]]></expression>
-	</variable>
-	<variable name="GENE_CB6" class="java.lang.String">
-		<expression><![CDATA[$F{gene6} > 0 ? "reports/img/check.png":"reports/img/uncheck.png"]]></expression>
-	</variable>
-	<variable name="GENE_CB7" class="java.lang.String">
-		<expression><![CDATA[$F{gene7} > 0 ? "reports/img/check.png":"reports/img/uncheck.png"]]></expression>
-	</variable>
-	<variable name="GENE_TOTAL1" class="java.lang.Integer">
-		<expression><![CDATA[ $F{gene0} + $F{gene1} + $F{gene2} + $F{gene3} +$F{gene4}+$F{gene5}+$F{gene6}+$F{gene7}]]></expression>
 	</variable>
 	<background splitType="Stretch"/>
 	<title height="5" splitType="Stretch"/>
@@ -120,7 +139,7 @@
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
 			<element kind="textField" uuid="8c4817a1-2fc9-4b56-870f-8d38619e1be7" x="112" y="1" width="255" height="30" textAdjust="ScaleFont" linkType="None" linkTarget="Self" underline="false" vTextAlign="Middle">
-				<expression><![CDATA[$F{name}]]></expression>
+				<expression><![CDATA[$F{supplier.name}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
 			<element kind="staticText" uuid="cfbf4b27-d8e8-48a8-ab5c-a7658c6bc003" x="380" y="1" width="88" height="30" bold="true" vTextAlign="Middle">
@@ -140,15 +159,15 @@
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
 			<element kind="textField" uuid="3aed4344-1e32-44d9-ae07-74ea7df43446" x="112" y="31" width="255" height="30" underline="false" vTextAlign="Middle">
-				<expression><![CDATA[$F{phoneNumber}]]></expression>
+				<expression><![CDATA[$F{supplier.phoneNumber}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
 			<element kind="textField" uuid="2bc21ca2-d595-410f-8b45-acef29d95b9b" x="112" y="61" width="255" height="30" underline="false" vTextAlign="Middle">
-				<expression><![CDATA[$F{rfc}]]></expression>
+				<expression><![CDATA[$F{supplier.rfc}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
 			<element kind="textField" uuid="e59259b0-51ff-4910-b389-a7bc6aa525a1" x="112" y="91" width="366" height="44" underline="false" vTextAlign="Middle">
-				<expression><![CDATA[$F{services}]]></expression>
+				<expression><![CDATA[$F{supplier.services}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
 			<element kind="staticText" uuid="5ce36e64-8d30-4a3d-a30a-971c3ed3cea2" x="12" y="91" width="100" height="44" bold="true" vTextAlign="Middle">
@@ -172,7 +191,7 @@
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
 			<element kind="textField" uuid="f220f816-1a26-40ae-be6f-26fab15d91a8" x="380" y="83" width="162" height="20" underline="false" hTextAlign="Center" vTextAlign="Middle">
-				<expression><![CDATA[$F{email}]]></expression>
+				<expression><![CDATA[$F{supplier.email}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
 			<box>
@@ -188,7 +207,7 @@
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			</element>
 			<element kind="image" uuid="a84f7dab-6873-4a0b-ba52-09142ebede9e" mode="Opaque" x="0" y="1" width="130" height="70" onErrorType="Icon" hImageAlign="Center" vImageAlign="Middle">
-				<expression><![CDATA["reports/img/company.png"]]></expression>
+				<expression><![CDATA["reports/img/company.jpg"]]></expression>
 				<box>
 					<pen lineWidth="0.0"/>
 				</box>
@@ -224,7 +243,7 @@
 				<element kind="frame" uuid="d68075b1-c92b-43be-9080-c79b4e42e5ce" x="503" y="0" width="58" height="40">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<element kind="textField" uuid="18410be5-96fa-48f6-bd77-3e963c732fee" x="6" y="5" width="48" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$F{info0}]]></expression>
+						<expression><![CDATA[$V{INFORMATION_0}]]></expression>
 					</element>
 					<box>
 						<pen lineWidth="1.0"/>
@@ -244,7 +263,7 @@
 				<element kind="frame" uuid="51123321-0e49-4cac-836d-d9d3e9d5ae0a" x="503" y="40" width="58" height="40">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<element kind="textField" uuid="46c049ce-33cb-4fe1-ada5-81394c60f7a8" x="7" y="6" width="46" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$F{info1}]]></expression>
+						<expression><![CDATA[$V{INFORMATION_1}]]></expression>
 					</element>
 					<box>
 						<pen lineWidth="1.0"/>
@@ -264,7 +283,7 @@
 				<element kind="frame" uuid="851530a8-57ca-4b9d-9aef-2ac43b01deba" x="503" y="80" width="58" height="40">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<element kind="textField" uuid="9eacbd97-c3a6-4d07-92b3-dcd16f9b45cc" x="9" y="6" width="44" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$F{info2}]]></expression>
+						<expression><![CDATA[$V{INFORMATION_2}]]></expression>
 					</element>
 					<box>
 						<pen lineWidth="1.0"/>
@@ -284,7 +303,7 @@
 				<element kind="frame" uuid="ccb5974f-b437-40a0-993d-3be06b8a4061" x="503" y="120" width="58" height="40">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<element kind="textField" uuid="33603948-b96c-477d-b1ed-31e6552a3236" x="7" y="6" width="46" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$F{info3}]]></expression>
+						<expression><![CDATA[$V{INFORMATION_3}]]></expression>
 					</element>
 					<box>
 						<pen lineWidth="1.0"/>
@@ -352,13 +371,13 @@
 TOTAL DE PUNTOS POSIBLES	( 16 )]]></text>
 					</element>
 					<element kind="textField" uuid="6a80cbc8-0546-4776-9a97-5d1e54bc58c9" x="173" y="8" width="19" height="18" hTextAlign="Center">
-						<expression><![CDATA[ $V{INFO_TOTAL1} ]]></expression>
+						<expression><![CDATA[$V{INFORMATION_ADDITION}]]></expression>
 					</element>
 					<element kind="staticText" uuid="4141fa05-b3cf-4470-84ef-05db963b9a20" x="201" y="11" width="56" height="30" hTextAlign="Center" vTextAlign="Middle">
 						<text><![CDATA[X 100 = ]]></text>
 					</element>
 					<element kind="textField" uuid="5f09dfee-6378-4a95-9d91-648a14857ee0" mode="Opaque" x="257" y="6" width="44" height="40" backcolor="#F2FF03" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$V{INFO_TOTAL2}]]></expression>
+						<expression><![CDATA[$V{INFORMATION_OPERATION}]]></expression>
 						<box>
 							<pen lineWidth="1.0"/>
 						</box>
@@ -413,7 +432,7 @@ TOTAL DE PUNTOS POSIBLES	( 16 )]]></text>
 						</box>
 					</element>
 					<element kind="textField" uuid="ded41bc9-82d1-46c9-8453-6741fc646a5f" mode="Opaque" x="99" y="-1" width="120" height="18" forecolor="#030303" backcolor="#F2FF03" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$V{INFO_RESULT}]]></expression>
+						<expression><![CDATA[$V{INFORMATION_RESULT}]]></expression>
 						<box>
 							<pen lineWidth="1.0"/>
 						</box>
@@ -581,7 +600,7 @@ Responsable]]></text>
 				</box>
 			</element>
 			<element kind="textField" uuid="cae74f1c-add3-4444-9d63-e727968803e6" x="502" y="65" width="58" height="118" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
-				<expression><![CDATA[$V{GENE_SUM1}]]></expression>
+				<expression><![CDATA[$V{GENERAL_ADDITION_1}]]></expression>
 				<box>
 					<pen lineWidth="1.0"/>
 				</box>
@@ -597,7 +616,7 @@ Responsable]]></text>
 				</box>
 			</element>
 			<element kind="textField" uuid="5122cf35-31ac-45db-8e83-3a0011ad7664" x="502" y="183" width="58" height="30" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
-				<expression><![CDATA[$F{gene4}]]></expression>
+				<expression><![CDATA[$V{GENERAL_4}]]></expression>
 				<box>
 					<pen lineWidth="1.0"/>
 				</box>
@@ -613,7 +632,7 @@ Responsable]]></text>
 				</box>
 			</element>
 			<element kind="textField" uuid="52cc2210-674a-41f0-8370-d7171015c98b" x="502" y="213" width="58" height="30" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
-				<expression><![CDATA[$F{gene5}]]></expression>
+				<expression><![CDATA[$V{GENERAL_5}]]></expression>
 				<box>
 					<pen lineWidth="1.0"/>
 				</box>
@@ -629,7 +648,7 @@ Responsable]]></text>
 				</box>
 			</element>
 			<element kind="textField" uuid="4c5318dc-94bf-4843-acca-a02086221be1" x="502" y="243" width="58" height="58" fontSize="11.0" hTextAlign="Center" vTextAlign="Middle">
-				<expression><![CDATA[$V{GENE_SUM2}]]></expression>
+				<expression><![CDATA[$V{GENERAL_ADDITION_2}]]></expression>
 				<box>
 					<pen lineWidth="1.0"/>
 				</box>
@@ -714,30 +733,6 @@ Responsable]]></text>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="image" uuid="02e01a1f-116d-431b-be20-cf5587ea9bab" x="385" y="70" width="51" height="20" onErrorType="Icon" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
-				<expression><![CDATA[$V{GENE_CB0}]]></expression>
-			</element>
-			<element kind="image" uuid="7321be01-5923-4638-bd0d-2b772009284c" x="385" y="99" width="51" height="20" onErrorType="Icon" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
-				<expression><![CDATA[$V{GENE_CB1}]]></expression>
-			</element>
-			<element kind="image" uuid="b2235a5e-3467-466a-b9f3-d0fc3ba9f212" x="385" y="130" width="51" height="20" onErrorType="Icon" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
-				<expression><![CDATA[$V{GENE_CB2}]]></expression>
-			</element>
-			<element kind="image" uuid="5f6d47b3-3d0a-436d-b254-f09f8d4c5645" x="385" y="159" width="51" height="20" onErrorType="Icon" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
-				<expression><![CDATA[$V{GENE_CB3}]]></expression>
-			</element>
-			<element kind="image" uuid="e0b086a7-7990-4415-80a0-34e5c97e84d8" x="385" y="188" width="51" height="20" onErrorType="Icon" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
-				<expression><![CDATA[$V{GENE_CB4}]]></expression>
-			</element>
-			<element kind="image" uuid="9f759cc4-2df0-4a4c-990d-2fedb7b35cc2" x="385" y="218" width="51" height="20" onErrorType="Icon" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
-				<expression><![CDATA[$V{GENE_CB5}]]></expression>
-			</element>
-			<element kind="image" uuid="b1ee0ac2-d418-4421-b688-0083efcb8c32" x="385" y="248" width="51" height="20" onErrorType="Icon" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
-				<expression><![CDATA[$V{GENE_CB6}]]></expression>
-			</element>
-			<element kind="image" uuid="6b542d5d-4b65-4c29-9a48-bc18fcc439e0" x="385" y="278" width="51" height="20" onErrorType="Icon" linkType="None" linkTarget="Self" hImageAlign="Center" vImageAlign="Middle">
-				<expression><![CDATA[$V{GENE_CB7}]]></expression>
-			</element>
 			<element kind="frame" uuid="ab77d157-5741-44ce-bf37-eba3479e98f8" x="0" y="301" width="560" height="33">
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<element kind="staticText" uuid="5bd4be45-a883-49e9-a8c5-5a5e7027fe89" x="3" y="0" width="100" height="32" hTextAlign="Left" vTextAlign="Middle">
@@ -758,7 +753,7 @@ Responsable]]></text>
 				</box>
 			</element>
 			<element kind="textField" uuid="6489df64-9fa4-43b0-86ef-cf27a81a9a12" mode="Opaque" x="502" y="301" width="58" height="13" backcolor="#EEFF03" bold="true" hTextAlign="Center" vTextAlign="Middle">
-				<expression><![CDATA[$V{GENE_TOTAL1}]]></expression>
+				<expression><![CDATA[$V{GENERAL_0}+$V{GENERAL_1}+$V{GENERAL_2}+$V{GENERAL_3}+$V{GENERAL_4}+$V{GENERAL_5}+$V{GENERAL_6}+$V{GENERAL_7}]]></expression>
 				<box>
 					<pen lineWidth="1.0"/>
 				</box>
@@ -824,6 +819,30 @@ Nota 2:]]></text>
 					<pen lineWidth="1.0"/>
 				</box>
 			</element>
+			<element kind="image" uuid="97744583-e546-4f3b-8958-a4d0db8bac9e" x="394" y="69" width="29" height="23" onErrorType="Icon" hImageAlign="Center" vImageAlign="Middle">
+				<expression><![CDATA[$V{GENERAL_0} > 0? "reports/img/check.png": "reports/img/uncheck.png"]]></expression>
+			</element>
+			<element kind="image" uuid="994becc1-a6ab-44cf-91c4-8344a83bedce" x="394" y="98" width="29" height="23" onErrorType="Icon" hImageAlign="Center" vImageAlign="Middle">
+				<expression><![CDATA[$V{GENERAL_1} > 0? "reports/img/check.png": "reports/img/uncheck.png"]]></expression>
+			</element>
+			<element kind="image" uuid="7b0b1e7e-ca38-4510-a3c9-d00b1b546b39" x="394" y="128" width="29" height="23" onErrorType="Icon" hImageAlign="Center" vImageAlign="Middle">
+				<expression><![CDATA[$V{GENERAL_2} > 0? "reports/img/check.png": "reports/img/uncheck.png"]]></expression>
+			</element>
+			<element kind="image" uuid="c5df3398-4362-4e56-a354-20adb685f294" x="394" y="157" width="29" height="23" onErrorType="Icon" hImageAlign="Center" vImageAlign="Middle">
+				<expression><![CDATA[$V{GENERAL_3} > 0? "reports/img/check.png": "reports/img/uncheck.png"]]></expression>
+			</element>
+			<element kind="image" uuid="d6983f9c-fa6c-45b2-ba51-1b29cae2021a" x="394" y="186" width="29" height="23" onErrorType="Icon" hImageAlign="Center" vImageAlign="Middle">
+				<expression><![CDATA[$V{GENERAL_4} > 0? "reports/img/check.png": "reports/img/uncheck.png"]]></expression>
+			</element>
+			<element kind="image" uuid="d4f01b0f-f63d-430c-97a4-f24604d8c61c" x="394" y="216" width="29" height="23" onErrorType="Icon" hImageAlign="Center" vImageAlign="Middle">
+				<expression><![CDATA[$V{GENERAL_5} > 0? "reports/img/check.png": "reports/img/uncheck.png"]]></expression>
+			</element>
+			<element kind="image" uuid="8b4f7a40-907a-4269-90bf-50e3260248d7" x="394" y="246" width="29" height="23" onErrorType="Icon" hImageAlign="Center" vImageAlign="Middle">
+				<expression><![CDATA[$V{GENERAL_6} > 0? "reports/img/check.png": "reports/img/uncheck.png"]]></expression>
+			</element>
+			<element kind="image" uuid="521f44da-1ecd-4b6b-9aa9-7219da1651c8" x="394" y="275" width="29" height="23" onErrorType="Icon" hImageAlign="Center" vImageAlign="Middle">
+				<expression><![CDATA[$V{GENERAL_7} > 0? "reports/img/check.png": "reports/img/uncheck.png"]]></expression>
+			</element>
 		</band>
 		<band height="537">
 			<element kind="frame" uuid="34ed7b31-7e2c-4ba8-87d3-e1e4e692c986" x="0" y="4" width="561" height="159">
@@ -845,7 +864,7 @@ Nota 2:]]></text>
 				<element kind="frame" uuid="2752546a-7406-400a-9c12-ca2dc78ac815" x="503" y="0" width="58" height="40">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<element kind="textField" uuid="d4795db6-780d-4673-83b8-93977aed138b" x="6" y="5" width="48" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$F{deli0}]]></expression>
+						<expression><![CDATA[$V{DELIVERY_0}]]></expression>
 					</element>
 					<box>
 						<pen lineWidth="1.0"/>
@@ -865,7 +884,7 @@ Nota 2:]]></text>
 				<element kind="frame" uuid="3c240e4d-ed84-4d70-84a9-800c5763e2ac" x="503" y="40" width="58" height="40">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<element kind="textField" uuid="cba31b3c-24ea-49a9-b854-907d50519aba" x="7" y="6" width="46" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$F{deli1}]]></expression>
+						<expression><![CDATA[$V{DELIVERY_1}]]></expression>
 					</element>
 					<box>
 						<pen lineWidth="1.0"/>
@@ -885,7 +904,7 @@ Nota 2:]]></text>
 				<element kind="frame" uuid="f6726a3e-dc5c-40b7-92d8-fcf03d1ce898" x="503" y="80" width="58" height="40">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<element kind="textField" uuid="550e15e9-768a-4008-bcd7-af8d0766feef" x="9" y="6" width="44" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$F{deli2}]]></expression>
+						<expression><![CDATA[$V{DELIVERY_2}]]></expression>
 					</element>
 					<box>
 						<pen lineWidth="1.0"/>
@@ -905,7 +924,7 @@ Nota 2:]]></text>
 				<element kind="frame" uuid="e0b0a823-9641-43ed-9aff-7ab7f3a41f39" x="503" y="120" width="58" height="40">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<element kind="textField" uuid="46529ce2-81a9-4b16-a0d4-0953f321f2eb" x="7" y="6" width="46" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$F{deli3}]]></expression>
+						<expression><![CDATA[$V{DELIVERY_3}]]></expression>
 					</element>
 					<box>
 						<pen lineWidth="1.0"/>
@@ -973,13 +992,13 @@ Nota 2:]]></text>
 TOTAL DE PUNTOS POSIBLES	( 16 )]]></text>
 					</element>
 					<element kind="textField" uuid="7551f436-b8df-4be7-b0b3-a79cd60622ee" x="173" y="10" width="19" height="15" hTextAlign="Center">
-						<expression><![CDATA[ $V{DELI_TOTAL1} ]]></expression>
+						<expression><![CDATA[$V{DELIVERY_ADDITION}]]></expression>
 					</element>
 					<element kind="staticText" uuid="5ff82a2a-186d-466e-9f24-7f099dbaa54e" x="201" y="11" width="56" height="30" hTextAlign="Center" vTextAlign="Middle">
 						<text><![CDATA[X 100 = ]]></text>
 					</element>
 					<element kind="textField" uuid="830dabeb-30db-4fb9-a444-961d25d99137" mode="Opaque" x="257" y="6" width="44" height="40" backcolor="#F2FF03" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$V{DELI_TOTAL2}]]></expression>
+						<expression><![CDATA[$V{DELIVERY_OPERATION}]]></expression>
 						<box>
 							<pen lineWidth="1.0"/>
 						</box>
@@ -1033,8 +1052,8 @@ TOTAL DE PUNTOS POSIBLES	( 16 )]]></text>
 							<pen lineWidth="1.0"/>
 						</box>
 					</element>
-					<element kind="textField" uuid="7a1dcd40-6d8a-4d7b-9035-aac1e615a81f" mode="Opaque" x="99" y="-1" width="120" height="18" forecolor="#030303" backcolor="#F2FF03" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$V{DELI_RESULT}]]></expression>
+					<element kind="textField" uuid="7a1dcd40-6d8a-4d7b-9035-aac1e615a81f" mode="Opaque" x="99" y="-1" width="120" height="18" forecolor="#030303" backcolor="#F2FF03" linkType="None" linkTarget="Self" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<expression><![CDATA[$V{DELIVERY_RESULT}]]></expression>
 						<box>
 							<pen lineWidth="1.0"/>
 						</box>
@@ -1087,7 +1106,7 @@ Responsable]]></text>
 				<element kind="frame" uuid="0ede4192-f138-424d-bab7-98debf175ba3" x="503" y="0" width="58" height="40">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<element kind="textField" uuid="cbe96d0c-e329-42e1-8f0f-665ede8ae134" x="6" y="5" width="48" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$F{qual0}]]></expression>
+						<expression><![CDATA[$V{QUALITY_0}]]></expression>
 					</element>
 					<box>
 						<pen lineWidth="1.0"/>
@@ -1107,7 +1126,7 @@ Responsable]]></text>
 				<element kind="frame" uuid="85ad118e-4963-4dad-8554-71304526f3bf" x="503" y="40" width="58" height="40">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<element kind="textField" uuid="61211a94-4190-41fb-bc8a-b3924a1537e9" x="7" y="6" width="46" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$F{qual1}]]></expression>
+						<expression><![CDATA[$V{QUALITY_1}]]></expression>
 					</element>
 					<box>
 						<pen lineWidth="1.0"/>
@@ -1175,13 +1194,13 @@ Responsable]]></text>
 TOTAL DE PUNTOS POSIBLES	( 8 )]]></text>
 					</element>
 					<element kind="textField" uuid="2926ad29-b452-4fb9-b6d5-765d0a9bfaf8" x="173" y="10" width="19" height="15" hTextAlign="Center">
-						<expression><![CDATA[ $V{QUAL_TOTAL1} ]]></expression>
+						<expression><![CDATA[$V{QUALITY_ADDITION}]]></expression>
 					</element>
 					<element kind="staticText" uuid="0f6dba23-4e43-4dc3-95bc-669a399064fe" x="201" y="11" width="56" height="30" hTextAlign="Center" vTextAlign="Middle">
 						<text><![CDATA[X 100 = ]]></text>
 					</element>
 					<element kind="textField" uuid="0fc6e28b-65e7-4887-bec0-71c3e3684441" mode="Opaque" x="257" y="6" width="44" height="40" backcolor="#F2FF03" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$V{QUAL_TOTAL2}]]></expression>
+						<expression><![CDATA[$V{QUALITY_OPERATION}]]></expression>
 						<box>
 							<pen lineWidth="1.0"/>
 						</box>
@@ -1236,7 +1255,7 @@ TOTAL DE PUNTOS POSIBLES	( 8 )]]></text>
 						</box>
 					</element>
 					<element kind="textField" uuid="6ad97df4-bfd1-44a9-9caf-d232f15550dc" mode="Opaque" x="99" y="-1" width="120" height="18" forecolor="#030303" backcolor="#F2FF03" bold="true" hTextAlign="Center" vTextAlign="Middle">
-						<expression><![CDATA[$V{QUAL_RESULT}]]></expression>
+						<expression><![CDATA[$V{QUALITY_RESULT}]]></expression>
 						<box>
 							<pen lineWidth="1.0"/>
 						</box>
