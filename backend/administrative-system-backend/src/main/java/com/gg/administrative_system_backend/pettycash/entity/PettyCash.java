@@ -19,6 +19,7 @@ public class PettyCash {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Enumerated(EnumType.STRING)
     private ExpenseType type;
     @Builder.Default
     private LocalDate date = LocalDate.now();

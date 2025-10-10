@@ -1,34 +1,29 @@
 package com.gg.administrative_system_backend.pettycash.report;
 
+import com.gg.administrative_system_backend.auth.CompanyDetails;
 import com.gg.administrative_system_backend.company.entity.Company;
 import com.gg.administrative_system_backend.company.service.CompanyService;
 import com.gg.administrative_system_backend.pettycash.entity.PettyCash;
 import com.gg.administrative_system_backend.pettycash.service.PettyCashService;
 import com.gg.administrative_system_backend.shared.Report;
+import com.gg.administrative_system_backend.util.AuthenticationUtils;
 import com.gg.administrative_system_backend.util.ReportHelper;
 import com.gg.administrative_system_backend.util.ReportUtils;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor
 public class PettyCashReportService {
     private final CompanyService companyService;
-    private final ReportUtils reportUtils;
     private final ReportHelper reportHelper;
     private final PettyCashService pettyCashService;
 
-    public byte[] exportPdf() throws Exception {
-        Map<String, Object> parameters = new HashMap<>();
-        Company company = companyService.findCompany(1L); // Simulated with Company ID --> 1
-        PettyCash pettyCash = pettyCashService.findPettyCash(1L);
-        parameters.put("creationDate", pettyCash.getDate().toString());
-
-        reportUtils.setReportHeader(parameters, company);
-        return reportHelper.generatePdf(Report.PETTY_CASH, parameters, pettyCash.getExpenses());
+    public byte[] exportPdf(Long id) throws Exception {
+        CompanyDetails companyDetails = (CompanyDetails) AuthenticationUtils.getAuthentication().getPrincipal();
+        Company company = companyService.findCompany(companyDetails.getId());
+        PettyCash pettyCash = pettyCashService.findPettyCash(id);
+        return reportHelper.generatePdf(Report.PETTY_CASH, ReportUtils.getHeader(company), pettyCash.getExpenses());
     }
 }

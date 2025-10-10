@@ -32,5 +32,4 @@ public class Expense {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "contract_id")
     private Contract contract;
-
 }
