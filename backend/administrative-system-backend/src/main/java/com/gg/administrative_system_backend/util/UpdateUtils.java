@@ -1,5 +1,7 @@
 package com.gg.administrative_system_backend.util;
 
+import com.gg.administrative_system_backend.exception.ValueRequiredException;
+import com.gg.administrative_system_backend.shared.message.GenericMessage;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +23,13 @@ public class UpdateUtils {
      * @param setter   Consumer that sets the new value on the entity.
      * @param <T>      Type of the value to compare and update.
      */
-    public static<T> void updateIfChanged(Supplier<T> getter, Supplier<T> newValue, Consumer<T> setter){
-        if(newValue != null && !Objects.equals(getter.get(), newValue.get())){
-            setter.accept(newValue.get());
+    public static <T> void updateIfChanged(Supplier<T> getter, Supplier<T> newValue, Consumer<T> setter) {
+        T value = newValue.get();
+        if (value instanceof String && ((String) value).isBlank()) {
+            throw new ValueRequiredException(GenericMessage.VALUE_REQUIRED.getMessage());
+        }
+        if (value != null && !Objects.equals(getter.get(), value)) {
+            setter.accept(value);
         }
     }
 }
