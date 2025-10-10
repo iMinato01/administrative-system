@@ -5,8 +5,7 @@ import com.gg.administrative_system_backend.company.entity.Company;
 import com.gg.administrative_system_backend.company.service.CompanyService;
 import com.gg.administrative_system_backend.shared.Report;
 import com.gg.administrative_system_backend.supplier.repository.SupplierRepository;
-import com.gg.administrative_system_backend.supplier.service.SupplierService;
-import com.gg.administrative_system_backend.util.AuthenticatonUtils;
+import com.gg.administrative_system_backend.util.AuthenticationUtils;
 import com.gg.administrative_system_backend.util.ReportHelper;
 import com.gg.administrative_system_backend.util.ReportUtils;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ public class SupplierReportService {
     private final CompanyService companyService;
     private final SupplierRepository supplierRepository;
     public byte[] getReport() throws Exception{
-        CompanyDetails companyDetails = (CompanyDetails) AuthenticatonUtils.getAuthentication().getPrincipal();
+        CompanyDetails companyDetails = (CompanyDetails) AuthenticationUtils.getAuthentication().getPrincipal();
         Company company = companyService.findCompany(companyDetails.getId());
         return reportHelper.generatePdf(Report.SUPPLIER, ReportUtils.getHeader(company), supplierRepository.findAll());
     }
