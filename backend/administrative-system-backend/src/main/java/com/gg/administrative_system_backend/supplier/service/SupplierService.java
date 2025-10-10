@@ -49,8 +49,8 @@ public class SupplierService {
     @Transactional
     public Supplier updateSupplier(Long id, UpdateSupplierDTO updateSupplierDTO){
         Supplier supplier = findSupplier(id);
-        ValidationUtils.validateIfExists(updateSupplierDTO.getName(), supplierRepository::existsByName, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(Report.SUPPLIER.getName(), updateSupplierDTO.getName())));
-        ValidationUtils.validateIfExists(updateSupplierDTO.getRfc(), supplierRepository::existsByRfc, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(Report.SUPPLIER.getName(), updateSupplierDTO.getRfc())));
+        ValidationUtils.validateIfExists(updateSupplierDTO.getName(), supplierRepository::existsByName, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(updateSupplierDTO.getName())));
+        ValidationUtils.validateIfExists(updateSupplierDTO.getRfc(), supplierRepository::existsByRfc, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(updateSupplierDTO.getRfc())));
         return supplierMapper.updateEntityFromDto(updateSupplierDTO, supplier);
     }
 

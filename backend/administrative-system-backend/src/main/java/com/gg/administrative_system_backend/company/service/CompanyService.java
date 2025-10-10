@@ -34,8 +34,8 @@ public class CompanyService {
      */
     @Transactional
     public Company saveCompany(CreateCompanyDTO createCompanyDTO){
-        ValidationUtils.validateIfExists(createCompanyDTO.getName(), companyRepository::existsByName, () -> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(Report.COMPANY.getName(), createCompanyDTO.getName())));
-        ValidationUtils.validateIfExists(createCompanyDTO.getRfc(), companyRepository::existsByRfc, () -> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(Report.COMPANY.getName(), createCompanyDTO.getRfc())));
+        ValidationUtils.validateIfExists(createCompanyDTO.getName(), companyRepository::existsByName, () -> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(createCompanyDTO.getName())));
+        ValidationUtils.validateIfExists(createCompanyDTO.getRfc(), companyRepository::existsByRfc, () -> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(createCompanyDTO.getRfc())));
         return companyRepository.save(companyMapper.toEntity(createCompanyDTO));
     }
 
@@ -49,8 +49,8 @@ public class CompanyService {
     @Transactional
     public Company updateCompany(Long id, UpdateCompanyDTO updateCompanyDTO){
         Company company = findCompany(id);
-        ValidationUtils.validateIfExists(updateCompanyDTO.getName(), companyRepository::existsByName, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(Report.COMPANY.getName(), updateCompanyDTO.getName())));
-        ValidationUtils.validateIfExists(updateCompanyDTO.getRfc(), companyRepository::existsByRfc, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(Report.COMPANY.getName(), updateCompanyDTO.getRfc())));
+        ValidationUtils.validateIfExists(updateCompanyDTO.getName(), companyRepository::existsByName, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(updateCompanyDTO.getName())));
+        ValidationUtils.validateIfExists(updateCompanyDTO.getRfc(), companyRepository::existsByRfc, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(updateCompanyDTO.getRfc())));
         return companyMapper.updateEntityFromDto(updateCompanyDTO, company);
     }
 
