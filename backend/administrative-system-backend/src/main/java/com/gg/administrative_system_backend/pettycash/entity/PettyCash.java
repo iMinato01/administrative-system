@@ -13,8 +13,8 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
+@AllArgsConstructor
 public class PettyCash {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
