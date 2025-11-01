@@ -29,6 +29,6 @@ public class CompanyReportService {
     public byte[] getReport() throws Exception {
         CompanyDetails companyDetails = (CompanyDetails) AuthenticationUtils.getAuthentication().getPrincipal();
         Company company = companyService.findCompany(companyDetails.getId());
-        return reportHelper.generatePdf(Report.COMPANY, ReportUtils.getHeader(company), companyService.findAll());
+        return reportHelper.generatePdf(Report.COMPANY, ReportUtils.getCompanyHeader(company), companyService.findAll());
     }
 }

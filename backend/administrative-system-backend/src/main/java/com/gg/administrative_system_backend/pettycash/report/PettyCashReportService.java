@@ -24,6 +24,6 @@ public class PettyCashReportService {
         CompanyDetails companyDetails = (CompanyDetails) AuthenticationUtils.getAuthentication().getPrincipal();
         Company company = companyService.findCompany(companyDetails.getId());
         PettyCash pettyCash = pettyCashService.findPettyCash(id);
-        return reportHelper.generatePdf(Report.PETTY_CASH, ReportUtils.getHeader(company), pettyCash.getExpenses());
+        return reportHelper.generatePdf(Report.PETTY_CASH, ReportUtils.getPettyCashHeader(company, pettyCash), pettyCash.getExpenses());
     }
 }

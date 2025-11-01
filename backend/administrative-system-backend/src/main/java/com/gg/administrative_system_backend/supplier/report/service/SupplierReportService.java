@@ -20,6 +20,6 @@ public class SupplierReportService {
     public byte[] getReport() throws Exception{
         CompanyDetails companyDetails = (CompanyDetails) AuthenticationUtils.getAuthentication().getPrincipal();
         Company company = companyService.findCompany(companyDetails.getId());
-        return reportHelper.generatePdf(Report.SUPPLIER, ReportUtils.getHeader(company), supplierRepository.findAll());
+        return reportHelper.generatePdf(Report.SUPPLIER, ReportUtils.getCompanyHeader(company), supplierRepository.findAll());
     }
 }
