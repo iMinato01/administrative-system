@@ -15,14 +15,6 @@ import java.util.Map;
 @AllArgsConstructor
 public class ReportHelper {
     private final ReportCache reportCache;
-    public <T> void mapElements(java.util.function.Supplier<T> newElement, Map<String, Object> dataMap, String fieldName){
-        dataMap.put(fieldName, newElement.get());
-    }
-    public void mapElements(List<Integer> newElements, Map<String, Object> dataMap, String fieldName){
-        for(int i = 0; i < newElements.size(); i++){
-            dataMap.put(fieldName+i, newElements.get(i));
-        }
-    }
 
     public <T> byte[] generatePdf(Report report, Map<String, Object> parameters, List<T> elements) throws Exception {
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(elements);
