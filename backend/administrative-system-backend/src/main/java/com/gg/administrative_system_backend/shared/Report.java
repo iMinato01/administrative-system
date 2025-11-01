@@ -11,7 +11,8 @@ public enum Report {
     EVALUATION("/reports/evaluation_report.jrxml", "evaluación"),
     COMPANY("/reports/company_report.jrxml", "empresa"),
     PETTY_CASH("/reports/petty_cash_report.jrxml", "caja chica"),
-    ORDER("/reports/order_report.jrxml", "orden");
+    ORDER("/reports/order_report.jrxml", "orden"),
+    EXPENSE("", "gasto");
     private final String path;
     private final String name;
 }
