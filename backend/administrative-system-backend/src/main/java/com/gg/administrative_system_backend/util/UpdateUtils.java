@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -30,6 +31,13 @@ public class UpdateUtils {
         }
         if (value != null && !Objects.equals(getter.get(), value)) {
             setter.accept(value);
+        }
+    }
+
+    public static <T, R> void updateIfChanged(Supplier<T> currentId, Supplier<T> newId, Function<T, R> finder, Consumer<R> consumer){
+        if(!Objects.equals(currentId.get(), newId.get())){
+            R newRelation = finder.apply(newId.get());
+            consumer.accept(newRelation);
         }
     }
 }
