@@ -1,13 +1,16 @@
 package com.gg.administrative_system_backend.pettycash.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.gg.administrative_system_backend.pettycash.expense.entity.Expense;
 import com.gg.administrative_system_backend.shared.ExpenseType;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Builder
@@ -38,4 +41,11 @@ public class PettyCash {
         }
         return bigDecimal;
     }
+    public Map<String, BigDecimal> calculateTotalByContract() {
+            Map<String, BigDecimal> totalByContract = new HashMap<>();
+            for (Expense currentExpese : expenses) {
+                totalByContract.put(currentExpese.getContract().getName(), currentExpese.getAmount());
+            }
+            return totalByContract;
+        }
 }

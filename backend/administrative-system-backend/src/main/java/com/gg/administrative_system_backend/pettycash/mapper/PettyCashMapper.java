@@ -1,8 +1,9 @@
 package com.gg.administrative_system_backend.pettycash.mapper;
 
 import com.gg.administrative_system_backend.pettycash.dto.CreatePettyCashDTO;
-import com.gg.administrative_system_backend.pettycash.entity.Expense;
+import com.gg.administrative_system_backend.pettycash.expense.entity.Expense;
 import com.gg.administrative_system_backend.pettycash.entity.PettyCash;
+import com.gg.administrative_system_backend.pettycash.expense.mapper.ExpenseMapper;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,7 @@ public class PettyCashMapper {
         List<Expense> expenses = createPettyCashDTO.getExpenses().stream().map(expenseMapper::toExpense).peek(expense -> expense.setPettyCash(pettyCash)).toList();
         pettyCash.setExpenses(expenses);
         pettyCash.setType(createPettyCashDTO.getType());
+        pettyCash.calculateTotalByContract();
         pettyCash.setTotal(pettyCash.calculateTotal());
         return pettyCash;
     }

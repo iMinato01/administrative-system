@@ -1,7 +1,7 @@
 package com.gg.administrative_system_backend.pettycash.controller;
 
 import com.gg.administrative_system_backend.pettycash.dto.CreatePettyCashDTO;
-import com.gg.administrative_system_backend.pettycash.dto.UpdatePettyCash;
+import com.gg.administrative_system_backend.pettycash.dto.UpdatePettyCashDTO;
 import com.gg.administrative_system_backend.pettycash.entity.PettyCash;
 import com.gg.administrative_system_backend.pettycash.service.PettyCashService;
 import com.gg.administrative_system_backend.response.success.ApiResponse;
@@ -35,10 +35,10 @@ public class PettyCashController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ApiResponse<PettyCash>> updatePettyCash(@Valid @RequestBody UpdatePettyCash updatePettyCash, @PathVariable Long id) {
+    public ResponseEntity<ApiResponse<PettyCash>> updatePettyCash(@Valid @RequestBody UpdatePettyCashDTO updatePettyCashDTO, @PathVariable Long id) {
         return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(),
                 HttpStatus.OK.getReasonPhrase(),
-                pettyCashService.updatePettyCash(updatePettyCash, id)));
+                pettyCashService.updatePettyCash(updatePettyCashDTO, id)));
     }
 
 }

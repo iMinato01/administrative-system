@@ -1,23 +1,17 @@
-package com.gg.administrative_system_backend.pettycash.dto;
+package com.gg.administrative_system_backend.pettycash.expense.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
-@Setter
-public class CreateExpenseDTO {
-    @NotNull
+public class UpdateExpenseDTO {
+    private Long id;
     private LocalDate date;
-    @NotNull
     private Long supplierId;
-    @NotNull
     private String description;
-    @NotNull
     private Long contractId;
-    @NotNull
     private BigDecimal amount;
 }

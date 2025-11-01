@@ -1,5 +1,6 @@
 package com.gg.administrative_system_backend.pettycash.dto;
 
+import com.gg.administrative_system_backend.pettycash.expense.dto.CreateExpenseDTO;
 import com.gg.administrative_system_backend.shared.ExpenseType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
