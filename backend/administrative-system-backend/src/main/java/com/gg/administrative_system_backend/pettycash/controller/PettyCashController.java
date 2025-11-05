@@ -35,7 +35,7 @@ public class PettyCashController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ApiResponse<PettyCash>> updatePettyCash(@Valid @RequestBody UpdatePettyCashDTO updatePettyCashDTO, @PathVariable Long id) {
+    public ResponseEntity<ApiResponse<PettyCash>> updatePettyCash(@RequestBody UpdatePettyCashDTO updatePettyCashDTO, @PathVariable Long id) {
         return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(),
                 HttpStatus.OK.getReasonPhrase(),
                 pettyCashService.updatePettyCash(updatePettyCashDTO, id)));

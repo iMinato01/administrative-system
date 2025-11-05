@@ -10,6 +10,7 @@ import com.gg.administrative_system_backend.supplier.service.SupplierService;
 import com.gg.administrative_system_backend.util.UpdateUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+
 @Component
 @AllArgsConstructor
 public class ExpenseMapper {
@@ -42,12 +43,24 @@ public class ExpenseMapper {
                 .build();
     }
 
+    public CreateExpenseDTO updateToCreate(UpdateExpenseDTO updateExpenseDTO){
+        CreateExpenseDTO createExpenseDTO = new CreateExpenseDTO();
+        createExpenseDTO.setDate(updateExpenseDTO.getDate());
+        createExpenseDTO.setContractId(updateExpenseDTO.getContractId());
+        createExpenseDTO.setSupplierId(updateExpenseDTO.getSupplierId());
+        createExpenseDTO.setAmount(updateExpenseDTO.getAmount());
+        createExpenseDTO.setDescription(updateExpenseDTO.getDescription());
+        return createExpenseDTO;
+    }
+
     public Expense updateEntityFromDto(UpdateExpenseDTO updateExpenseDTO, Expense expense) {
+        Contract contract = expense.getContract();
+        Supplier supplier = expense.getSupplier();
         UpdateUtils.updateIfChanged(expense::getDate, updateExpenseDTO::getDate, expense::setDate);
         UpdateUtils.updateIfChanged(expense::getDescription, updateExpenseDTO::getDescription, expense::setDescription);
         UpdateUtils.updateIfChanged(expense::getAmount, updateExpenseDTO::getAmount, expense::setAmount);
-        UpdateUtils.updateIfChanged(expense::getId, updateExpenseDTO::getId, contractService::findContract, expense::setContract);
-        UpdateUtils.updateIfChanged(expense::getId, updateExpenseDTO::getId, supplierService::findSupplier, expense::setSupplier);
+        UpdateUtils.updateIfChanged(contract::getId, updateExpenseDTO::getContractId, contractService::findContract, expense::setContract);
+        UpdateUtils.updateIfChanged(supplier::getId, updateExpenseDTO::getSupplierId, supplierService::findSupplier, expense::setSupplier);
         return expense;
     }
 }

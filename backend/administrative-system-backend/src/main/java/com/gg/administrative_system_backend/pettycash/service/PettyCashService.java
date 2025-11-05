@@ -3,6 +3,7 @@ package com.gg.administrative_system_backend.pettycash.service;
 import com.gg.administrative_system_backend.exception.EntityNotFoundException;
 import com.gg.administrative_system_backend.pettycash.dto.CreatePettyCashDTO;
 import com.gg.administrative_system_backend.pettycash.dto.UpdatePettyCashDTO;
+import com.gg.administrative_system_backend.pettycash.expense.dto.CreateExpenseDTO;
 import com.gg.administrative_system_backend.pettycash.expense.dto.UpdateExpenseDTO;
 import com.gg.administrative_system_backend.pettycash.expense.entity.Expense;
 import com.gg.administrative_system_backend.pettycash.entity.PettyCash;
@@ -13,8 +14,8 @@ import com.gg.administrative_system_backend.pettycash.repository.PettyCashReposi
 import com.gg.administrative_system_backend.shared.message.GenericMessage;
 import com.gg.administrative_system_backend.shared.Report;
 import com.gg.administrative_system_backend.util.UpdateUtils;
+import com.gg.administrative_system_backend.util.ValidationUtils;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,7 @@ public class PettyCashService {
     private final PettyCashMapper pettyCashMapper;
     private final ExpenseMapper expenseMapper;
     private final ExpenseService expenseService;
+    private final ValidationUtils validationUtils;
 
     public List<PettyCash> findAll() {
         return pettyCashRepository.findAll();
@@ -49,7 +51,9 @@ public class PettyCashService {
                 Expense currentExpense = expenseService.findExpense(expenseId);
                 expenseMapper.updateEntityFromDto(expense, currentExpense);
             } else {
-                currentExpenses.add(expenseMapper.toExpense(expense));
+                CreateExpenseDTO createExpenseDTO = expenseMapper.updateToCreate(expense);
+                validationUtils.validateFields(createExpenseDTO);
+                currentExpenses.add(expenseMapper.toExpense(createExpenseDTO));
             }
             pettyCash.setExpenses(currentExpenses);
         }

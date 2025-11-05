@@ -35,7 +35,7 @@ public class UpdateUtils {
     }
 
     public static <T, R> void updateIfChanged(Supplier<T> currentId, Supplier<T> newId, Function<T, R> finder, Consumer<R> consumer){
-        if(!Objects.equals(currentId.get(), newId.get())){
+        if(currentId!= null && !Objects.equals(currentId.get(), newId.get())){
             R newRelation = finder.apply(newId.get());
             consumer.accept(newRelation);
         }
