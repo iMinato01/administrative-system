@@ -30,19 +30,6 @@ public class ExpenseMapper {
                 .build();
     }
 
-    public Expense toExpense(UpdateExpenseDTO updateExpenseDTO) {
-        Supplier supplier = supplierService.findSupplier(updateExpenseDTO.getSupplierId());
-        Contract contract = contractService.findContract(updateExpenseDTO.getContractId());
-        contract.addAmount(updateExpenseDTO.getAmount());
-        return Expense.builder()
-                .date(updateExpenseDTO.getDate())
-                .supplier(supplier)
-                .description(updateExpenseDTO.getDescription())
-                .contract(contract)
-                .amount(updateExpenseDTO.getAmount())
-                .build();
-    }
-
     public CreateExpenseDTO updateToCreate(UpdateExpenseDTO updateExpenseDTO){
         CreateExpenseDTO createExpenseDTO = new CreateExpenseDTO();
         createExpenseDTO.setDate(updateExpenseDTO.getDate());
