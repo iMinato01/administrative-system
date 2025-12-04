@@ -1,11 +1,12 @@
 package com.gg.administrative_system_backend.global;
 
 import com.gg.administrative_system_backend.exception.*;
-import com.gg.administrative_system_backend.global.message.HandlerMessage;
+import com.gg.administrative_system_backend.shared.message.HandlerMessage;
 import com.gg.administrative_system_backend.response.error.ApiError;
 import com.gg.administrative_system_backend.shared.message.GenericMessage;
 import com.gg.administrative_system_backend.util.RegexPatterns;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -16,81 +17,108 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import static com.gg.administrative_system_backend.util.RequestExtractor.ip;
+import static com.gg.administrative_system_backend.util.RequestExtractor.user;
+
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiError> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handleArgumentNotValid(MethodArgumentNotValidException exception, HttpServletRequest request){
         List<String> errors = new ArrayList<>();
-        ex.getBindingResult().getFieldErrors().forEach(error-> {
-            errors.add(error.getField() + GenericMessage.SEPARATOR.getMessage() + error.getDefaultMessage());
+        exception.getBindingResult().getFieldErrors().forEach(error-> {
+            errors.add(error.getField());
         });
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()));
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                HandlerMessage.VALIDATION_EXCEPTION.getMessage(), request.getRequestURI(), errors));
+                HandlerMessage.METHOD_ARGUMENT_NOT_VALID_EXCEPTION.getMessage(), request.getRequestURI(), errors));
     }
+
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResponseEntity<ApiError> handleIncompleteUrl(MissingServletRequestParameterException ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handleMissingRequestParameter(MissingServletRequestParameterException exception, HttpServletRequest request){
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()));
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                HandlerMessage.REQUEST_PARAMETER_EXCEPTION.format(ex.getParameterName(), ex.getParameterType()), request.getRequestURI()));
+                HandlerMessage.MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION.getMessage(), request.getRequestURI()));
     }
+
     @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<ApiError> handleNoHandlerFound(HttpServletRequest request){
+    public ResponseEntity<ApiError> handleNoHandlerFound(NoHandlerFoundException exception, HttpServletRequest request){
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()));
         return ResponseEntity.status(404).body(ApiError.of(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
-                HandlerMessage.NO_HANDLER_EXCEPTION.getMessage(), request.getRequestURI()));
+                HandlerMessage.NO_HANDLER_FOUND_DEXCEPTION.getMessage(), request.getRequestURI()));
     }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiError> handleMissingBody(HttpServletRequest request){
+    public ResponseEntity<ApiError> handleMissingBody(HttpMessageNotReadableException exception, HttpServletRequest request){
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()));
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                HandlerMessage.MISSING_BODY_EXCEPTION.getMessage(), request.getRequestURI()));
+                HandlerMessage.HTTP_MESSAGE_NOT_READABLE_EXCEPTION.getMessage(), request.getRequestURI()));
     }
+
     @ExceptionHandler(NumberFormatException.class)
-    public ResponseEntity<ApiError> handleNumberFormat(NumberFormatException ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handleNumberFormat(NumberFormatException exception, HttpServletRequest request){
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()));
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                HandlerMessage.NUMBER_FORMAT_EXCEPTION.format(ex.getMessage().replaceAll(RegexPatterns.DOUBLE_QUOTED_VALUE, "$1")), request.getRequestURI()));
+                HandlerMessage.NUMBER_FORMAT_EXCEPTION.getMessage(), request.getRequestURI(), List.of(exception.getMessage().replaceAll(RegexPatterns.DOUBLE_QUOTED_VALUE, "$1"))));
     }
+
     @ExceptionHandler(NoSuchMethodException.class)
-    public ResponseEntity<ApiError> handMethodNotFound(NoSuchMethodException ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handleMethodNotFound(NoSuchMethodException exception, HttpServletRequest request){
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()),
+                exception.getMessage().replaceAll(RegexPatterns.QUOTED_VALUE, "$2"));
         return ResponseEntity.status(409).body(ApiError.of(HttpStatus.CONFLICT.value(), HttpStatus.CONFLICT.getReasonPhrase(),
-                HandlerMessage.METHOD_NOT_FOUND.format(ex.getMessage().replaceAll(RegexPatterns.QUOTED_VALUE, "$1"),
-                        ex.getMessage().replaceAll(RegexPatterns.QUOTED_VALUE, "$2")), request.getRequestURI()));
+                HandlerMessage.NO_SUCH_METHOD_EXCEPTION.getMessage(), request.getRequestURI(), List.of(exception.getMessage().replaceAll(RegexPatterns.QUOTED_VALUE, "$1"))));
     }
+
     @ExceptionHandler(EntityAlreadyExistsException.class)
-    public ResponseEntity<ApiError> handleEntityAlreadyExists(EntityAlreadyExistsException ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handleEntityAlreadyExists(EntityAlreadyExistsException exception, HttpServletRequest request){
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()));
         return ResponseEntity.status(409).body(ApiError.of(HttpStatus.CONFLICT.value(),HttpStatus.CONFLICT.getReasonPhrase(),
-                ex.getMessage(), request.getRequestURI()));
+                HandlerMessage.ENTITY_ALREADY_EXISTS.getMessage(), request.getRequestURI()));
     }
+
     @ExceptionHandler(PropertyAlreadyInUseException.class)
-    public ResponseEntity<ApiError> handlePropertyAlreadyInUse(PropertyAlreadyInUseException ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handlePropertyAlreadyInUse(PropertyAlreadyInUseException exception, HttpServletRequest request){
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()));
         return ResponseEntity.status(409).body(ApiError.of(HttpStatus.CONFLICT.value(), HttpStatus.CONFLICT.getReasonPhrase(),
-                ex.getMessage(), request.getRequestURI()));
+                HandlerMessage.PROPERTY_ALREADY_IN_USE_EXCEPTION.getMessage(), request.getRequestURI()));
     }
+
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ApiError> handleEntityNotFound(EntityNotFoundException ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handleEntityNotFound(EntityNotFoundException exception, HttpServletRequest request){
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()));
         return ResponseEntity.status(404).body(ApiError.of(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.getReasonPhrase(),
-                ex.getMessage(), request.getRequestURI()));
+                HandlerMessage.ENTITY_NOT_FOUND.getMessage(), request.getRequestURI()));
     }
+
     @ExceptionHandler(ValueRequiredException.class)
-    public ResponseEntity<ApiError> handleValueRequired(ValueRequiredException ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handleValueRequired(ValueRequiredException exception, HttpServletRequest request){
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()));
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                ex.getMessage(), request.getRequestURI()));
+                HandlerMessage.VALUE_REQUIRED_EXCEPTION.getMessage(), request.getRequestURI()));
     }
+
     @ExceptionHandler(ReportNotFoundException.class)
-    public ResponseEntity<ApiError> handleReportNotFound(ReportNotFoundException ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handleReportNotFound(ReportNotFoundException exception, HttpServletRequest request) {
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()));
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                ex.getMessage(), request.getRequestURI()));
+                HandlerMessage.REPORT_NOT_FOUND_EXCEPTION.getMessage(), request.getRequestURI()));
     }
+
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<ApiError> handleAuthentication(AuthenticationException ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handleAuthentication(AuthenticationException exception, HttpServletRequest request){
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()));
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                ex.getMessage(), request.getRequestURI()));
+                HandlerMessage.AUTHENTICATION_EXCEPTION.getMessage(), request.getRequestURI()));
     }
+
     @ExceptionHandler
-    public ResponseEntity<ApiError> handleUnhandledException(Exception ex, HttpServletRequest request){
+    public ResponseEntity<ApiError> handleUnhandledException(Exception exception, HttpServletRequest request){
+        log.error(HandlerMessage.LOG.format(user(request), ip(request), exception.getMessage()));
         return ResponseEntity.status(400).body(ApiError.of(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                ex.getClass() + GenericMessage.SEPARATOR.getMessage() + ex.getMessage(), request.getRequestURI()));
+                exception.getClass() + GenericMessage.SEPARATOR.getMessage() + exception.getMessage(), request.getRequestURI()));
     }
 }

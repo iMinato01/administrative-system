@@ -1,6 +1,5 @@
 package com.gg.administrative_system_backend.supplier.dto;
 
-import com.gg.administrative_system_backend.shared.message.ValidationMessage;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -9,15 +8,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreateSupplierDTO {
-    @NotBlank(message = ValidationMessage.NAME_REQUIRED)
+    @NotBlank
     private String name;
-    @NotBlank(message = ValidationMessage.RFC_REQUIRED)
+    @NotBlank
     private String rfc;
-    @NotBlank(message = ValidationMessage.EMAIL_REQUIRED)
+    @NotBlank
     @Email
     private String email;
-    @NotBlank(message = ValidationMessage.PHONE_REQUIRED)
+    @NotBlank
     private String phoneNumber;
-    @NotBlank(message = ValidationMessage.SERVICE_REQUIRED)
+    @NotBlank
     private String services;
 }

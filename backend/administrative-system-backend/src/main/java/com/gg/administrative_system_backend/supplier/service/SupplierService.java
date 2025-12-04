@@ -3,7 +3,7 @@ package com.gg.administrative_system_backend.supplier.service;
 import com.gg.administrative_system_backend.exception.EntityNotFoundException;
 import com.gg.administrative_system_backend.exception.PropertyAlreadyInUseException;
 import com.gg.administrative_system_backend.exception.ValueRequiredException;
-import com.gg.administrative_system_backend.shared.message.GenericMessage;
+import com.gg.administrative_system_backend.shared.message.ExceptionMessage;
 import com.gg.administrative_system_backend.supplier.dto.CreateSupplierDTO;
 import com.gg.administrative_system_backend.supplier.dto.UpdateSupplierDTO;
 import com.gg.administrative_system_backend.supplier.mapper.SupplierMapper;
@@ -35,7 +35,7 @@ public class SupplierService {
      */
     @Transactional
     public Supplier saveSupplier(CreateSupplierDTO createSupplierDTO){
-        ValidationUtils.validateIfExists(createSupplierDTO.getName(), supplierRepository::existsByName, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(Report.SUPPLIER.getName(), createSupplierDTO.getName())));
+        ValidationUtils.validateIfExists(createSupplierDTO.getName(), supplierRepository::existsByName, ()-> new PropertyAlreadyInUseException(ExceptionMessage.PROPERTY_ALREADY_IN_USE.format(Report.SUPPLIER.getName(), createSupplierDTO.getName())));
         return supplierRepository.save(supplierMapper.toEntity(createSupplierDTO));
     }
 
@@ -49,8 +49,8 @@ public class SupplierService {
     @Transactional
     public Supplier updateSupplier(Long id, UpdateSupplierDTO updateSupplierDTO){
         Supplier supplier = findSupplier(id);
-        ValidationUtils.validateIfExists(updateSupplierDTO.getName(), supplierRepository::existsByName, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(updateSupplierDTO.getName())));
-        ValidationUtils.validateIfExists(updateSupplierDTO.getRfc(), supplierRepository::existsByRfc, ()-> new PropertyAlreadyInUseException(GenericMessage.PROPERTY_IN_USE.format(updateSupplierDTO.getRfc())));
+        ValidationUtils.validateIfExists(updateSupplierDTO.getName(), supplierRepository::existsByName, ()-> new PropertyAlreadyInUseException(ExceptionMessage.PROPERTY_ALREADY_IN_USE.format(updateSupplierDTO.getName())));
+        ValidationUtils.validateIfExists(updateSupplierDTO.getRfc(), supplierRepository::existsByRfc, ()-> new PropertyAlreadyInUseException(ExceptionMessage.PROPERTY_ALREADY_IN_USE.format(updateSupplierDTO.getRfc())));
         return supplierMapper.updateEntityFromDto(updateSupplierDTO, supplier);
     }
 
@@ -61,7 +61,7 @@ public class SupplierService {
      * @return The found {@code Supplier} entity.
      */
     public Supplier findSupplier(Long id){
-        return supplierRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(GenericMessage.ENTITY_NOT_FOUND.format(Report.SUPPLIER.getName(), id)));
+        return supplierRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ExceptionMessage.ENTITY_NOT_FOUND.format(Report.SUPPLIER.getName(), id)));
     }
 
     /**
@@ -72,7 +72,7 @@ public class SupplierService {
      */
     public List<Supplier> findByValue(String value){
         if(value.isBlank()){
-            throw new ValueRequiredException(GenericMessage.VALUE_REQUIRED.getMessage());
+            throw new ValueRequiredException(ExceptionMessage.VALUE_REQUIRED.getMessage());
         }
         return value.matches(RegexPatterns.LONG)? supplierRepository.findById(Long.parseLong(value)).map(List::of).orElse(List.of()): supplierRepository.findByValue(value);
     }

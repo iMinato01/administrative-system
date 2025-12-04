@@ -1,7 +1,6 @@
 package com.gg.administrative_system_backend.evaluation.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.gg.administrative_system_backend.shared.message.ValidationMessage;
 import com.gg.administrative_system_backend.util.RegexPatterns;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -15,23 +14,23 @@ import java.util.List;
 @Getter
 @Setter
 public class CreateEvaluationDTO {
-    @NotNull(message = ValidationMessage.ID_REQUIRED)
+    @NotNull
     @NumberFormat
     private Long supplierId;
-    @NotNull(message = ValidationMessage.DATE_REQUIRED)
+    @NotNull
     @DateTimeFormat(pattern = RegexPatterns.DATE)
     @JsonFormat(pattern = RegexPatterns.DATE)
     private LocalDate evaluationDate;
-    @NotNull(message = ValidationMessage.DATE_REQUIRED)
+    @NotNull
     @DateTimeFormat(pattern = RegexPatterns.DATE)
     @JsonFormat(pattern = RegexPatterns.DATE)
     private LocalDate nextEvaluation;
-    @NotEmpty(message = ValidationMessage.ELEMENT_REQUIRED)
+    @NotEmpty
     private List<Integer> informationScores;
-    @NotEmpty(message = ValidationMessage.ELEMENT_REQUIRED)
+    @NotEmpty
     private List<Integer> generalScores;
-    @NotEmpty(message = ValidationMessage.ELEMENT_REQUIRED)
+    @NotEmpty
     private List<Integer> deliveryScores;
-    @NotEmpty(message = ValidationMessage.ELEMENT_REQUIRED)
+    @NotEmpty
     private List<Integer> qualityScores;
 }

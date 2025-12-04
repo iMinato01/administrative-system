@@ -1,7 +1,7 @@
 package com.gg.administrative_system_backend.shared;
 
 import com.gg.administrative_system_backend.exception.ReportNotFoundException;
-import com.gg.administrative_system_backend.shared.message.GenericMessage;
+import com.gg.administrative_system_backend.shared.message.ExceptionMessage;
 import net.sf.jasperreports.engine.JasperReport;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ public class ReportCache {
     public JasperReport getCompiled(Report key){
         JasperReport compiled = compiledReports.get(key);
         if(compiled == null){
-            throw new ReportNotFoundException(GenericMessage.REPORT_NOT_FOUND.format(key.name()));
+            throw new ReportNotFoundException(ExceptionMessage.REPORT_NOT_FOUND.format(key.name()));
         }
         return compiled;
     }
