@@ -8,5 +8,15 @@ spring:
     user:
       name: root
       password: root
+  cors:
+    origins:
+      - "http://127.0.0.1:5500"
+    methods:
+      - "POST"
+      - "GET"
+      - "OPTIONS"
+      - "PUT"
+    headers:
+      - "*"
 server:
   port: 8080
