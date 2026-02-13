@@ -20,6 +20,7 @@ public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "creation_date")
     private LocalDate date;
     private String description;
     private BigDecimal amount;
