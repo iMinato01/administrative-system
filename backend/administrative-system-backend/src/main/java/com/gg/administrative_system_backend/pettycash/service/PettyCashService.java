@@ -12,7 +12,7 @@ import com.gg.administrative_system_backend.pettycash.expense.service.ExpenseSer
 import com.gg.administrative_system_backend.pettycash.mapper.PettyCashMapper;
 import com.gg.administrative_system_backend.pettycash.repository.PettyCashRepository;
 import com.gg.administrative_system_backend.shared.message.ExceptionMessage;
-import com.gg.administrative_system_backend.shared.Report;
+import com.gg.administrative_system_backend.shared.report.ReportRoute;
 import com.gg.administrative_system_backend.util.UpdateUtils;
 import com.gg.administrative_system_backend.util.ValidationUtils;
 import lombok.AllArgsConstructor;
@@ -56,11 +56,12 @@ public class PettyCashService {
                 currentExpenses.add(expenseMapper.toExpense(createExpenseDTO));
             }
             pettyCash.setExpenses(currentExpenses);
+            pettyCash.calculateTotal();
         }
         return pettyCash;
     }
 
     public PettyCash findPettyCash(Long id) {
-        return pettyCashRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ExceptionMessage.ENTITY_NOT_FOUND.format(Report.PETTY_CASH.getName(), id)));
+        return pettyCashRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ExceptionMessage.ENTITY_NOT_FOUND.format(ReportRoute.PETTY_CASH.getName(), id)));
     }
 }

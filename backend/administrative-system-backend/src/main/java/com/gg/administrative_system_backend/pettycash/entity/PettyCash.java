@@ -2,7 +2,7 @@ package com.gg.administrative_system_backend.pettycash.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gg.administrative_system_backend.pettycash.expense.entity.Expense;
-import com.gg.administrative_system_backend.shared.ExpenseType;
+import com.gg.administrative_system_backend.pettycash.enums.ExpenseType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,14 +32,14 @@ public class PettyCash {
     @Builder.Default
     private BigDecimal total = BigDecimal.ZERO;
 
-    public BigDecimal calculateTotal() {
+    public void  calculateTotal() {
         BigDecimal bigDecimal = BigDecimal.ZERO;
         if (!expenses.isEmpty()) {
             for (Expense expense : expenses) {
                 bigDecimal = bigDecimal.add(expense.getAmount());
             }
         }
-        return bigDecimal;
+        total = bigDecimal;
     }
     public Map<String, BigDecimal> calculateTotalByContract() {
             Map<String, BigDecimal> totalByContract = new HashMap<>();

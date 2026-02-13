@@ -20,7 +20,6 @@ public class PettyCashMapper {
         pettyCash.setExpenses(expenses);
         pettyCash.setType(createPettyCashDTO.getType());
         pettyCash.calculateTotalByContract();
-        pettyCash.setTotal(pettyCash.calculateTotal());
         return pettyCash;
     }
 }
