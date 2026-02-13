@@ -24,6 +24,13 @@ public class Supplier {
     private String rfc;
     private String email;
     private String phoneNumber;
+    private String state;
+    private String municipality;
+    private String locality;
+    private String postalCode;
+    private String street;
+    private String interiorNumber;
+    private String exteriorNumber;
     private String services;
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
     @JsonManagedReference

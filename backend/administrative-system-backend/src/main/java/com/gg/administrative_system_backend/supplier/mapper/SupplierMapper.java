@@ -24,6 +24,13 @@ public class SupplierMapper {
                 .rfc(createSupplierDTO.getRfc())
                 .email(createSupplierDTO.getEmail())
                 .phoneNumber(createSupplierDTO.getPhoneNumber())
+                .state(createSupplierDTO.getState())
+                .municipality(createSupplierDTO.getMunicipality())
+                .locality(createSupplierDTO.getLocality())
+                .postalCode(createSupplierDTO.getPostalCode())
+                .street(createSupplierDTO.getStreet())
+                .interiorNumber(createSupplierDTO.getInteriorNumber())
+                .exteriorNumber(createSupplierDTO.getExteriorNumber())
                 .services(createSupplierDTO.getServices())
                 .build();
     }
@@ -42,6 +49,13 @@ public class SupplierMapper {
         UpdateUtils.updateIfChanged(supplier::getEmail, updateSupplierDTO::getEmail, supplier::setEmail);
         UpdateUtils.updateIfChanged(supplier::getPhoneNumber, updateSupplierDTO::getPhoneNumber, supplier::setPhoneNumber);
         UpdateUtils.updateIfChanged(supplier::getServices, updateSupplierDTO::getServices, supplier::setServices);
+        UpdateUtils.updateIfChanged(supplier::getState, updateSupplierDTO::getState, supplier::setState);
+        UpdateUtils.updateIfChanged(supplier::getMunicipality, updateSupplierDTO::getMunicipality, supplier::setMunicipality);
+        UpdateUtils.updateIfChanged(supplier::getLocality, updateSupplierDTO::getLocality, supplier::setLocality);
+        UpdateUtils.updateIfChanged(supplier::getPostalCode, updateSupplierDTO::getPostalCode, supplier::setPostalCode);
+        UpdateUtils.updateIfChanged(supplier::getStreet, updateSupplierDTO::getStreet, supplier::setStreet);
+        UpdateUtils.updateIfChanged(supplier::getExteriorNumber, updateSupplierDTO::getExteriorNumber, supplier::setExteriorNumber);
+        UpdateUtils.updateIfChanged(supplier::getInteriorNumber, updateSupplierDTO::getInteriorNumber, supplier::setInteriorNumber);
         return supplier;
     }
 }

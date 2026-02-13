@@ -10,7 +10,7 @@ import com.gg.administrative_system_backend.supplier.mapper.SupplierMapper;
 import com.gg.administrative_system_backend.supplier.entity.Supplier;
 import com.gg.administrative_system_backend.supplier.repository.SupplierRepository;
 import com.gg.administrative_system_backend.util.RegexPatterns;
-import com.gg.administrative_system_backend.shared.Report;
+import com.gg.administrative_system_backend.shared.report.ReportRoute;
 import com.gg.administrative_system_backend.util.ValidationUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,7 +35,7 @@ public class SupplierService {
      */
     @Transactional
     public Supplier saveSupplier(CreateSupplierDTO createSupplierDTO){
-        ValidationUtils.validateIfExists(createSupplierDTO.getName(), supplierRepository::existsByName, ()-> new PropertyAlreadyInUseException(ExceptionMessage.PROPERTY_ALREADY_IN_USE.format(Report.SUPPLIER.getName(), createSupplierDTO.getName())));
+        ValidationUtils.validateIfExists(createSupplierDTO.getName(), supplierRepository::existsByName, ()-> new PropertyAlreadyInUseException(ExceptionMessage.PROPERTY_ALREADY_IN_USE.format(ReportRoute.SUPPLIER.getName(), createSupplierDTO.getName())));
         return supplierRepository.save(supplierMapper.toEntity(createSupplierDTO));
     }
 
@@ -61,7 +61,7 @@ public class SupplierService {
      * @return The found {@code Supplier} entity.
      */
     public Supplier findSupplier(Long id){
-        return supplierRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ExceptionMessage.ENTITY_NOT_FOUND.format(Report.SUPPLIER.getName(), id)));
+        return supplierRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ExceptionMessage.ENTITY_NOT_FOUND.format(ReportRoute.SUPPLIER.getName(), id)));
     }
 
     /**

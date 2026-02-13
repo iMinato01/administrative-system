@@ -17,6 +17,13 @@ public class CreateSupplierDTO {
     private String email;
     @NotBlank
     private String phoneNumber;
+    private String state;
+    private String municipality;
+    private String locality;
+    private String postalCode;
+    private String street;
+    private String interiorNumber;
+    private String exteriorNumber;
     @NotBlank
     private String services;
 }
