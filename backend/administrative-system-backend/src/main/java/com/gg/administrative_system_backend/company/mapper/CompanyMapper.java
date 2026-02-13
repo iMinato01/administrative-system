@@ -3,6 +3,7 @@ package com.gg.administrative_system_backend.company.mapper;
 import com.gg.administrative_system_backend.company.dto.CreateCompanyDTO;
 import com.gg.administrative_system_backend.company.dto.UpdateCompanyDTO;
 import com.gg.administrative_system_backend.company.entity.Company;
+import com.gg.administrative_system_backend.shared.Role;
 import com.gg.administrative_system_backend.util.UpdateUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,7 +27,7 @@ public class CompanyMapper {
                 .name(createCompanyDTO.getName())
                 .serie(createCompanyDTO.getSerie())
                 .password(passwordEncoder.encode(createCompanyDTO.getPassword()))
-                .role(createCompanyDTO.getRole())
+                .role(Role.USER)
                 .rfc(createCompanyDTO.getRfc())
                 .phoneNumber(createCompanyDTO.getPhoneNumber())
                 .state(createCompanyDTO.getState())

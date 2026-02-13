@@ -1,8 +1,6 @@
 package com.gg.administrative_system_backend.company.dto;
 
-import com.gg.administrative_system_backend.shared.Role;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
@@ -13,8 +11,6 @@ public class CreateCompanyDTO {
     private String serie;
     @NotBlank
     private String password;
-    @NotNull
-    private Role role;
     @NotBlank
     private String rfc;
     @NotBlank
