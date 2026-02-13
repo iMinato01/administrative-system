@@ -1,11 +1,11 @@
-package com.gg.administrative_system_backend.shared;
+package com.gg.administrative_system_backend.shared.report;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Report {
+public enum ReportRoute {
     CONTRACT("/reports/contract_report.jrxml", "contrato"),
     SUPPLIER("/reports/supplier_report.jrxml", "proveedor"),
     EVALUATION("/reports/evaluation_report.jrxml", "evaluación"),
