@@ -1,5 +1,6 @@
 package com.gg.administrative_system_backend.company.mapper;
 
+import com.gg.administrative_system_backend.company.dto.CompanyResponseDTO;
 import com.gg.administrative_system_backend.company.dto.CreateCompanyDTO;
 import com.gg.administrative_system_backend.company.dto.UpdateCompanyDTO;
 import com.gg.administrative_system_backend.company.entity.Company;
@@ -61,5 +62,32 @@ public class CompanyMapper {
         UpdateUtils.updateIfChanged(updateCompanyDTO::getInteriorNumber, company::getInteriorNumber, company::setInteriorNumber);
         UpdateUtils.updateIfChanged(updateCompanyDTO::getExteriorNumber, company::getExteriorNumber, company::setExteriorNumber);
         return company;
+    }
+
+    /**
+     * Maps a {@code Company} entity to a {@code CompanyResponseDTO},
+     * excluding sensitive data such as password and role.
+     *
+     * @param company the existing {@code Company} entity
+     * @return a {@code CompanyResponseDTO} containing only non-sensitive data
+     */
+
+    public CompanyResponseDTO toResponse(Company company){
+        return CompanyResponseDTO.builder()
+                .id(company.getId())
+                .name(company.getName())
+                .serie(company.getSerie())
+                .fol(company.getFol())
+                .status(company.isStatus())
+                .rfc(company.getRfc())
+                .phoneNumber(company.getPhoneNumber())
+                .state(company.getState())
+                .municipality(company.getMunicipality())
+                .locality(company.getLocality())
+                .postalCode(company.getPostalCode())
+                .street(company.getStreet())
+                .interiorNumber(company.getInteriorNumber())
+                .exteriorNumber(company.getExteriorNumber())
+                .build();
     }
 }

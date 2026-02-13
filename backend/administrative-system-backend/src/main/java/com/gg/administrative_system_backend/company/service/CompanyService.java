@@ -1,5 +1,6 @@
 package com.gg.administrative_system_backend.company.service;
 
+import com.gg.administrative_system_backend.company.dto.CompanyResponseDTO;
 import com.gg.administrative_system_backend.company.dto.CreateCompanyDTO;
 import com.gg.administrative_system_backend.company.dto.UpdateCompanyDTO;
 import com.gg.administrative_system_backend.company.entity.Company;
@@ -9,6 +10,7 @@ import com.gg.administrative_system_backend.exception.EntityNotFoundException;
 import com.gg.administrative_system_backend.exception.PropertyAlreadyInUseException;
 import com.gg.administrative_system_backend.exception.ValueRequiredException;
 import com.gg.administrative_system_backend.shared.message.ExceptionMessage;
+import com.gg.administrative_system_backend.shared.message.GenericMessage;
 import com.gg.administrative_system_backend.util.RegexPatterns;
 import com.gg.administrative_system_backend.shared.report.ReportRoute;
 import com.gg.administrative_system_backend.util.ValidationUtils;
@@ -30,13 +32,14 @@ public class CompanyService {
     /**
      * Registers a new {@code Company} entity using the properties provided in the DTO.
      * @param createCompanyDTO DTO containing the properties of the new entity.
-     * @return The registered {@code Company} entity.
+     * @return {@code String} status message
      */
     @Transactional
-    public Company saveCompany(CreateCompanyDTO createCompanyDTO){
+    public String saveCompany(CreateCompanyDTO createCompanyDTO){
         ValidationUtils.validateIfExists(createCompanyDTO.getName(), companyRepository::existsByName, () -> new PropertyAlreadyInUseException(ExceptionMessage.PROPERTY_ALREADY_IN_USE.format(createCompanyDTO.getName())));
         ValidationUtils.validateIfExists(createCompanyDTO.getRfc(), companyRepository::existsByRfc, () -> new PropertyAlreadyInUseException(ExceptionMessage.PROPERTY_ALREADY_IN_USE.format(createCompanyDTO.getRfc())));
-        return companyRepository.save(companyMapper.toEntity(createCompanyDTO));
+        companyRepository.save(companyMapper.toEntity(createCompanyDTO));
+        return GenericMessage.SAVED.getMessage();
     }
 
     /**
@@ -44,22 +47,24 @@ public class CompanyService {
      * and the provided new values.
      * @param id Unique identifier of the {@code Company} entity to be updated.
      * @param updateCompanyDTO DTO containing the properties to update.
-     * @return The updated {@code Company} entity.
+     * @return {@code String} status message
      */
     @Transactional
-    public Company updateCompany(Long id, UpdateCompanyDTO updateCompanyDTO){
+    public String updateCompany(Long id, UpdateCompanyDTO updateCompanyDTO){
         Company company = findCompany(id);
         ValidationUtils.validateIfExists(updateCompanyDTO.getName(), companyRepository::existsByName, ()-> new PropertyAlreadyInUseException(ExceptionMessage.PROPERTY_ALREADY_IN_USE.format(updateCompanyDTO.getName())));
         ValidationUtils.validateIfExists(updateCompanyDTO.getRfc(), companyRepository::existsByRfc, ()-> new PropertyAlreadyInUseException(ExceptionMessage.PROPERTY_ALREADY_IN_USE.format(updateCompanyDTO.getRfc())));
-        return companyMapper.updateEntityFromDto(updateCompanyDTO, company);
+        companyMapper.updateEntityFromDto(updateCompanyDTO, company);
+        return GenericMessage.UPDATED.getMessage();
     }
 
     /**
      * Retrieves a collection of all existing {@code Company} entities in the database.
-     * @return A list of {@code Company} entities.
+     * @return A list of {@code CompanyResponseDTO}.
      */
-    public List<Company> findAll(){
-        return companyRepository.findAll();
+    public List<CompanyResponseDTO> findAll(){
+        List<Company> companies = companyRepository.findAll();
+        return companies.stream().map(companyMapper::toResponse).toList();
     }
 
     /**

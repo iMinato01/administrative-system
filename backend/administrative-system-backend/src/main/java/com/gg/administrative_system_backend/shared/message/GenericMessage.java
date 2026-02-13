@@ -11,7 +11,8 @@ public enum GenericMessage {
     MISSING_PATH("No se encontró el recurso en -> %s"),
     SEPARATOR(" -> "),
     LOGGED("Logueado"),
-    SAVED("Guardado");
+    SAVED("Guardado"),
+    UPDATED("Actualizado");
     private final String message;
     public String format(Object... args){
         return String.format(message, args);
