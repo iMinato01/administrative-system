@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public class UpdateCompanyDTO {
     private String name;
+    private String serie;
     private boolean status;
     private String rfc;
     private String phoneNumber;

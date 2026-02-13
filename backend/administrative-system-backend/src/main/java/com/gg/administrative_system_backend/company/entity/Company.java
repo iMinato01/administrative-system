@@ -15,6 +15,9 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String serie;
+    @Builder.Default
+    private Long fol = 0L;
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -29,4 +32,7 @@ public class Company {
     private String street;
     private String interiorNumber;
     private String exteriorNumber;
+    public void increaseFol(){
+        this.fol++;
+    }
 }

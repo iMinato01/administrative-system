@@ -10,6 +10,8 @@ public class CreateCompanyDTO {
     @NotBlank
     private String name;
     @NotBlank
+    private String serie;
+    @NotBlank
     private String password;
     @NotNull
     private Role role;

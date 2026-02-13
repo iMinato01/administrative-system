@@ -10,7 +10,7 @@ import com.gg.administrative_system_backend.exception.PropertyAlreadyInUseExcept
 import com.gg.administrative_system_backend.exception.ValueRequiredException;
 import com.gg.administrative_system_backend.shared.message.ExceptionMessage;
 import com.gg.administrative_system_backend.util.RegexPatterns;
-import com.gg.administrative_system_backend.shared.Report;
+import com.gg.administrative_system_backend.shared.report.ReportRoute;
 import com.gg.administrative_system_backend.util.ValidationUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -69,7 +69,7 @@ public class CompanyService {
      * @return The found {@code Company} entity.
      */
     public Company findCompany(Long id){
-        return companyRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(ExceptionMessage.ENTITY_NOT_FOUND.format(Report.COMPANY.getName(), id)));
+        return companyRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(ExceptionMessage.ENTITY_NOT_FOUND.format(ReportRoute.COMPANY.getName(), id)));
     }
 
     /**

@@ -24,6 +24,7 @@ public class CompanyMapper {
     public Company toEntity(CreateCompanyDTO createCompanyDTO){
         return Company.builder()
                 .name(createCompanyDTO.getName())
+                .serie(createCompanyDTO.getSerie())
                 .password(passwordEncoder.encode(createCompanyDTO.getPassword()))
                 .role(createCompanyDTO.getRole())
                 .rfc(createCompanyDTO.getRfc())
@@ -47,6 +48,7 @@ public class CompanyMapper {
      */
     public Company updateEntityFromDto(UpdateCompanyDTO updateCompanyDTO, Company company){
         UpdateUtils.updateIfChanged(updateCompanyDTO::getName, company::getName, company::setName);
+        UpdateUtils.updateIfChanged(updateCompanyDTO::getSerie, company::getSerie, company::setSerie);
         UpdateUtils.updateIfChanged(updateCompanyDTO::getRfc, company::getRfc, company::setRfc);
         UpdateUtils.updateIfChanged(updateCompanyDTO::isStatus, company::isStatus, company::setStatus);
         UpdateUtils.updateIfChanged(updateCompanyDTO::getPhoneNumber, company::getPhoneNumber, company::setPhoneNumber);
