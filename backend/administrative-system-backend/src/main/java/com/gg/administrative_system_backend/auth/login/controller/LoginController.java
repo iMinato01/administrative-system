@@ -2,9 +2,12 @@ package com.gg.administrative_system_backend.auth.login.controller;
 
 import com.gg.administrative_system_backend.auth.login.dto.LoginDTO;
 import com.gg.administrative_system_backend.auth.service.LoginService;
+import com.gg.administrative_system_backend.response.success.ApiResponse;
+import com.gg.administrative_system_backend.shared.message.GenericMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +29,8 @@ public class LoginController {
      * @return A {@link ResponseEntity} with a success message if authentication is valid.
      */
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginDTO loginDTO, HttpServletRequest request) {
+    public ResponseEntity<ApiResponse<?>> login(@Valid @RequestBody LoginDTO loginDTO, HttpServletRequest request) {
         loginService.generateSession(loginDTO, request);
-        return ResponseEntity.status(200).body("Success");
+        return ResponseEntity.status(200).body(ApiResponse.of(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), GenericMessage.LOGGED.getMessage()));
     }
 }

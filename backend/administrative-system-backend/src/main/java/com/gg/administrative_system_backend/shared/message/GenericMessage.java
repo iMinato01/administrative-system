@@ -10,6 +10,7 @@ public enum GenericMessage {
     COMPILE_SUCCESS("Compilado -> %s"),
     MISSING_PATH("No se encontró el recurso en -> %s"),
     SEPARATOR(" -> "),
+    LOGGED("Logueado"),
     SAVED("Guardado");
     private final String message;
     public String format(Object... args){
