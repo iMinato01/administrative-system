@@ -1,0 +1,30 @@
+package com.gg.administrative_system_backend.order.enums;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
+public enum PayMethod {
+    EFECTIVO("01", "EFECTIVO"),
+    CHEQUE("02", "CHEQUE NOMINATIVO"),
+    TRANSFERENCIA("03", "TRANSFERENCIA ELECTRÓNICA DE FONDOS"),
+    TARJETA_CREDITO("04", "TARJETA DE CRÉDITO"),
+    TARJETA_DEBITO("28", "TARJETA DE DÉBITO"),
+    TARJETA_SERVICIOS("29", "TARJETA DE SERVICIOS"),
+    MONEDERO_ELECTRONICO("05", "MONEDERO ELECTRÓNICO"),
+    VALES_DESPENSA("08", "VALES DE DESPENSA"),
+    DACION_PAGO("12", "DACIÓN EN PAGO"),
+    SUBROGACION("13", "SUBROGACIÓN"),
+    CONSIGNACION("14", "CONSIGNACIÓN"),
+    CONDONACION("15", "CONDONACIÓN"),
+    COMPENSACION("17", "COMPENSACIÓN"),
+    NOVACION("23", "NOVACIÓN"),
+    CONFUSION("24", "CONFUSIÓN"),
+    REMISION_DEUDA("25", "REMISIÓN DE DEUDA"),
+    PRESCRIPCION_CADUCIDAD("26", "PRESCRIPCIÓN O CADUCIDAD"),
+    SATISFACCION_ACREEDOR("27", "A SATISFACCIÓN DEL ACREEDOR"),
+    POR_DEFINIR("99", "POR DEFINIR");
+    private final String code;
+    private final String description;
+}
