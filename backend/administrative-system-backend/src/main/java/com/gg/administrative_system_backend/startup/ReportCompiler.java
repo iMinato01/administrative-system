@@ -1,7 +1,7 @@
 package com.gg.administrative_system_backend.startup;
 
-import com.gg.administrative_system_backend.shared.Report;
-import com.gg.administrative_system_backend.shared.ReportCache;
+import com.gg.administrative_system_backend.shared.report.ReportRoute;
+import com.gg.administrative_system_backend.shared.report.ReportCache;
 import com.gg.administrative_system_backend.shared.message.GenericMessage;
 import lombok.AllArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
@@ -19,19 +19,19 @@ public class ReportCompiler implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws JRException {
-        for (Report report : Report.values()) {
+        for (ReportRoute reportRoute : ReportRoute.values()) {
             try {
-                if (report.getPath() == null || report.getPath().isBlank()) {
+                if (reportRoute.getPath() == null || reportRoute.getPath().isBlank()) {
                     throw new IllegalArgumentException();
                 }
-                InputStream inputStream = getClass().getResourceAsStream(report.getPath());
+                InputStream inputStream = getClass().getResourceAsStream(reportRoute.getPath());
                 JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
-                reportCache.addCompiled(report, jasperReport);
-                System.out.println(GenericMessage.COMPILE_SUCCESS.format(report.getPath()));
+                reportCache.addCompiled(reportRoute, jasperReport);
+                System.out.println(GenericMessage.COMPILE_SUCCESS.format(reportRoute.getPath()));
             } catch (NullPointerException exception) {
-                System.out.println(GenericMessage.COMPILE_FAIL.format(report.name(), report.getPath()));
+                System.out.println(GenericMessage.COMPILE_FAIL.format(reportRoute.name(), reportRoute.getPath()));
             } catch (IllegalArgumentException exception) {
-                System.out.println(GenericMessage.MISSING_PATH.format(report.name()));
+                System.out.println(GenericMessage.MISSING_PATH.format(reportRoute.name()));
             }
         }
     }

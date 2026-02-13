@@ -2,7 +2,7 @@ package com.gg.administrative_system_backend.evaluation.report;
 
 import com.gg.administrative_system_backend.evaluation.entity.Evaluation;
 import com.gg.administrative_system_backend.evaluation.service.EvaluationService;
-import com.gg.administrative_system_backend.shared.Report;
+import com.gg.administrative_system_backend.shared.report.ReportRoute;
 import com.gg.administrative_system_backend.util.ReportHelper;
 import lombok.AllArgsConstructor;
 
@@ -31,6 +31,6 @@ public class EvaluationReportService {
      */
     public byte[] exportPdf(Long id) throws Exception {
         Evaluation evaluation = evaluationService.findEvaluation(id);
-        return reportHelper.generatePdf(Report.EVALUATION, List.of(evaluation));
+        return reportHelper.generatePdf(ReportRoute.EVALUATION, List.of(evaluation));
     }
 }

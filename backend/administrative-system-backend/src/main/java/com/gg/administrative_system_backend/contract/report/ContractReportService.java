@@ -4,7 +4,7 @@ import com.gg.administrative_system_backend.auth.CompanyDetails;
 import com.gg.administrative_system_backend.company.entity.Company;
 import com.gg.administrative_system_backend.company.service.CompanyService;
 import com.gg.administrative_system_backend.contract.service.ContractService;
-import com.gg.administrative_system_backend.shared.Report;
+import com.gg.administrative_system_backend.shared.report.ReportRoute;
 import com.gg.administrative_system_backend.util.AuthenticationUtils;
 import com.gg.administrative_system_backend.util.ReportHelper;
 import com.gg.administrative_system_backend.util.ReportUtils;
@@ -24,6 +24,6 @@ public class ContractReportService {
     public byte[] exportPdf() throws Exception {
         CompanyDetails companyDetails = (CompanyDetails) AuthenticationUtils.getAuthentication().getPrincipal();
         Company company = companyService.findCompany(companyDetails.getId());
-        return reportHelper.generatePdf(Report.CONTRACT, ReportUtils.getCompanyHeader(company), contractService.findAll());
+        return reportHelper.generatePdf(ReportRoute.CONTRACT, ReportUtils.getCompanyHeader(company), contractService.findAll());
     }
 }

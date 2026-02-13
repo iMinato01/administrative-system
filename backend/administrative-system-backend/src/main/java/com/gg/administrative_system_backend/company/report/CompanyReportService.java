@@ -3,7 +3,7 @@ package com.gg.administrative_system_backend.company.report;
 import com.gg.administrative_system_backend.auth.CompanyDetails;
 import com.gg.administrative_system_backend.company.entity.Company;
 import com.gg.administrative_system_backend.company.service.CompanyService;
-import com.gg.administrative_system_backend.shared.Report;
+import com.gg.administrative_system_backend.shared.report.ReportRoute;
 import com.gg.administrative_system_backend.util.AuthenticationUtils;
 import com.gg.administrative_system_backend.util.ReportHelper;
 import com.gg.administrative_system_backend.util.ReportUtils;
@@ -29,6 +29,6 @@ public class CompanyReportService {
     public byte[] getReport() throws Exception {
         CompanyDetails companyDetails = (CompanyDetails) AuthenticationUtils.getAuthentication().getPrincipal();
         Company company = companyService.findCompany(companyDetails.getId());
-        return reportHelper.generatePdf(Report.COMPANY, ReportUtils.getCompanyHeader(company), companyService.findAll());
+        return reportHelper.generatePdf(ReportRoute.COMPANY, ReportUtils.getCompanyHeader(company), companyService.findAll());
     }
 }
