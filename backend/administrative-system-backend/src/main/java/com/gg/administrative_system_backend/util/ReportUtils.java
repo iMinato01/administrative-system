@@ -1,11 +1,18 @@
 package com.gg.administrative_system_backend.util;
 
 import com.gg.administrative_system_backend.company.entity.Company;
+import com.gg.administrative_system_backend.order.entity.Order;
+import com.gg.administrative_system_backend.pettycash.dto.ExpensesByContractDTO;
 import com.gg.administrative_system_backend.pettycash.entity.PettyCash;
+import com.gg.administrative_system_backend.pettycash.expense.entity.Expense;
+import com.gg.administrative_system_backend.supplier.entity.Supplier;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
