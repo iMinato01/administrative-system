@@ -19,17 +19,18 @@ public class UpdateUtils {
 
     /**
      * Updates an entity's property only if the new value is not null and is different from the current one.
-     * @param getter   Supplier for the current value from the entity.
-     * @param newValue Supplier for the new value from the DTO.
+     * @param entityGetter   Supplier for the current value from the entity.
+     * @param getter Supplier for the new value from the DTO.
      * @param setter   Consumer that sets the new value on the entity.
      * @param <T>      Type of the value to compare and update.
      */
-    public static <T> void updateIfChanged(Supplier<T> getter, Supplier<T> newValue, Consumer<T> setter) {
-        T value = newValue.get();
+    public static <T> void updateIfChanged(Supplier<T> getter, Supplier<T> entityGetter, Consumer<T> setter) {
+        T value = getter.get();
+        T currentValue = entityGetter.get();
         if (value instanceof String && ((String) value).isBlank()) {
             throw new ValueRequiredException(ExceptionMessage.VALUE_REQUIRED.getMessage());
         }
-        if (value != null && !Objects.equals(getter.get(), value)) {
+        if (value != null && !Objects.equals(currentValue, value)) {
             setter.accept(value);
         }
     }
